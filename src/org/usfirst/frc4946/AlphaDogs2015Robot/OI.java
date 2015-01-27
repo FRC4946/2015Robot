@@ -84,8 +84,6 @@ public class OI {
 
 	    
         // SmartDashboard Buttons
-        SmartDashboard.putData("Enable Compressor", new EnableCompressor());
-
         SmartDashboard.putData("Shift High Gear", new ShiftHighGear());
 
         SmartDashboard.putData("Shift Low Gear", new ShiftLowGear());
