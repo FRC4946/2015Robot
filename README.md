@@ -1,6 +1,10 @@
 # 2015Robot
 The code for the 2015 robot.
 
+# Setup
+To set up your Eclipse IDE with the FRC plugins, please follow this tutorial. It is recommended to preform the online installation of the plugin. http://wpilib.screenstepslive.com/s/4485/m/13809/l/145002-installing-eclipse-c-java
+
+To install eGit, the plugin that will allow you to access GitHub repositories from Eclipse, follow the same online plugin installation instructions but use instead the following URL: http://download.eclipse.org/egit/updates
 
 # Notes
 This project was built using the Robot Builder application. I used it to simplify getting things started up. There are a couple of things to note about this:
