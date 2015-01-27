@@ -64,8 +64,6 @@ public class RobotMap {
         driveTrainLeftMotors = new MultiSpeedController(driveTrainLeftFrontDriveMotor,
         												driveTrainLeftMiddleDriveMotor,
         												driveTrainLeftRearDriveMotor);
-        LiveWindow.addActuator("Drive Train", "Left Motors", (LiveWindowSendable) driveTrainLeftMotors);
-
         
         driveTrainRightFrontDriveMotor = new CANTalon(3);
         driveTrainRightMiddleDriveMotor = new CANTalon(4);
@@ -73,7 +71,6 @@ public class RobotMap {
         driveTrainRightMotors = new MultiSpeedController(driveTrainRightFrontDriveMotor,
 														driveTrainRightMiddleDriveMotor,
 														driveTrainRightRearDriveMotor);
-        LiveWindow.addActuator("Drive Train", "Right Motors", (LiveWindowSendable) driveTrainRightMotors);
         
         driveTrainRobotDrive = new RobotDrive(driveTrainLeftMotors, driveTrainRightMotors);
         
@@ -84,7 +81,6 @@ public class RobotMap {
         
 
         driveTrainStrafeMotor = new VictorSP(0);
-        LiveWindow.addActuator("Drive Train", "Strafe Motor", (VictorSP) driveTrainStrafeMotor);
         
         driveTrainGearShifterSolenoid = new DoubleSolenoid(0, 0, 1);
         driveTrainWheelDropperSolenoid = new DoubleSolenoid(0, 2, 3);
