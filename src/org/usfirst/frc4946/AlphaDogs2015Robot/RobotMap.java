@@ -49,8 +49,8 @@ public class RobotMap {
     public static Encoder driveTrainStrafeEncoder;
     
     
-    public static DoubleSolenoid grabberLeftArmSolenoid;
-    public static DoubleSolenoid grabberRightArmSolenoid;
+    public static Solenoid grabberLeftArmSolenoid;
+    public static Solenoid grabberRightArmSolenoid;
     public static Compressor airCompressorCompressor;
     public static SpeedController elevatorElevatorMotor;
     public static AnalogPotentiometer elevatorAnalogPotentiometer;
