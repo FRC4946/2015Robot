@@ -58,17 +58,29 @@ public class DriveTrain extends Subsystem {
 	 * @param joy The ps3 style joystick to use to drive arcade style.
 	 */
 	public void drive(Joystick joy) {
+		
 		m_robotDrive.arcadeDrive(joy);
 	}
 	
 	public void setGear(boolean isHigh){
 		
-		DoubleSolenoid.Value direction = DoubleSolenoid.Value.kForward;
 		if(isHigh){
-			direction = DoubleSolenoid.Value.kReverse;
+			m_gearShifterSolenoid.set(DoubleSolenoid.Value.kReverse);
+		}
+		else{
+			m_gearShifterSolenoid.set(DoubleSolenoid.Value.kForward);
 		}
 		
-		m_gearShifterSolenoid.set(direction);
+	}
+	
+	public void setDropWheel(boolean isHigh){
+		
+		if(isHigh){
+			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kReverse);
+		}
+		else{
+			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kForward);
+		};
 	}
 }
 
