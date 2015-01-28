@@ -31,8 +31,6 @@ public class Grabber extends Subsystem {
     // here. Call these from Commands.
 
     public void initDefaultCommand() {	
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     }
     
     /**Controls left arm solenoid
@@ -48,7 +46,13 @@ public class Grabber extends Subsystem {
     }
     
     
-    
+    /**
+     *Controls right arm solenoid
+     *Position 0 is at neutral
+     *Position 1 is at 2 inches
+     *Position 2 is at 4 inches
+     *Position 3 is at 6 inches
+     */
     public void setRightArm(int rightArmPosition){
     	if(rightArmPosition == 0){
     		smallRightArmSolenoid.set(false);
