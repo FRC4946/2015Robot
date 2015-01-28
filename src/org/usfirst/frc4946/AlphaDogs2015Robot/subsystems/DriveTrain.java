@@ -50,7 +50,7 @@ public class DriveTrain extends Subsystem {
 	 * @param right Speed in range [-1,1]
 	 */
 	public void drive(double left, double right) {
-		m_robotDrive.tankDrive(left, right);
+		m_robotDrive.arcadeDrive(left, right);
 	}
 
 	/**
@@ -59,6 +59,16 @@ public class DriveTrain extends Subsystem {
 	 */
 	public void drive(Joystick joy) {
 		m_robotDrive.arcadeDrive(joy);
+	}
+	
+	public void setGear(boolean isHigh){
+		
+		DoubleSolenoid.Value direction = DoubleSolenoid.Value.kForward;
+		if(isHigh){
+			direction = DoubleSolenoid.Value.kReverse;
+		}
+		
+		m_gearShifterSolenoid.set(direction);
 	}
 }
 

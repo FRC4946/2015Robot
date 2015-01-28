@@ -77,9 +77,9 @@ public class OI {
         strafeReleased.whenReleased(new DriveWithJoystickArcade());
         strafePressed = new JoystickButton(driveJoystick, 3);
         strafePressed.whileHeld(new DriveWithJoystickStrafe());
-        lowGear = new JoystickButton(driveJoystick, 2);
+        lowGear = new JoystickButton(driveJoystick, 1);
         lowGear.whenPressed(new ShiftLowGear());
-        highGear = new JoystickButton(driveJoystick, 1);
+        highGear = new JoystickButton(driveJoystick, 2);
         highGear.whenPressed(new ShiftHighGear());
 
 	    

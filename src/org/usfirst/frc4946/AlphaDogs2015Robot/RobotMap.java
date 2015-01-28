@@ -82,7 +82,7 @@ public class RobotMap {
 
         driveTrainStrafeMotor = new VictorSP(0);
         
-        driveTrainGearShifterSolenoid = new DoubleSolenoid(0, 0, 1);
+        driveTrainGearShifterSolenoid = new DoubleSolenoid(0, 4, 5);
         driveTrainWheelDropperSolenoid = new DoubleSolenoid(0, 2, 3);
         LiveWindow.addActuator("Drive Train", "Gear Shifter Solenoid", driveTrainGearShifterSolenoid);
         LiveWindow.addActuator("Drive Train", "Wheel Dropper Solenoid", driveTrainWheelDropperSolenoid);
@@ -112,10 +112,10 @@ public class RobotMap {
         
         
         
-        grabberLeftArmSolenoid = new DoubleSolenoid(0, 4, 5);      
-        LiveWindow.addActuator("Grabber", "Left Arm Solenoid", grabberLeftArmSolenoid);
-        grabberRightArmSolenoid = new DoubleSolenoid(0, 6, 7);      
-        LiveWindow.addActuator("Grabber", "Right Arm Solenoid", grabberRightArmSolenoid);
+        //grabberLeftArmSolenoid = new DoubleSolenoid(0, 4, 5);      
+        //LiveWindow.addActuator("Grabber", "Left Arm Solenoid", grabberLeftArmSolenoid);
+        //grabberRightArmSolenoid = new DoubleSolenoid(0, 6, 7);      
+        //LiveWindow.addActuator("Grabber", "Right Arm Solenoid", grabberRightArmSolenoid);
         
         
         
@@ -128,8 +128,7 @@ public class RobotMap {
         
         
         
-        elevatorElevatorMotor = new CANTalon(3);
-        LiveWindow.addActuator("Elevator", "Elevator Motor", (LiveWindowSendable) elevatorElevatorMotor);
+        elevatorElevatorMotor = new CANTalon(8);
         
         elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 1.0, 0.0);
         LiveWindow.addSensor("Elevator", "Analog Potentiometer", elevatorAnalogPotentiometer);
