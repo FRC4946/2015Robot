@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
@@ -39,11 +40,22 @@ public class DriveTrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
+    Command m_driveArcade = new DriveWithJoystickArcade();
+    Command m_driveStrafe = new DriveWithJoystickStrafe();
+	
     public void initDefaultCommand() {	
-		setDefaultCommand(new DriveWithJoystickArcade());
+		setDriveArcade();	
     }
     
+    public void setDriveStrafe() {
+    	setDefaultCommand(m_driveStrafe);
+    }
     
+    public void setDriveArcade() {
+    	setDefaultCommand(m_driveArcade);
+    }
+    
+
 	/**
 	 * Tank style driving for the DriveTrain. 
 	 * @param left Speed in range [-1,1]
@@ -53,6 +65,10 @@ public class DriveTrain extends Subsystem {
 		m_robotDrive.arcadeDrive(left, right);
 	}
 
+	public void strafeDrive(double strafeMotorSpeed) {
+		m_strafeMotor.set(strafeMotorSpeed);
+	}
+	
 	/**
 	 * Arcade style driving for the DriveTrain. 
 	 * @param joy The ps3 style joystick to use to drive arcade style.
@@ -75,12 +91,12 @@ public class DriveTrain extends Subsystem {
 	
 	public void setDropWheel(boolean isHigh){
 		
-		if(isHigh){
+		if (isHigh){
 			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kReverse);
 		}
-		else{
+		else {
 			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kForward);
-		};
+		}
 	}
 }
 
