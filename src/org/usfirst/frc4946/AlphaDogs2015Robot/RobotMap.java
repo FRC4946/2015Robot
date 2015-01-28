@@ -50,7 +50,8 @@ public class RobotMap {
     
     
     public static Solenoid grabberLeftArmSolenoid;
-    public static Solenoid grabberRightArmSolenoid;
+    public static Solenoid grabbersmallRightArmSolenoid;
+    public static Solenoid grabberbigRightArmSolenoid;
     public static Compressor airCompressorCompressor;
     public static SpeedController elevatorElevatorMotor;
     public static AnalogPotentiometer elevatorAnalogPotentiometer;
