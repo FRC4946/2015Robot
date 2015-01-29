@@ -26,8 +26,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class DriveTrain extends Subsystem {
-    SpeedController m_leftDriveMotors = RobotMap.driveTrainLeftMotors;
-    SpeedController m_rightDriveMotors = RobotMap.driveTrainRightMotors;
+    //SpeedController m_leftDriveMotors = RobotMap.driveTrainLeftMotors;
+    //SpeedController m_rightDriveMotors = RobotMap.driveTrainRightMotors;
     RobotDrive m_robotDrive = RobotMap.driveTrainRobotDrive;
     SpeedController m_strafeMotor = RobotMap.driveTrainStrafeMotor;
     DoubleSolenoid m_gearShifterSolenoid = RobotMap.driveTrainGearShifterSolenoid;

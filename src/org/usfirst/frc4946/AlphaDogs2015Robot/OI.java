@@ -81,7 +81,7 @@ public class OI {
         
         toggleDriveMode = new JoystickButton(driveJoystick, 5);
         toggleDriveMode.whenPressed(new SetDriveStrafe());
-        toggleDriveMode.whenReleased(new SetDriveArcade());
+        toggleDriveMode.whenReleased(new SetDriveArcade());			//these toggle strafe driving if you hold button 5
         
         
         
