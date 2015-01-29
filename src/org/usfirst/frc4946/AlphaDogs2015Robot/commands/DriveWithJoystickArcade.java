@@ -35,7 +35,7 @@ public class  DriveWithJoystickArcade extends Command {
     	double Xval = Robot.m_oi.getDriveJoystick().getX();
     	
     	
-    	// square inputs to add sensitivity near middle of Joystick.
+    	// square inputs to add precision near middle of Joystick.
     	
     	
     	if (Yval >= 0) {
