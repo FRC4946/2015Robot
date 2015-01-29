@@ -34,6 +34,24 @@ public class  DriveWithJoystickArcade extends Command {
     	double Yval = Robot.m_oi.getDriveJoystick().getY();
     	double Xval = Robot.m_oi.getDriveJoystick().getX();
     	
+    	
+    	// square inputs to add sensitivity near middle of Joystick.
+    	
+    	
+    	if (Yval >= 0) {
+    		Yval = Yval * Yval;
+    	} else {
+    		Yval = -Yval * Yval;  // if movement is backwards, make sure to keep it backwards (squaring removes negatives)
+    	}
+    	
+    	
+    	if (Xval >= 0) {
+    		Xval = Xval * Xval;
+    	} else {
+    		Xval = -Xval * Xval;  //same
+    	}    	
+    	
+    	
         Robot.m_driveTrain.drive(Yval, -Xval);
         
         

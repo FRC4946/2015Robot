@@ -59,7 +59,8 @@ public class OI {
     public JoystickButton closeGrabber;
     public JoystickButton toggleDriveMode;
     public Joystick operatorJoystick;
-
+    public boolean strafeButtonPressed;
+    
     
     public OI() {
 
@@ -72,21 +73,20 @@ public class OI {
         driveJoystick = new Joystick(0);
         
         actuateStrafe = new JoystickButton(driveJoystick, 3);
-        actuateStrafe.whenReleased(new ActuateStrafeDown());
-        actuateStrafe.whenPressed(new ActuateStrafeUp());
+        actuateStrafe.whenPressed(new ActuateStrafeDown());
+        actuateStrafe.whenReleased(new ActuateStrafeUp());
+        
         lowGear = new JoystickButton(driveJoystick, 1);
         lowGear.whenPressed(new ShiftLowGear());
         highGear = new JoystickButton(driveJoystick, 2);
         highGear.whenPressed(new ShiftHighGear());
         
         toggleDriveMode = new JoystickButton(driveJoystick, 5);
-        toggleDriveMode.whenPressed(new SetDriveStrafe());
-        toggleDriveMode.whenReleased(new SetDriveArcade());			//these toggle strafe driving if you hold button 5
-        
-        
-        
-        
-        
+        strafeButtonPressed = actuateStrafe.get();
+        toggleDriveMode.whenPressed(new SetToStrafeMode());
+        toggleDriveMode.whenReleased(new SetToArcadeMode());			//these toggle strafe driving if you hold button 5
+        strafeButtonPressed = actuateStrafe.get();
+        //gets state of button
         
         
         

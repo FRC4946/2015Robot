@@ -82,7 +82,7 @@ public class RobotMap {
         driveTrainRobotDrive.setMaxOutput(1.0);
         
 
-        driveTrainStrafeMotor = new VictorSP(0);
+        driveTrainStrafeMotor = new CANTalon(4);
         
         driveTrainGearShifterSolenoid = new DoubleSolenoid(0, 4, 5);
         driveTrainWheelDropperSolenoid = new DoubleSolenoid(0, 2, 3);
