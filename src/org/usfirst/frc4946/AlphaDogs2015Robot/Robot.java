@@ -34,7 +34,8 @@ public class Robot extends IterativeRobot {
     public static Grabber m_grabber;
     public static AirCompressor m_airCompressor;
     public static Elevator m_elevator;
-
+    public static Feeder m_feeder;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -45,6 +46,7 @@ public class Robot extends IterativeRobot {
         m_grabber = new Grabber();
         m_airCompressor = new AirCompressor();
         m_elevator = new Elevator();
+        m_feeder = new Feeder();
         // OI must be constructed after subsystems. If the OI creates Commands 
         //(which it very likely will), subsystems are not guaranteed to be 
         // constructed yet. Thus, their requires() statements may grab null 

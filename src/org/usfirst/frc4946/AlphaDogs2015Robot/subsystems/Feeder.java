@@ -19,19 +19,28 @@ public class Feeder extends Subsystem {
     public void initDefaultCommand() {
        
     }
-    public void engageFeederArms(boolean isEngaged){
-    	if (isEngaged == true){
+    public void engageFeederArms(boolean isEngaged){//expands and retracts feeder arms
+    	if (isEngaged == true){//expand
     		leftFeederSolenoid.set(true);
     		rightFeederSolenoid.set(true);
+    	}
+    	else {//retract
+    		leftFeederSolenoid.set(false);
+    		rightFeederSolenoid.set(false);    		
+    	}
+    }
+    public void engageFeederWheels(int isSucked){//pushes and pulls totes into feeder arms
+    	if (isSucked == 1){//pulls
     		leftFeederMotor.set(1);
     		rightFeederMotor.set(1);
     	}
-    	else {
-    		leftFeederSolenoid.set(false);
-    		rightFeederSolenoid.set(false);
+    	else if (isSucked == 2){//pushes
+    		leftFeederMotor.set(-1);
+    		rightFeederMotor.set(-1);
+    	}
+    	else {//neutral
     		leftFeederMotor.set(0);
     		rightFeederMotor.set(0);
-    		
     	}
     }
 }
