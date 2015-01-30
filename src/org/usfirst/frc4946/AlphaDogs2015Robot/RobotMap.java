@@ -48,8 +48,7 @@ public class RobotMap {
     public static Encoder driveTrainRightEncoder;
     public static Encoder driveTrainStrafeEncoder;
     
-    public static Solenoid feederLeftSolenoid;
-    public static Solenoid feederRightSolenoid;
+    public static Solenoid feederSolenoid;
     public static SpeedController feederLeftMotor;
     public static SpeedController feederRightMotor;
     

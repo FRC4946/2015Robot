@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Feeder extends Subsystem {
     
-    Solenoid leftFeederSolenoid = RobotMap.feederLeftSolenoid;
-    Solenoid rightFeederSolenoid = RobotMap.feederRightSolenoid;
+    Solenoid FeederSolenoid = RobotMap.feederSolenoid;
     SpeedController leftFeederMotor = RobotMap.feederLeftMotor;
     SpeedController rightFeederMotor = RobotMap.feederRightMotor;
 
@@ -21,27 +20,33 @@ public class Feeder extends Subsystem {
     }
     public void engageFeederArms(boolean isEngaged){//expands and retracts feeder arms
     	if (isEngaged == true){//expand
-    		leftFeederSolenoid.set(true);
-    		rightFeederSolenoid.set(true);
+    		FeederSolenoid.set(true);
     	}
     	else {//retract
-    		leftFeederSolenoid.set(false);
-    		rightFeederSolenoid.set(false);    		
+    		FeederSolenoid.set(false);	
     	}
     }
-    public void engageFeederWheels(int isSucked){//pushes and pulls totes into feeder arms
-    	if (isSucked == 1){//pulls
+    public void engageFeederWheels(int wheelMovementPatternForMovementOfWheelsThatMove){//pushes and pulls totes into feeder arms
+    	if (wheelMovementPatternForMovementOfWheelsThatMove == 1){//CW
     		leftFeederMotor.set(1);
     		rightFeederMotor.set(1);
     	}
-    	else if (isSucked == 2){//pushes
+    	else if (wheelMovementPatternForMovementOfWheelsThatMove == 2){//CCW
     		leftFeederMotor.set(-1);
     		rightFeederMotor.set(-1);
     	}
-    	else {//neutral
+    	else if (wheelMovementPatternForMovementOfWheelsThatMove == 3){//pulls
+    		leftFeederMotor.set(1);
+    		rightFeederMotor.set(-1);
+    	}
+    	else if (wheelMovementPatternForMovementOfWheelsThatMove == 4){//pushes
+    		leftFeederMotor.set(-1);
+    		rightFeederMotor.set(1);
+    	}
+    	else {
     		leftFeederMotor.set(0);
     		rightFeederMotor.set(0);
-    	}
+       	}
     }
 }
 

@@ -9,13 +9,21 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class OpenCloseFeederArms extends Command {
 
-    public OpenCloseFeederArms() {
-       requires(Robot.m_feeder);
+public boolean m_feederOpen;
+	
+    public OpenCloseFeederArms(boolean isOpen) {
+        requires(Robot.m_feeder);
+        m_feederOpen = isOpen;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	if (m_feederOpen == true) {
+    		Robot.m_feeder.engageFeederArms(true);
+    	}
+    	else {
+    		Robot.m_feeder.engageFeederArms(false);
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -24,7 +32,7 @@ public class OpenCloseFeederArms extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
