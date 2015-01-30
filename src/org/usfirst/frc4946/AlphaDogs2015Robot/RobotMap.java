@@ -48,18 +48,20 @@ public class RobotMap {
     public static Encoder driveTrainRightEncoder;
     public static Encoder driveTrainStrafeEncoder;
     
+    public static Solenoid feederLeftSolenoid;
+    public static Solenoid feederRightSolenoid;
+    public static SpeedController feederLeftMotor;
+    public static SpeedController feederRightMotor;
     
     public static Solenoid grabberLeftArmSolenoid;
     public static Solenoid grabbersmallRightArmSolenoid;
     public static Solenoid grabberbigRightArmSolenoid;
-    public static Solenoid feederLeftSolenoid;
-    public static Solenoid feederRightSolenoid;
     public static Compressor airCompressorCompressor;
     public static SpeedController elevatorElevatorMotor;
     public static AnalogPotentiometer elevatorAnalogPotentiometer;
     public static DigitalInput elevatorBottomLimitSwitch;
     public static DigitalInput elevatorTopLimitSwitch;
-
+    
     public static void init() {
         driveTrainLeftFrontDriveMotor = new CANTalon(0);
         driveTrainLeftMiddleDriveMotor = new CANTalon(1);
