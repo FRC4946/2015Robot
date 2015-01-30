@@ -86,8 +86,8 @@ public class RobotMap {
 
         driveTrainStrafeMotor = new VictorSP(0);
         
-        driveTrainGearShifterSolenoid = new DoubleSolenoid(0, 4, 5);
-        driveTrainWheelDropperSolenoid = new DoubleSolenoid(0, 2, 3);
+        driveTrainGearShifterSolenoid = new DoubleSolenoid(4, 5);
+        driveTrainWheelDropperSolenoid = new DoubleSolenoid(2, 3);
         LiveWindow.addActuator("Drive Train", "Gear Shifter Solenoid", driveTrainGearShifterSolenoid);
         LiveWindow.addActuator("Drive Train", "Wheel Dropper Solenoid", driveTrainWheelDropperSolenoid);
         
@@ -121,6 +121,12 @@ public class RobotMap {
         //grabberRightArmSolenoid = new DoubleSolenoid(0, 6, 7);      
         //LiveWindow.addActuator("Grabber", "Right Arm Solenoid", grabberRightArmSolenoid);
         
+        
+        
+        
+        feederSolenoid = new Solenoid(7);
+        feederLeftMotor = new VictorSP(0);
+        feederRightMotor = new VictorSP(1);
         
         
         
