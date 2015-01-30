@@ -5,19 +5,23 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *Right arm command
  */
 public class SetRightGrabberArm extends Command {
 
 	public int m_rightArmPosition;
 	
     public SetRightGrabberArm(int position) {
-        // Use requires() here to declare subsystem dependencies
         requires(Robot.m_grabber);
         m_rightArmPosition = position;
     }
 
-    // Called just before this Command runs the first time
+    /**Dictates what position the right arm will be in
+     * Position 0 is neutral
+     * Position 1 is 2 inches
+     * Position 2 is 4 inches
+     * Position 3 is 6 inches 
+     */
     protected void initialize() {
     	if (m_rightArmPosition == 0){
     		Robot.m_grabber.setRightArm(0);
@@ -36,21 +40,16 @@ public class SetRightGrabberArm extends Command {
     	}
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }
