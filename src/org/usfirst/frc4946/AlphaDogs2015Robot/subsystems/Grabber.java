@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Grabber extends Subsystem {
     Solenoid leftArmSolenoid = RobotMap.grabberLeftArmSolenoid;
-    Solenoid smallRightArmSolenoid = RobotMap.grabbersmallRightArmSolenoid;
-    Solenoid bigRightArmSolenoid = RobotMap.grabberbigRightArmSolenoid;
+    Solenoid smallRightArmSolenoid = RobotMap.grabberSmallRightArmSolenoid;
+    Solenoid bigRightArmSolenoid = RobotMap.grabberBigRightArmSolenoid;
 
 
     public void initDefaultCommand() {	
