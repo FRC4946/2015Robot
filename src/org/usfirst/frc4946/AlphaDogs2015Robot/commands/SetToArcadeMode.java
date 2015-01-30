@@ -11,8 +11,7 @@ public class SetToArcadeMode extends CommandGroup {
     
     public  SetToArcadeMode() {
 
-        // To run multiple commands at the same time,
-        addParallel(new DriveWithJoystickArcade());
+    	Robot.m_driveTrain.setDriveArcade(); // Set the default command of the drive train to arcade drive
         
         // Check the state of the manual strafe button
         boolean strafeButtonPressed = Robot.m_oi.actuateStrafe.get();
@@ -20,6 +19,8 @@ public class SetToArcadeMode extends CommandGroup {
         // If the button is down, lift the wheel
         if (strafeButtonPressed == true) {
         	addParallel(new ActuateStrafeUp());
+        } else if (strafeButtonPressed == false) {
+        	addParallel(new ActuateStrafeDown());
         }
     }
 }

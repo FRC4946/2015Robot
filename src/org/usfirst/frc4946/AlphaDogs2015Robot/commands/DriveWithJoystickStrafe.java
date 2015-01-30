@@ -35,34 +35,8 @@ public class  DriveWithJoystickStrafe extends Command {
     	double Xval = Robot.m_oi.getDriveJoystick().getX();
     	double Zval = Robot.m_oi.getDriveJoystick().getZ();
     	
-    	// square inputs to add precision near middle of Joystick.
     	
-    	
-    	if (Yval >= 0) {
-    		Yval = Yval * Yval;
-    	} else {
-    		Yval = -Yval * Yval;  // if movement is backwards, make sure to keep it backwards (squaring removes negatives)
-    	}
-    	
-    	
-    	if (Xval >= 0) {
-    		Xval = Xval * Xval;
-    	} else {
-    		Xval = -Xval * Xval;  //same
-    	}
-    	
-    	
-    	if (Zval >= 0) {
-    		Zval = Zval * Zval;
-    	} else {
-    		Zval = -Zval * Zval;  //same
-    	}
-    	
-    	
-    	
-        Robot.m_driveTrain.drive(Yval, -Zval);
-        
-        Robot.m_driveTrain.strafeDrive(Xval);
+    	Robot.m_driveTrain.strafeDrive(Yval, -Zval, Xval);
         	
     }
 
