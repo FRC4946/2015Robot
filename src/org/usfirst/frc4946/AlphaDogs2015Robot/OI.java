@@ -24,6 +24,13 @@ public class OI {
     public JoystickButton rightGrabberPosition3;
     public JoystickButton toggleDriveMode;
     public Joystick operatorJoystick;
+    
+    public JoystickButton feederArmToggle;
+    public JoystickButton feederMotorButtonCW;
+    public JoystickButton feederMotorButtonCCW;
+    public JoystickButton feederMotorButtonIn;
+    public JoystickButton feederMotorButtonOut;
+    
     public boolean strafeButtonPressed;
     
     
@@ -43,6 +50,20 @@ public class OI {
         rightGrabberPosition2.whenPressed(new SetRightGrabberArm(2));
         rightGrabberPosition3 = new JoystickButton(operatorJoystick, 5);
         rightGrabberPosition3.whenPressed(new SetRightGrabberArm(3));
+        
+	    feederArmToggle = new JoystickButton(operatorJoystick, 5);
+	    feederMotorButtonCW = new JoystickButton(operatorJoystick, 6);
+	    feederMotorButtonCW.whenPressed(new WheelMovement(1));//CW movement I think
+	    feederMotorButtonCW.whenReleased(new WheelMovement(0));//stops pls ty
+	    feederMotorButtonCCW = new JoystickButton(operatorJoystick, 7);
+	    feederMotorButtonCCW.whenPressed(new WheelMovement(2));//CCW movement I think
+	    feederMotorButtonCCW.whenReleased(new WheelMovement(0));//stops pls ty
+	    feederMotorButtonIn = new JoystickButton(operatorJoystick, 8);
+	    feederMotorButtonIn.whenPressed(new WheelMovement(3));//Intake movement I think
+	    feederMotorButtonIn.whenReleased(new WheelMovement(0));//stops pls ty
+        
+        
+        
         
         driveJoystick = new Joystick(0);
         
