@@ -24,43 +24,48 @@ public class OI {
     public JoystickButton rightGrabberPosition3;
     public JoystickButton toggleDriveMode;
     public Joystick operatorJoystick;
-    public boolean strafeButtonPressed;
     
     
     public OI() {
 
+    	
+    	
+    	// =*=*=*=*=*= Operator Joystick =*=*=*=*=*=
+    	
         operatorJoystick = new Joystick(1);
         
-        leftGrabber = new JoystickButton(operatorJoystick, 1);
-        leftGrabber.whenPressed(new SetLeftGrabberArm(true));
-        leftGrabber.whenReleased(new SetLeftGrabberArm(false));
+        leftGrabber = new JoystickButton(operatorJoystick, 1);	// Button 1 actuates the left arm.
+        leftGrabber.whenPressed(new SetLeftGrabberArm(true));	// Actuate the left arm in when button is held,
+        leftGrabber.whenReleased(new SetLeftGrabberArm(false));	// And actuate it out when the button is released
 
-        rightGrabberPosition0 = new JoystickButton(operatorJoystick, 2);
+        rightGrabberPosition0 = new JoystickButton(operatorJoystick, 2);	// Button 2 brings the right arm all the way in
         rightGrabberPosition0.whenPressed(new SetRightGrabberArm(0));
-        rightGrabberPosition1 = new JoystickButton(operatorJoystick, 4);
-        rightGrabberPosition1.whenPressed(new SetRightGrabberArm(1));
-        rightGrabberPosition2 = new JoystickButton(operatorJoystick, 3);
+        rightGrabberPosition2 = new JoystickButton(operatorJoystick, 3);	// Button 3 puts the right arm in the middle position
         rightGrabberPosition2.whenPressed(new SetRightGrabberArm(2));
-        rightGrabberPosition3 = new JoystickButton(operatorJoystick, 5);
+        rightGrabberPosition1 = new JoystickButton(operatorJoystick, 4);	// Button 4 puts the right arm in the short position
+        rightGrabberPosition1.whenPressed(new SetRightGrabberArm(1));
+        rightGrabberPosition3 = new JoystickButton(operatorJoystick, 5);	// Button 5 puts the right arm in the large position
         rightGrabberPosition3.whenPressed(new SetRightGrabberArm(3));
+
+    	
+    	
         
+    	// =*=*=*=*=*= Driver Joystick =*=*=*=*=*=
+    	        
         driveJoystick = new Joystick(0);
         
-        actuateStrafe = new JoystickButton(driveJoystick, 3);
-        actuateStrafe.whenPressed(new ActuateStrafeDown());
-        actuateStrafe.whenReleased(new ActuateStrafeUp());
-        
-        lowGear = new JoystickButton(driveJoystick, 1);
+        lowGear = new JoystickButton(driveJoystick, 1);		// Button 1 shifts the gearboxes into low gear
         lowGear.whenPressed(new ShiftLowGear());
-        highGear = new JoystickButton(driveJoystick, 2);
+        highGear = new JoystickButton(driveJoystick, 2);	// Button 2 shifts the gearboxes into high gear
         highGear.whenPressed(new ShiftHighGear());
         
-        toggleDriveMode = new JoystickButton(driveJoystick, 5);
-        strafeButtonPressed = actuateStrafe.get();
-        toggleDriveMode.whenPressed(new SetToStrafeMode());
-        toggleDriveMode.whenReleased(new SetToArcadeMode());			//these toggle strafe driving if you hold button 5
-        strafeButtonPressed = actuateStrafe.get();
-        //gets state of button
+        actuateStrafe = new JoystickButton(driveJoystick, 3);	// Button 3 actuates the strafe wheel dropper.
+        actuateStrafe.whenPressed(new ActuateStrafeUp());		// Lift the wheel whenever the button is held
+        actuateStrafe.whenReleased(new ActuateStrafeDown());
+        
+        toggleDriveMode = new JoystickButton(driveJoystick, 5);	// Button 5 toggles driving modes.
+        toggleDriveMode.whenPressed(new SetToStrafeMode());		// Strafe driving is active whenever the button is held
+        toggleDriveMode.whenReleased(new SetToArcadeMode());
         
         
         
@@ -108,10 +113,20 @@ public class OI {
 
     }
     
+    /**
+     * Get the Drive joystick
+     * 
+     * @return The driver's joystick
+     */
     public Joystick getDriveJoystick() {
         return driveJoystick;
     }
 
+    /**
+     * Get the Operator joystick
+     * 
+     * @return The operator's joystick
+     */
     public Joystick getOperatorJoystick() {
         return operatorJoystick;
     }
