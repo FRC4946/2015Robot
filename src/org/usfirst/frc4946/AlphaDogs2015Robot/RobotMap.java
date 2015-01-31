@@ -16,20 +16,13 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
  * floating around.
  */
 public class RobotMap {
-	
-	//public static SpeedController driveTrainLeftMotors;
-	//public static SpeedController driveTrainRightMotors;
-	
+		
     public static SpeedController driveTrainLeftFrontDriveMotor;
-    //public static SpeedController driveTrainLeftMiddleDriveMotor;
     public static SpeedController driveTrainLeftRearDriveMotor;
-
     public static SpeedController driveTrainRightFrontDriveMotor;
-    //public static SpeedController driveTrainRightMiddleDriveMotor;
     public static SpeedController driveTrainRightRearDriveMotor;
-    
-    public static RobotDrive driveTrainRobotDrive;
     public static SpeedController driveTrainStrafeMotor;
+    public static RobotDrive driveTrainRobotDrive;
     public static DoubleSolenoid driveTrainGearShifterSolenoid;
     public static DoubleSolenoid driveTrainWheelDropperSolenoid;
     public static Gyro driveTrainGyro;
@@ -41,43 +34,53 @@ public class RobotMap {
     public static Solenoid grabberLeftArmSolenoid;
     public static Solenoid grabberSmallRightArmSolenoid;
     public static Solenoid grabberBigRightArmSolenoid;
+    
+    
     public static Compressor airCompressorCompressor;
+    
+    
     public static SpeedController elevatorElevatorMotor;
     public static AnalogPotentiometer elevatorAnalogPotentiometer;
     public static DigitalInput elevatorBottomLimitSwitch;
     public static DigitalInput elevatorTopLimitSwitch;
 
     public static void init() {
-        driveTrainLeftFrontDriveMotor = new CANTalon(0);
-        //driveTrainLeftMiddleDriveMotor = new CANTalon(1);
-        driveTrainLeftRearDriveMotor = new CANTalon(1);
-        //driveTrainLeftMotors = new MultiSpeedController(driveTrainLeftFrontDriveMotor,
-        //												driveTrainLeftMiddleDriveMotor,
-        //												driveTrainLeftRearDriveMotor);
+    	
+        // Compressor
+        airCompressorCompressor = new Compressor(0);
+    	
         
-        driveTrainRightFrontDriveMotor = new CANTalon(2);
-        //driveTrainRightMiddleDriveMotor = new CANTalon(4);
-        driveTrainRightRearDriveMotor = new CANTalon(3);
-        //driveTrainRightMotors = new MultiSpeedController(driveTrainRightFrontDriveMotor,
-		//												driveTrainRightMiddleDriveMotor,
-		//												driveTrainRightRearDriveMotor);
+    	// Speed Controllers
+        driveTrainLeftFrontDriveMotor =		new CANTalon(0);
+        driveTrainLeftRearDriveMotor =		new CANTalon(1);
+        driveTrainRightFrontDriveMotor =	new CANTalon(2);
+        driveTrainRightRearDriveMotor =		new CANTalon(3);
+        driveTrainStrafeMotor =				new CANTalon(4);
+        elevatorElevatorMotor =				new CANTalon(5);
+
         
+        // Robot Drive
         driveTrainRobotDrive = new RobotDrive(driveTrainLeftFrontDriveMotor, driveTrainLeftRearDriveMotor, driveTrainRightFrontDriveMotor, driveTrainRightRearDriveMotor);
-        
-        
         driveTrainRobotDrive.setSafetyEnabled(true);
         driveTrainRobotDrive.setExpiration(0.1);
         driveTrainRobotDrive.setSensitivity(0.5);
         driveTrainRobotDrive.setMaxOutput(1.0);
         
-
-        driveTrainStrafeMotor = new CANTalon(4);
         
-        driveTrainGearShifterSolenoid = new DoubleSolenoid(0, 4, 5);
-        driveTrainWheelDropperSolenoid = new DoubleSolenoid(0, 2, 3);
-        LiveWindow.addActuator("Drive Train", "Gear Shifter Solenoid", driveTrainGearShifterSolenoid);
+        // Solenoids
+        grabberLeftArmSolenoid = new Solenoid(0);
+        grabberSmallRightArmSolenoid = new Solenoid(1);
+        grabberBigRightArmSolenoid = new Solenoid(2);
+        driveTrainWheelDropperSolenoid = new DoubleSolenoid(4, 5);
+        driveTrainGearShifterSolenoid = new DoubleSolenoid(6, 7);
+        LiveWindow.addActuator("Grabber", "Left Arm Solenoid", grabberLeftArmSolenoid);
+        LiveWindow.addActuator("Grabber", "Small Right Arm Solenoid", grabberSmallRightArmSolenoid);
+        LiveWindow.addActuator("Grabber", "Large Right Arm Solenoid", grabberBigRightArmSolenoid);
         LiveWindow.addActuator("Drive Train", "Wheel Dropper Solenoid", driveTrainWheelDropperSolenoid);
+        LiveWindow.addActuator("Drive Train", "Gear Shifter Solenoid", driveTrainGearShifterSolenoid);
         
+        
+        // Sensors
         driveTrainGyro = new Gyro(1);
         LiveWindow.addSensor("Drive Train", "Gyro", driveTrainGyro);
         driveTrainGyro.setSensitivity(0.007);
@@ -96,31 +99,7 @@ public class RobotMap {
         LiveWindow.addSensor("Drive Train", "Strafe Encoder", driveTrainStrafeEncoder);
         driveTrainStrafeEncoder.setDistancePerPulse(1.0);
         driveTrainStrafeEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
-        
-        
-        
-        
-        
-        
-        
-        //grabberLeftArmSolenoid = new DoubleSolenoid(0, 4, 5);      
-        //LiveWindow.addActuator("Grabber", "Left Arm Solenoid", grabberLeftArmSolenoid);
-        //grabberRightArmSolenoid = new DoubleSolenoid(0, 6, 7);      
-        //LiveWindow.addActuator("Grabber", "Right Arm Solenoid", grabberRightArmSolenoid);
-        
-        
-        
-        
-        
-        
-        airCompressorCompressor = new Compressor(0);
-
-        
-        
-        
-        
-        elevatorElevatorMotor = new CANTalon(8);
-        
+                
         elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 1.0, 0.0);
         LiveWindow.addSensor("Elevator", "Analog Potentiometer", elevatorAnalogPotentiometer);
         
@@ -129,6 +108,5 @@ public class RobotMap {
         
         elevatorTopLimitSwitch = new DigitalInput(1);
         LiveWindow.addSensor("Elevator", "Top Limit Switch", elevatorTopLimitSwitch);
-        
     }
 }
