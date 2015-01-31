@@ -71,13 +71,13 @@ public class OI {
         driveJoystick = new Joystick(0);
         
         lowGear = new JoystickButton(driveJoystick, 1);		// Button 1 shifts the gearboxes into low gear
-        lowGear.whenPressed(new ShiftLowGear());
+        lowGear.whenPressed(new ShiftGear(false));
         highGear = new JoystickButton(driveJoystick, 2);	// Button 2 shifts the gearboxes into high gear
-        highGear.whenPressed(new ShiftHighGear());
+        highGear.whenPressed(new ShiftGear(true));
         
-        actuateStrafe = new JoystickButton(driveJoystick, 3);	// Button 3 actuates the strafe wheel dropper.
-        actuateStrafe.whenPressed(new ActuateStrafeUp());		// Lift the wheel whenever the button is held
-        actuateStrafe.whenReleased(new ActuateStrafeDown());
+        actuateStrafe = new JoystickButton(driveJoystick, 3);		// Button 3 actuates the strafe wheel dropper.
+        actuateStrafe.whenPressed(new ActuateStrafeSolenoid(true));	// Lift the wheel whenever the button is held
+        actuateStrafe.whenReleased(new ActuateStrafeSolenoid(false));
         
         toggleDriveMode = new JoystickButton(driveJoystick, 5);	// Button 5 toggles driving modes.
         toggleDriveMode.whenPressed(new SetToStrafeMode());		// Strafe driving is active whenever the button is held
@@ -87,33 +87,9 @@ public class OI {
         
 	    
         // SmartDashboard Buttons
-        SmartDashboard.putData("Shift High Gear", new ShiftHighGear());
+        SmartDashboard.putData("Shift High Gear", new ShiftGear(true));
 
-        SmartDashboard.putData("Shift Low Gear", new ShiftLowGear());
-
-        SmartDashboard.putData("Drive Forwards", new DriveForwards());
-
-        SmartDashboard.putData("Drive Reverse", new DriveReverse());
-
-        SmartDashboard.putData("Strafe Left", new StrafeLeft());
-
-        SmartDashboard.putData("Strafe Right", new StrafeRight());
-
-        SmartDashboard.putData("Turn to Angle", new TurntoAngle());
-
-        SmartDashboard.putData("Drive With Joystick Arcade", new DriveWithJoystickArcade());
-
-        SmartDashboard.putData("Drive With Joystick Strafe", new DriveWithJoystickStrafe());
-
-        SmartDashboard.putData("Elevator Go To Height 1", new ElevatorGoToHeight1());
-
-        SmartDashboard.putData("Elevator Go To Height 2", new ElevatorGoToHeight2());
-
-        SmartDashboard.putData("Elevator Go To Height 3", new ElevatorGoToHeight3());
-
-        SmartDashboard.putData("Elevator Go To Height 4", new ElevatorGoToHeight4());
-
-        SmartDashboard.putData("Elevator User Override", new ElevatorUserOverride());
+        SmartDashboard.putData("Shift Low Gear", new ShiftGear(false));
         
         SmartDashboard.putData("Left Arm Retracted (Postion 0)", new SetLeftGrabberArm(false));
 
