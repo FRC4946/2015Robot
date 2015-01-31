@@ -28,15 +28,15 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
  */
 public class RobotMap {
 	
-	public static SpeedController driveTrainLeftMotors;
-	public static SpeedController driveTrainRightMotors;
+	//public static SpeedController driveTrainLeftMotors;
+	//public static SpeedController driveTrainRightMotors;
 	
     public static SpeedController driveTrainLeftFrontDriveMotor;
-    public static SpeedController driveTrainLeftMiddleDriveMotor;
+    //public static SpeedController driveTrainLeftMiddleDriveMotor;
     public static SpeedController driveTrainLeftRearDriveMotor;
 
     public static SpeedController driveTrainRightFrontDriveMotor;
-    public static SpeedController driveTrainRightMiddleDriveMotor;
+    //public static SpeedController driveTrainRightMiddleDriveMotor;
     public static SpeedController driveTrainRightRearDriveMotor;
     
     public static RobotDrive driveTrainRobotDrive;
@@ -60,20 +60,21 @@ public class RobotMap {
 
     public static void init() {
         driveTrainLeftFrontDriveMotor = new CANTalon(0);
-        driveTrainLeftMiddleDriveMotor = new CANTalon(1);
-        driveTrainLeftRearDriveMotor = new CANTalon(2);
-        driveTrainLeftMotors = new MultiSpeedController(driveTrainLeftFrontDriveMotor,
-        												driveTrainLeftMiddleDriveMotor,
-        												driveTrainLeftRearDriveMotor);
+        //driveTrainLeftMiddleDriveMotor = new CANTalon(1);
+        driveTrainLeftRearDriveMotor = new CANTalon(1);
+        //driveTrainLeftMotors = new MultiSpeedController(driveTrainLeftFrontDriveMotor,
+        //												driveTrainLeftMiddleDriveMotor,
+        //												driveTrainLeftRearDriveMotor);
         
-        driveTrainRightFrontDriveMotor = new CANTalon(3);
-        driveTrainRightMiddleDriveMotor = new CANTalon(4);
-        driveTrainRightRearDriveMotor = new CANTalon(5);
-        driveTrainRightMotors = new MultiSpeedController(driveTrainRightFrontDriveMotor,
-														driveTrainRightMiddleDriveMotor,
-														driveTrainRightRearDriveMotor);
+        driveTrainRightFrontDriveMotor = new CANTalon(2);
+        //driveTrainRightMiddleDriveMotor = new CANTalon(4);
+        driveTrainRightRearDriveMotor = new CANTalon(3);
+        //driveTrainRightMotors = new MultiSpeedController(driveTrainRightFrontDriveMotor,
+		//												driveTrainRightMiddleDriveMotor,
+		//												driveTrainRightRearDriveMotor);
         
-        driveTrainRobotDrive = new RobotDrive(driveTrainLeftMotors, driveTrainRightMotors);
+        driveTrainRobotDrive = new RobotDrive(driveTrainLeftFrontDriveMotor, driveTrainLeftRearDriveMotor, driveTrainRightFrontDriveMotor, driveTrainRightRearDriveMotor);
+        
         
         driveTrainRobotDrive.setSafetyEnabled(true);
         driveTrainRobotDrive.setExpiration(0.1);
@@ -81,7 +82,7 @@ public class RobotMap {
         driveTrainRobotDrive.setMaxOutput(1.0);
         
 
-        driveTrainStrafeMotor = new VictorSP(0);
+        driveTrainStrafeMotor = new CANTalon(4);
         
         driveTrainGearShifterSolenoid = new DoubleSolenoid(0, 4, 5);
         driveTrainWheelDropperSolenoid = new DoubleSolenoid(0, 2, 3);
