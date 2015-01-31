@@ -30,6 +30,9 @@ public class RobotMap {
     public static Encoder driveTrainRightEncoder;
     public static Encoder driveTrainStrafeEncoder;
     
+    public static Solenoid feederSolenoid;
+    public static SpeedController feederLeftMotor;
+    public static SpeedController feederRightMotor;
     
     public static Solenoid grabberLeftArmSolenoid;
     public static Solenoid grabberSmallRightArmSolenoid;
@@ -43,7 +46,7 @@ public class RobotMap {
     public static AnalogPotentiometer elevatorAnalogPotentiometer;
     public static DigitalInput elevatorBottomLimitSwitch;
     public static DigitalInput elevatorTopLimitSwitch;
-
+    
     public static void init() {
     	
         // Compressor
@@ -57,6 +60,8 @@ public class RobotMap {
         driveTrainRightRearDriveMotor =		new CANTalon(3);
         driveTrainStrafeMotor =				new CANTalon(4);
         elevatorElevatorMotor =				new CANTalon(5);
+        //feederLeftMotor =					new VictorSP(0);
+        //feederRightMotor =				new VictorSP(1);
 
         
         // Robot Drive
@@ -73,6 +78,7 @@ public class RobotMap {
         grabberBigRightArmSolenoid = new Solenoid(2);
         driveTrainWheelDropperSolenoid = new DoubleSolenoid(4, 5);
         driveTrainGearShifterSolenoid = new DoubleSolenoid(6, 7);
+        //feederSolenoid = new Solenoid(7);
         LiveWindow.addActuator("Grabber", "Left Arm Solenoid", grabberLeftArmSolenoid);
         LiveWindow.addActuator("Grabber", "Small Right Arm Solenoid", grabberSmallRightArmSolenoid);
         LiveWindow.addActuator("Grabber", "Large Right Arm Solenoid", grabberBigRightArmSolenoid);
@@ -99,7 +105,7 @@ public class RobotMap {
         LiveWindow.addSensor("Drive Train", "Strafe Encoder", driveTrainStrafeEncoder);
         driveTrainStrafeEncoder.setDistancePerPulse(1.0);
         driveTrainStrafeEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
-                
+
         elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 1.0, 0.0);
         LiveWindow.addSensor("Elevator", "Analog Potentiometer", elevatorAnalogPotentiometer);
         
