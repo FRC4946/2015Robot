@@ -7,32 +7,31 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class OpenCloseFeederArms extends Command {
+public class ElevatorMoveUp extends Command {
 
-public boolean m_feederOpen;
-	
-    public OpenCloseFeederArms(boolean isOpen) {
-        requires(Robot.m_feeder);
-        m_feederOpen = isOpen;
+    public ElevatorMoveUp() {
+        requires(Robot.m_elevator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (m_feederOpen == true) {
-    		Robot.m_feeder.engageFeederArms(true);
-    	}
-    	else {
-    		Robot.m_feeder.engageFeederArms(false);
-    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	double joystickPositionYVal = Robot.m_oi.getOperatorJoystick().getY();
+    	if (joystickPositionYVal >= 0){
+    		Robot.m_elevator.moveElevator(joystickPositionYVal);
+    	} else {
+    		joystickPositionYVal *= 0.1 ;
+    		Robot.m_elevator.moveElevator(joystickPositionYVal);
+    	}
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

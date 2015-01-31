@@ -7,23 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class OpenCloseFeederArms extends Command {
+public class ActuateStrafeUp extends Command {
 
-public boolean m_feederOpen;
-	
-    public OpenCloseFeederArms(boolean isOpen) {
-        requires(Robot.m_feeder);
-        m_feederOpen = isOpen;
+    public ActuateStrafeUp() {
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.m_driveTrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (m_feederOpen == true) {
-    		Robot.m_feeder.engageFeederArms(true);
-    	}
-    	else {
-    		Robot.m_feeder.engageFeederArms(false);
-    	}
+    	Robot.m_driveTrain.setDropWheel(false);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -42,5 +35,6 @@ public boolean m_feederOpen;
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
