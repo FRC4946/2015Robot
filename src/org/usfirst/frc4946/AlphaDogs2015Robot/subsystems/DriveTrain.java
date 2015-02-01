@@ -49,7 +49,7 @@ public class DriveTrain extends Subsystem {
 		setDriveArcade();
 		
 		//save the initial position of the gyroscope
-		double gyroscopeInitialPosition;
+		//double gyroscopeInitialPosition;
     }
     
     public void setDriveStrafe() {

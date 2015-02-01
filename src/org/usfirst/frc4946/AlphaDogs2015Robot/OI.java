@@ -16,6 +16,7 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.buttons.*;
+import edu.wpi.first.wpilibj.command.Command;
 
 
 /**
@@ -54,10 +55,16 @@ public class OI {
     public JoystickButton highGear;
     public JoystickButton lowGear;
     public JoystickButton actuateStrafe;
-    public Joystick driveJoystick;
     public JoystickButton openGrabber;
     public JoystickButton closeGrabber;
     public JoystickButton toggleDriveMode;
+    
+    public JoystickButton gyroButton0;
+    public JoystickButton gyroButton90;
+    public JoystickButton gyroButton180;
+    public JoystickButton gyroButton270;
+    
+    public Joystick driveJoystick;
     public Joystick operatorJoystick;
     public boolean strafeButtonPressed;
     
@@ -81,13 +88,19 @@ public class OI {
         highGear = new JoystickButton(driveJoystick, 2);
         highGear.whenPressed(new ShiftHighGear());
         
-        toggleDriveMode = new JoystickButton(driveJoystick, 5);
+        toggleDriveMode = new JoystickButton(driveJoystick, 4);
         strafeButtonPressed = actuateStrafe.get();
         toggleDriveMode.whenPressed(new SetToStrafeMode());
         toggleDriveMode.whenReleased(new SetToArcadeMode());			//these toggle strafe driving if you hold button 5
         strafeButtonPressed = actuateStrafe.get();
         //gets state of button
         
+        // Gyro Buttons
+        gyroButton0 = new JoystickButton(driveJoystick, 5);
+        gyroButton0.whenPressed(RotateRobotWithGyro(0));
+        gyroButton90 = new JoystickButton(driveJoystick, 6);
+        gyroButton180 = new JoystickButton(driveJoystick, 7);
+        gyroButton270 = new JoystickButton(driveJoystick, 8);
         
         
 	    
@@ -127,7 +140,12 @@ public class OI {
 
     }
     
-    public Joystick getDriveJoystick() {
+    private Command RotateRobotWithGyro(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Joystick getDriveJoystick() {
         return driveJoystick;
     }
 
