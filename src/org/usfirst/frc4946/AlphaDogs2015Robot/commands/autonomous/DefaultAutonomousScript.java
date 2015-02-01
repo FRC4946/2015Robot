@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
- *
+ * @author Matthew
  */
 public class DefaultAutonomousScript extends CommandGroup {
 	private int m_initialPosition = 0;
