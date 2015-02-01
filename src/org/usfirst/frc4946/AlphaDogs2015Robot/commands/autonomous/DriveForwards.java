@@ -9,7 +9,7 @@
 // it from being updated in the future.
 
 
-package org.usfirst.frc4946.AlphaDogs2015Robot.commands;
+package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
@@ -17,9 +17,9 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 /**
  *
  */
-public class  DriveReverse extends Command {
+public class  DriveForwards extends Command {
 
-    public DriveReverse() {
+    public DriveForwards() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 

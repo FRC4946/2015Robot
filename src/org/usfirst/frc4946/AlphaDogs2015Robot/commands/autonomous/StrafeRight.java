@@ -9,7 +9,7 @@
 // it from being updated in the future.
 
 
-package org.usfirst.frc4946.AlphaDogs2015Robot.commands;
+package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
@@ -17,9 +17,9 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 /**
  *
  */
-public class  StrafeLeft extends Command {
+public class  StrafeRight extends Command {
 
-    public StrafeLeft() {
+    public StrafeRight() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 
