@@ -24,15 +24,25 @@ public class DriveTrain extends Subsystem {
     Encoder m_leftEncoder = RobotMap.driveTrainLeftEncoder;
     Encoder m_rightEncoder = RobotMap.driveTrainRightEncoder;
     Encoder m_strafeEncoder = RobotMap.driveTrainStrafeEncoder;
-
+    
+    /* Encoder (presumably) pulses 1000 times per revolution
+	 * Wheel's circumference is (6.0 * pi) inches
+	 * 1 encoder pulse is (0.006 * pi) inches
+	 * */
+	double kDistancePerPulse = 0.006 * Math.PI;
+	
     Command m_driveArcade = new DriveWithJoystickArcade();
     Command m_driveStrafe = new DriveWithJoystickStrafe();
-	
+    
+    //save the initial position of the gyroscope
+    double gyroInitialPosition;
+    
     public void initDefaultCommand() {	
 		setDriveArcade();
 		
-		//save the initial position of the gyroscope
-		double gyroscopeInitialPosition;
+		m_leftEncoder.setDistancePerPulse(kDistancePerPulse);
+		m_rightEncoder.setDistancePerPulse(kDistancePerPulse);
+		m_strafeEncoder.setDistancePerPulse(kDistancePerPulse);
     }
     
     /**
@@ -149,5 +159,43 @@ public class DriveTrain extends Subsystem {
 			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kForward);
 		}
 	}
+
+	/**
+     * Get the Left Encoder
+     * 
+     * @return The left encoder
+     */
+	public Encoder getLeftEncoder() {
+		return m_leftEncoder;
+	}
+	
+	/**
+     * Get the Right Encoder
+     * 
+     * @return The right encoder
+     */
+	public Encoder getRightEncoder() {
+		return m_rightEncoder;
+	}
+
+	/**
+     * Get the Strafe Encoder
+     * 
+     * @return The strafe encoder
+     */
+	public Encoder getStrafeEncoder() {
+		return m_strafeEncoder;
+	}
+	
+	/**
+     * Get the Gyro
+     * 
+     * @return The gyro
+     */
+	public Gyro getGyro() {
+		return m_gyro;
+		
+	}
+
 }
 

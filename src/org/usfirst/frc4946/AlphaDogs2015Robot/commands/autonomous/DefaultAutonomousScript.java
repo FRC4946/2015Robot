@@ -38,7 +38,7 @@ public class DefaultAutonomousScript extends CommandGroup {
 		m_mouvementDirectionOrAmount = movementDirection;
 		m_toteIsPreLoaded = isPreLoaded;
         SmartDashboard.putString("Autonomous Status", getStatus());
-
+        
         
         
 		
@@ -55,6 +55,7 @@ public class DefaultAutonomousScript extends CommandGroup {
 			// If we started in the left position
 			if (m_initialPosition == 0) {
 				// TODO: Drive right 3 feet 10.5 inches
+				//DriveMaintainingOrientation(0.0, 0.0, 0.5, 46.5);
 			}
 
 			// If we started in the right position
