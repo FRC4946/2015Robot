@@ -22,7 +22,11 @@ public class ActuateStrafeSolenoid extends Command {
 	}
 
 	protected void execute() {
-		Robot.m_driveTrain.setDropWheel(m_isWheelRaised);
+		if (m_isWheelRaised){
+			Robot.m_driveTrain.setDropWheel(2);
+		} else {
+			Robot.m_driveTrain.setDropWheel(1);
+		}
 	}
 
 	protected boolean isFinished() {
@@ -31,6 +35,7 @@ public class ActuateStrafeSolenoid extends Command {
 	}
 
 	protected void end() {
+		Robot.m_driveTrain.setDropWheel(0);
 	}
 
 	protected void interrupted() {

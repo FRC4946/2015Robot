@@ -21,7 +21,11 @@ public class ShiftGear extends Command {
 	}
 
 	protected void execute() {
-		Robot.m_driveTrain.setGear(m_isHighGear);
+		if (m_isHighGear){
+			Robot.m_driveTrain.setGear(2);
+		} else {
+			Robot.m_driveTrain.setGear(1);
+		}
 	}
 
 	protected boolean isFinished() {
@@ -30,6 +34,7 @@ public class ShiftGear extends Command {
 	}
 
 	protected void end() {
+		Robot.m_driveTrain.setGear(0);
 	}
 
 	protected void interrupted() {

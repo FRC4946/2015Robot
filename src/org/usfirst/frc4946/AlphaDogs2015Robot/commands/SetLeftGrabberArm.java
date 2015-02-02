@@ -15,19 +15,17 @@ public class SetLeftGrabberArm extends Command {
         requires(Robot.m_grabber);
         m_leftArmExtended = position;
     }
-/**
- * Dictates whether right arm is initialized
- */
+
     protected void initialize() {
+    }
+
+    protected void execute() {
     	if (m_leftArmExtended == true){
     		Robot.m_grabber.setLeftArm(true);
     	}
     	else {
     		Robot.m_grabber.setLeftArm(false);
     	}
-    }
-
-    protected void execute() {
     }
 
     protected boolean isFinished() {
@@ -38,5 +36,6 @@ public class SetLeftGrabberArm extends Command {
     }
 
     protected void interrupted() {
+    	end();
     }
 }

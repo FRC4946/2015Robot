@@ -5,9 +5,9 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.Joystick.AxisType;
-import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
+//import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+//import edu.wpi.first.wpilibj.Joystick.AxisType;
+//import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -20,19 +20,22 @@ public class DriveTrain extends Subsystem {
     SpeedController m_strafeMotor = RobotMap.driveTrainStrafeMotor;
     DoubleSolenoid m_gearShifterSolenoid = RobotMap.driveTrainGearShifterSolenoid;
     DoubleSolenoid m_wheelDropperSolenoid = RobotMap.driveTrainWheelDropperSolenoid;
-    Gyro m_gyro = RobotMap.driveTrainGyro;
-    Encoder m_leftEncoder = RobotMap.driveTrainLeftEncoder;
-    Encoder m_rightEncoder = RobotMap.driveTrainRightEncoder;
-    Encoder m_strafeEncoder = RobotMap.driveTrainStrafeEncoder;
+    //Gyro m_gyro = RobotMap.driveTrainGyro;
+    //Encoder m_leftEncoder = RobotMap.driveTrainLeftEncoder;
+    //Encoder m_rightEncoder = RobotMap.driveTrainRightEncoder;
+    //Encoder m_strafeEncoder = RobotMap.driveTrainStrafeEncoder;
 
-    Command m_driveArcade = new DriveWithJoystickArcade();
-    Command m_driveStrafe = new DriveWithJoystickStrafe();
+    Command m_driveArcade;
+    Command m_driveStrafe;
 	
     public void initDefaultCommand() {	
+        m_driveArcade = new DriveWithJoystickArcade();
+        m_driveStrafe = new DriveWithJoystickStrafe();
+    	
 		setDriveArcade();
 		
 		//save the initial position of the gyroscope
-		double gyroscopeInitialPosition;
+		//double gyroscopeInitialPosition;
     }
     
     /**
@@ -124,30 +127,34 @@ public class DriveTrain extends Subsystem {
 	/**
      * Shift the gearbox into either high or low gear
 	 * 
-	 * @param isHigh Whether to shift into high gear or not. True shifts to high gear.
+	 * @param isHigh Whether to shift into high gear or not. 0 disables the solenoid, 1 shifts to low gear, 2 shifts to high gear.
 	 */
-	public void setGear(boolean isHigh) {
+	public void setGear(int isHigh) {
 
-		if (isHigh) {
+		if (isHigh == 1) {
+			m_gearShifterSolenoid.set(DoubleSolenoid.Value.kForward);
+		} else if (isHigh == 2) {
 			m_gearShifterSolenoid.set(DoubleSolenoid.Value.kReverse);
 		} else {
-			m_gearShifterSolenoid.set(DoubleSolenoid.Value.kForward);
+			m_gearShifterSolenoid.set(DoubleSolenoid.Value.kOff);
 		}
+		
 	}
 	
 	
 	/**
      * Lower or raise the middle wheel.
 	 * 
-	 * @param isRaised Whether to raisethe wheel or not. True raises the wheel.
+	 * @param isRaised Whether to raise the wheel or not. 0 disables the solenoid, 1 lowers the wheel, 2 raises it.
 	 */
-	public void setDropWheel(boolean isRaised) {
+	public void setDropWheel(int isRaised) {
 
-		if (isRaised) {
+		if (isRaised == 1) {
+			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kForward);
+		} else if (isRaised == 2) {
 			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kReverse);
 		} else {
-			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kForward);
+			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kOff);
 		}
 	}
 }
-

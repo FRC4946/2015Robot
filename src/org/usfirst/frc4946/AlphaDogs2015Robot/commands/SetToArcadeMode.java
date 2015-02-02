@@ -18,8 +18,8 @@ public class SetToArcadeMode extends CommandGroup {
 
 		// Check the state of the manual strafe button
 		boolean strafeButtonPressed = Robot.m_oi.actuateStrafe.get();
-
+		
 		// If the button is pressed, lift the wheel
-		addParallel(new ActuateStrafeSolenoid(strafeButtonPressed));
+		addSequential(new ActuateStrafeSolenoid(strafeButtonPressed));
 	}
 }

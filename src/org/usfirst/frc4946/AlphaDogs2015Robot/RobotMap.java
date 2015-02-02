@@ -73,11 +73,11 @@ public class RobotMap {
         
         
         // Solenoids
-        grabberLeftArmSolenoid = new Solenoid(0);
-        grabberSmallRightArmSolenoid = new Solenoid(1);
-        grabberBigRightArmSolenoid = new Solenoid(2);
-        driveTrainWheelDropperSolenoid = new DoubleSolenoid(4, 5);
-        driveTrainGearShifterSolenoid = new DoubleSolenoid(6, 7);
+        grabberLeftArmSolenoid = new Solenoid(4);
+        grabberSmallRightArmSolenoid = new Solenoid(5);
+        grabberBigRightArmSolenoid = new Solenoid(6);
+        driveTrainWheelDropperSolenoid = new DoubleSolenoid(1, 3);
+        driveTrainGearShifterSolenoid = new DoubleSolenoid(0, 2);
         //feederSolenoid = new Solenoid(7);
         LiveWindow.addActuator("Grabber", "Left Arm Solenoid", grabberLeftArmSolenoid);
         LiveWindow.addActuator("Grabber", "Small Right Arm Solenoid", grabberSmallRightArmSolenoid);

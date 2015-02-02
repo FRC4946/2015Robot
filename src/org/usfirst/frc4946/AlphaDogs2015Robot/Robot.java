@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.*;
 
@@ -34,7 +35,7 @@ public class Robot extends IterativeRobot {
     public static Grabber m_grabber;
     public static AirCompressor m_airCompressor;
     public static Elevator m_elevator;
-    public static Feeder m_feeder;
+   //public static Feeder m_feeder;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -46,7 +47,7 @@ public class Robot extends IterativeRobot {
         m_grabber = new Grabber();
         m_airCompressor = new AirCompressor();
         m_elevator = new Elevator();
-        m_feeder = new Feeder();
+        //m_feeder = new Feeder();
         // OI must be constructed after subsystems. If the OI creates Commands 
         //(which it very likely will), subsystems are not guaranteed to be 
         // constructed yet. Thus, their requires() statements may grab null 
@@ -54,6 +55,11 @@ public class Robot extends IterativeRobot {
         m_oi = new OI();
 
         // instantiate the command used for the autonomous period
+        
+        SmartDashboard.putData(m_driveTrain);
+        SmartDashboard.putData(m_grabber);
+        SmartDashboard.putData(m_airCompressor);
+        SmartDashboard.putData(m_elevator);
     }
 
     /**
@@ -93,6 +99,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
     }
 
     /**
