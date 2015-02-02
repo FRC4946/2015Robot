@@ -29,6 +29,7 @@ public class RobotMap {
     public static Encoder driveTrainLeftEncoder;
     public static Encoder driveTrainRightEncoder;
     public static Encoder driveTrainStrafeEncoder;
+    public static DigitalInput driveTrainFrontLimitSwitch;
     
     public static Solenoid feederSolenoid;
     public static SpeedController feederLeftMotor;
@@ -114,5 +115,8 @@ public class RobotMap {
         
         elevatorTopLimitSwitch = new DigitalInput(1);
         LiveWindow.addSensor("Elevator", "Top Limit Switch", elevatorTopLimitSwitch);
+        
+        driveTrainFrontLimitSwitch = new DigitalInput(8);
+        LiveWindow.addSensor("Drive Train", "Front Limit Switch", driveTrainFrontLimitSwitch);
     }
 }
