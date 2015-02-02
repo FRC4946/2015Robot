@@ -8,7 +8,7 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.*;
 
 /**
  *
- * @author Matthew
+ * @author Matthew, Ashish
  */
 public class DriveMaintainingOrientationUntilSwitch extends Command {
 
@@ -17,18 +17,19 @@ public class DriveMaintainingOrientationUntilSwitch extends Command {
 					m_driveTargetDistance,
 					m_driveTravelledDistance,
 					m_driveError,
-					m_gyroCorrect= 0.0,
+					m_gyroCorrect,
 					m_accelerationTime;
 	
 	public Encoder m_leftEncoder;
 	public Encoder m_rightEncoder;
 	public Gyro m_gyro;
+
+	static double kAccelerationPerSecond = 0.2;
+	static double kAccelerationPerCycle = kAccelerationPerSecond / 50;
 	
 	int m_counter;
 	int m_cyclesAfterAcceleration;
-
-	double kAccelerationPerSecond = 0.2;
-	double kAccelerationPerCycle = kAccelerationPerSecond / 50;
+	
 	
 	/**
 	 * Drive the robot forwards/backwards until it hits a tote and triggers a limit switch.
@@ -69,7 +70,7 @@ public class DriveMaintainingOrientationUntilSwitch extends Command {
     	m_driveTravelledDistance = (m_leftEncoder.getDistance() + m_leftEncoder.getDistance()) / 2;
     	
     	
-        // m_accelerationTime * 50 gives number of cycles robot must accelerate for
+        // m_accelerationTime * 50 gives number of cycles robot must accelerate for, as the CPU runs at 50Hz
     	
     	// If the robot should be accelerating...
     	if(m_counter <= m_accelerationTime * 50) {
@@ -104,6 +105,7 @@ public class DriveMaintainingOrientationUntilSwitch extends Command {
     	
     	// Use the gyro to correct any drift in the robot's driving.
     	//m_gyroCorrect = kP * Robot.m_driveTrain.getGyroAngle();
+    	m_gyroCorrect = 0.0;
     	
     	Robot.m_driveTrain.drive(m_driveSpeed, m_gyroCorrect);
     }
