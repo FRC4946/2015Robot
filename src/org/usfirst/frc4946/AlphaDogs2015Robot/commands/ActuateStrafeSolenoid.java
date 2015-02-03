@@ -12,13 +12,15 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ActuateStrafeSolenoid extends Command {
 
 	public boolean m_isWheelRaised;
-
+	private int counter;
+	
 	public ActuateStrafeSolenoid(boolean isWheelRaised) {
 		requires(Robot.m_driveTrain);
 		m_isWheelRaised = isWheelRaised;
 	}
 
 	protected void initialize() {
+		counter = 0;
 	}
 
 	protected void execute() {
@@ -27,11 +29,15 @@ public class ActuateStrafeSolenoid extends Command {
 		} else {
 			Robot.m_driveTrain.setDropWheel(1);
 		}
+		counter ++;
 	}
 
 	protected boolean isFinished() {
 		// The command only needs to loop once, simply return right away.
-		return true;
+		
+		// NO!!!
+		// We need to send power to the solenoids for at least a few cycles of the CPU, otherwise they won't fire.
+		return (counter > 5);
 	}
 
 	protected void end() {

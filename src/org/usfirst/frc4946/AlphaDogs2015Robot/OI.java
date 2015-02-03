@@ -80,7 +80,7 @@ public class OI {
         actuateStrafe.whenReleased(new ActuateStrafeSolenoid(false));
         
         toggleDriveMode = new JoystickButton(driveJoystick, 5);	// Button 5 toggles driving modes.
-        toggleDriveMode.whenPressed(new SetToStrafeMode());		// Strafe driving is active whenever the button is held
+        toggleDriveMode.whileHeld(new SetToStrafeMode());		// Strafe driving is active whenever the button is held
         toggleDriveMode.whenReleased(new SetToArcadeMode());
         
         

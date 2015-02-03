@@ -1,4 +1,4 @@
-package org.usfirst.frc4946.AlphaDogs2015Robot.subsystems;
+/*package org.usfirst.frc4946.AlphaDogs2015Robot.subsystems;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
 
@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
+*//**
  *
- */
+ *//*
 public class Feeder extends Subsystem {
     
     Solenoid FeederSolenoid = RobotMap.feederSolenoid;
@@ -51,3 +51,4 @@ public class Feeder extends Subsystem {
 }
 
 
+*/
