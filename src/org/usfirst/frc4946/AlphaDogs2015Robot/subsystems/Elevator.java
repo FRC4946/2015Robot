@@ -13,8 +13,8 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.subsystems;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
-import edu.wpi.first.wpilibj.*;
 
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -29,13 +29,14 @@ public class Elevator extends PIDSubsystem {
 
 
     // Initialize your subsystem here
-    public Elevator() {
-        super("Elevator", 1.0, 0.0, 0.0);
+    public Elevator(double kP, double kI, double kD) {
+        super("Elevator", kP, kI, kD);
         setAbsoluteTolerance(0.2);
         getPIDController().setContinuous(false);
         LiveWindow.addActuator("Elevator", "PIDSubsystem Controller", getPIDController());
 
-
+        
+        
         // Use these to get going:s
         // setSetpoint() -  Sets where the PID controller should move the system
         //                  to
@@ -45,8 +46,9 @@ public class Elevator extends PIDSubsystem {
     public void initDefaultCommand() {    
         // Set the default command for a subsystem here.
         setDefaultCommand(new ElevatorMove());
+       
     }
-    
+     	
     public void moveElevator(double joystickValue) {
     	m_elevatorMotor.set(joystickValue);
     }

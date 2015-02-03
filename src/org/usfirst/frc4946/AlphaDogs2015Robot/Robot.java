@@ -12,9 +12,12 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.*;
 
@@ -34,17 +37,28 @@ public class Robot extends IterativeRobot {
     public static Grabber m_grabber;
     public static AirCompressor m_airCompressor;
     public static Elevator m_elevator;
+    
+    Preferences m_prefs;
+    double m_proportional = 0.0;
+    double m_integral = 0.0;
+    double m_derivative = 0.0;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    RobotMap.init();
+    	    	
+    	
+        m_proportional = m_prefs.getDouble("ProportionalValue", 0.0);
+        m_integral = m_prefs.getDouble("IntegralValue", 0.0);
+        m_derivative = m_prefs.getDouble("DerivativeValue", 0.0);
+
+        RobotMap.init();
         m_driveTrain = new DriveTrain();
         m_grabber = new Grabber();
         m_airCompressor = new AirCompressor();
-        m_elevator = new Elevator();
+        m_elevator = new Elevator(m_proportional, m_integral, m_derivative);
         // OI must be constructed after subsystems. If the OI creates Commands 
         //(which it very likely will), subsystems are not guaranteed to be 
         // constructed yet. Thus, their requires() statements may grab null 
