@@ -23,7 +23,7 @@ public class Grabber extends Subsystem {
      * 
      */
     public void setLeftArm(boolean isExtended){
-    	if(isExtended){
+    	if(isExtended == true){
     		leftArmSolenoid.set(true);
     	}
     	else{

@@ -1,5 +1,9 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 
+import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.SetLeftGrabberArm;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.SetRightGrabberArm;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
@@ -45,49 +49,63 @@ public class DefaultAutonomousScript extends CommandGroup {
 		// If the tote isn't already in place, pick it up
 		if (!m_toteIsPreLoaded) {
 			// TODO: Close arms, lift elevator to position 1
+			addParallel(new SetLeftGrabberArm(false));
+			addSequential(new SetRightGrabberArm(0));
+			Robot.m_elevator.enable();
+	        Robot.m_elevator.setSetpoint(1.0);
 		}
 
 		// If we need to pick up another tote...
 		while (m_mouvementDirectionOrAmount != 0) {
 
 			// TODO: Drive backwards 2 feet
-
+			addSequential(new DriveMaintainingOrientation(0.2, -24, 0, 0));
 			// If we started in the left position
 			if (m_initialPosition == 0) {
 				// TODO: Drive right 3 feet 10.5 inches
-				//DriveMaintainingOrientation(0.0, 0.0, 0.5, 46.5);
+				addSequential (new DriveMaintainingOrientation(0.0, 0.0, 0.5, 46.5));
 			}
 
 			// If we started in the right position
 			if (m_initialPosition == 2) {
 				// TODO: Drive left 3 feet 10.5 inches
+				addSequential (new DriveMaintainingOrientation(0.0, 0.0, 0.5, -46.5));
 			}
 
 			// If we started in the middle position
 			if (m_initialPosition == 1) {
 				if (m_mouvementDirectionOrAmount == 1) {
 					// TODO: Drive left 3 feet 10.5 inches
+					addSequential(new DriveMaintainingOrientation(0, 0, 0.2, -46));
 				} else if (m_mouvementDirectionOrAmount == 2) {
 					m_mouvementDirectionOrAmount = 1;
 					// TODO: Drive right 3 feet 10.5 inches
+					addSequential(new DriveMaintainingOrientation(0, 0, 0.2, 46));
 				}
 			}
 
 			// TODO: Drive forwards 2 feet (Or until limit switch hits?)
-
-			// TODO: Drop the elevator slightly, open the arms, drop the
-			// elevator more, close the arms, lift to position 1
-
+			addSequential(new DriveMaintainingOrientation(0.2, 24, 0, 0));
+			// TODO: Drop the elevator slightly, open the arms, 
+			addParallel(new SetLeftGrabberArm(true));
+			addSequential(new SetRightGrabberArm(3));
+			// TODO: drop the elevator more, close the arms, lift to position 1
+			addParallel(new SetLeftGrabberArm(false));
+			addSequential(new SetRightGrabberArm(0));
 			// Decrement the number of positions left to move
 			m_mouvementDirectionOrAmount--;
 		}
 
 		// TODO: Drive forwards 11 feet 6 inches in order to enter the Auto zone
+		addSequential(new DriveMaintainingOrientation(0.2, 138, 0, 0));
 		// TODO: Place the tote stack on the ground. Open the grabber arms to
 		// full size
+		addParallel(new SetLeftGrabberArm(true));
+		addSequential(new SetRightGrabberArm(3));
 		// TODO: Drive backwards 1 foot in order to be fully clear of the tote
 		// stack
-
+		addSequential(new DriveMaintainingOrientation(0.2, -12, 0, 0));
+		
 	}
 
 
