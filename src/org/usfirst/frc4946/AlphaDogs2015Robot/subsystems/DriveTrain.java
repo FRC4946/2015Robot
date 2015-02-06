@@ -24,6 +24,7 @@ public class DriveTrain extends Subsystem {
     Encoder m_leftEncoder = RobotMap.driveTrainLeftEncoder;
     Encoder m_rightEncoder = RobotMap.driveTrainRightEncoder;
     Encoder m_strafeEncoder = RobotMap.driveTrainStrafeEncoder;
+    DigitalInput m_frontLimitSwitch = RobotMap.driveTrainFrontLimitSwitch;
     
     /* Encoder (presumably) pulses 1000 times per revolution
 	 * Wheel's circumference is (6.0 * pi) inches
@@ -194,6 +195,16 @@ public class DriveTrain extends Subsystem {
      */
 	public Gyro getGyro() {
 		return m_gyro;
+		
+	}
+	
+	/**
+     * Get the state of the front limit switch
+     * 
+     * @return Whether or not the switch is pressed
+     */
+	public boolean getLimitSwitchState() {
+		return m_frontLimitSwitch.get();
 		
 	}
 
