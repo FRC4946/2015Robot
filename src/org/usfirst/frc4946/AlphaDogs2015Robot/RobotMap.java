@@ -131,7 +131,7 @@ public class RobotMap {
         
         elevatorElevatorMotor = new CANTalon(8);
         
-        elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 1.0, 0.0);
+        elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 80, 0.0);
         LiveWindow.addSensor("Elevator", "Analog Potentiometer", elevatorAnalogPotentiometer);
         
         elevatorBottomLimitSwitch = new DigitalInput(0);

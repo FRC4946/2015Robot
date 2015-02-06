@@ -49,9 +49,22 @@ public class Elevator extends PIDSubsystem {
        
     }
      	
-    public void moveElevator(double joystickValue) {
-    	m_elevatorMotor.set(joystickValue);
+    public double getElevatorPos() {
+    	return m_analogPotentiometer.get();
     }
+    
+    
+    public void moveElevator(double joystickValue) {
+    	
+    	double curPos = m_analogPotentiometer.get();
+    	if (curPos < 70 && curPos >10){
+    	m_elevatorMotor.set(joystickValue);
+    	}
+    	else {
+    		m_elevatorMotor.set(0.0);
+    	}
+    }
+    	
     
     protected double returnPIDInput() {
         // Return your input value for the PID loop
