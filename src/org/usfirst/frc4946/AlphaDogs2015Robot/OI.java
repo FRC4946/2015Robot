@@ -90,20 +90,20 @@ public class OI {
         SmartDashboard.putData("Shift High Gear", new ShiftGear(true));
 
         SmartDashboard.putData("Shift Low Gear", new ShiftGear(false));
-        
+
         SmartDashboard.putData("Left Arm Retracted (Postion 0)", new SetLeftGrabberArm(false));
 
         SmartDashboard.putData("Left Arm Retracted (Postion 1)", new SetLeftGrabberArm(true));
-        
-        SmartDashboard.putData("Right Arm Position 0", new SetRightGrabberArm(0));
-        
-        SmartDashboard.putData("Right Arm Postion 1", new SetRightGrabberArm(1));
-        
-        SmartDashboard.putData("Right Arm Postion 2", new SetRightGrabberArm(2));
-        
-        SmartDashboard.putData("Right Arm Postion 3", new SetRightGrabberArm(3));
 
+        SmartDashboard.putData("Right Arm Position 0", new SetRightGrabberArm(0));
+
+        SmartDashboard.putData("Right Arm Postion 1", new SetRightGrabberArm(1));
+
+        SmartDashboard.putData("Right Arm Postion 2", new SetRightGrabberArm(2));
+
+        SmartDashboard.putData("Right Arm Postion 3", new SetRightGrabberArm(3));
     }
+
     
     /**
      * Get the Drive joystick
@@ -122,5 +122,4 @@ public class OI {
     public Joystick getOperatorJoystick() {
         return operatorJoystick;
     }
-
-}
+    }
