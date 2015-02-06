@@ -17,15 +17,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.*;
-import edu.wpi.first.wpilibj.vision.AxisCamera;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.*;
 
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
-import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
+import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -45,8 +41,7 @@ public class Robot extends IterativeRobot {
     public static Elevator m_elevator;
    //public static Feeder m_feeder;
     
-    private Image frame;
-    private AxisCamera camera;
+    private CameraServer m_camServer;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -72,8 +67,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(m_airCompressor);
         SmartDashboard.putData(m_elevator);
         
-        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-        camera = new AxisCamera("10.1.91.100"); // Will likely need to change this IP address.
+        m_camServer = CameraServer.getInstance();
+        //server.setQuality(25);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        m_camServer.startAutomaticCapture("cam0");
         
     }
 
@@ -98,8 +95,6 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	camera.getImage(frame);
-        CameraServer.getInstance().setImage(frame);
         Scheduler.getInstance().run();
     }
 
@@ -115,9 +110,6 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	camera.getImage(frame);
-        CameraServer.getInstance().setImage(frame);
-        
         Scheduler.getInstance().run();
         
     }
