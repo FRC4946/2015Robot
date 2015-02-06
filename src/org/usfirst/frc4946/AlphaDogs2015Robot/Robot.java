@@ -11,13 +11,17 @@
 
 package org.usfirst.frc4946.AlphaDogs2015Robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.*;
+
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.*;
+
+import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,6 +40,8 @@ public class Robot extends IterativeRobot {
     public static AirCompressor m_airCompressor;
     public static Elevator m_elevator;
    //public static Feeder m_feeder;
+    
+    private CameraServer m_camServer;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -60,6 +66,12 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(m_grabber);
         SmartDashboard.putData(m_airCompressor);
         SmartDashboard.putData(m_elevator);
+        
+        m_camServer = CameraServer.getInstance();
+        //server.setQuality(25);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        m_camServer.startAutomaticCapture("cam0");
+        
     }
 
     /**
