@@ -5,9 +5,9 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.Joystick.AxisType;
-import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
+//import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+//import edu.wpi.first.wpilibj.Joystick.AxisType;
+//import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -20,10 +20,12 @@ public class DriveTrain extends Subsystem {
     SpeedController m_strafeMotor = RobotMap.driveTrainStrafeMotor;
     DoubleSolenoid m_gearShifterSolenoid = RobotMap.driveTrainGearShifterSolenoid;
     DoubleSolenoid m_wheelDropperSolenoid = RobotMap.driveTrainWheelDropperSolenoid;
-    Gyro m_gyro = RobotMap.driveTrainGyro;
-    Encoder m_leftEncoder = RobotMap.driveTrainLeftEncoder;
-    Encoder m_rightEncoder = RobotMap.driveTrainRightEncoder;
-    Encoder m_strafeEncoder = RobotMap.driveTrainStrafeEncoder;
+	Gyro m_gyro = RobotMap.driveTrainGyro;
+	Encoder m_leftEncoder = RobotMap.driveTrainLeftEncoder;
+	Encoder m_rightEncoder = RobotMap.driveTrainRightEncoder;
+	Encoder m_strafeEncoder = RobotMap.driveTrainStrafeEncoder;
+
+	private boolean isStrafeMode;
     DigitalInput m_frontLimitSwitch = RobotMap.driveTrainFrontLimitSwitch;
     
     /* Encoder (presumably) pulses 1000 times per revolution
@@ -32,32 +34,35 @@ public class DriveTrain extends Subsystem {
 	 * */
 	double kDistancePerPulse = 0.006 * Math.PI;
 	
-    Command m_driveArcade = new DriveWithJoystickArcade();
-    Command m_driveStrafe = new DriveWithJoystickStrafe();
-    
     //save the initial position of the gyroscope
     double gyroInitialPosition;
+
+    
     
     public void initDefaultCommand() {	
-		setDriveArcade();
+		setDefaultCommand(new DriveWithJoystick());
 		
 		m_leftEncoder.setDistancePerPulse(kDistancePerPulse);
 		m_rightEncoder.setDistancePerPulse(kDistancePerPulse);
 		m_strafeEncoder.setDistancePerPulse(kDistancePerPulse);
+		
+		//save the initial position of the gyroscope
+		//double gyroscopeInitialPosition;
+
     }
     
     /**
      * Set the default command to DriveWithJoystickStrafe
      */
     public void setDriveStrafe() {
-    	setDefaultCommand(m_driveStrafe);
+    	isStrafeMode = true;
     }
     
     /**
      * Set the default command to DriveWithJoystickArcade
      */
     public void setDriveArcade() {
-    	setDefaultCommand(m_driveArcade);
+    	isStrafeMode = false;
     }
     
 
@@ -78,6 +83,7 @@ public class DriveTrain extends Subsystem {
         rotateValue = (rotateValue * (0.7 + 0.2 * driveSpeed)); // 0.7 to 0.9
         
         
+        m_strafeMotor.set(0.0);
 		m_robotDrive.arcadeDrive(moveValue, rotateValue);	
 	}
 
@@ -106,10 +112,10 @@ public class DriveTrain extends Subsystem {
 
         //Scale motor speed based off of the drive joystick throttle
         moveValue = moveValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
-        rotateValue = (rotateValue * (0.7 + 0.2 * driveSpeed)); // 0.7 to 0.9
+        rotateValue = rotateValue * (0.7 + 0.2 * driveSpeed); // 0.7 to 0.9
         strafeValue = strafeValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
         
-        // Maually square inputs to add precision near middle of Joystick for strafing
+        // Manually square inputs to add precision near middle of Joystick for strafing
     	if (strafeValue >= 0) {
     		strafeValue = strafeValue * strafeValue;
     	} else {
@@ -135,36 +141,41 @@ public class DriveTrain extends Subsystem {
 	/**
      * Shift the gearbox into either high or low gear
 	 * 
-	 * @param isHigh Whether to shift into high gear or not. True shifts to high gear.
+	 * @param isHigh Whether to shift into high gear or not. 0 disables the solenoid, 1 shifts to low gear, 2 shifts to high gear.
 	 */
-	public void setGear(boolean isHigh) {
+	public void setGear(int isHigh) {
 
-		if (isHigh) {
+		if (isHigh == 1) {
+			m_gearShifterSolenoid.set(DoubleSolenoid.Value.kForward);
+		} else if (isHigh == 2) {
 			m_gearShifterSolenoid.set(DoubleSolenoid.Value.kReverse);
 		} else {
-			m_gearShifterSolenoid.set(DoubleSolenoid.Value.kForward);
+			m_gearShifterSolenoid.set(DoubleSolenoid.Value.kOff);
 		}
+		
 	}
 	
 	
 	/**
      * Lower or raise the middle wheel.
 	 * 
-	 * @param isRaised Whether to raisethe wheel or not. True raises the wheel.
+	 * @param isRaised Whether to raise the wheel or not. 0 disables the solenoid, 1 lowers the wheel, 2 raises it.
 	 */
-	public void setDropWheel(boolean isRaised) {
+	public void setDropWheel(int isRaised) {
 
-		if (isRaised) {
+		if (isRaised == 1) {
+			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kForward);
+		} else if (isRaised == 2) {
 			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kReverse);
 		} else {
-			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kForward);
+			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kOff);
 		}
 	}
 
 	/**
      * Get the Left Encoder
      * 
-     * @return The left encoder
+     * @return The lesft encoder
      */
 	public Encoder getLeftEncoder() {
 		return m_leftEncoder;
@@ -207,6 +218,8 @@ public class DriveTrain extends Subsystem {
 		return m_frontLimitSwitch.get();
 		
 	}
-
+	
+	public boolean getDriveMode(){
+		return isStrafeMode;
+	}
 }
-

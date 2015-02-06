@@ -15,6 +15,6 @@ public class SetToStrafeMode extends CommandGroup {
 		Robot.m_driveTrain.setDriveStrafe(); // Set the default command of the
 												// drive train to Strafe drive
 
-		addParallel(new ActuateStrafeSolenoid(false)); // Drop the strafe wheel
+		addSequential(new ActuateStrafeSolenoid(false)); // Drop the strafe wheel
 	}
 }

@@ -16,10 +16,14 @@ public class SetToArcadeMode extends CommandGroup {
 		// Set the default command of the drive train to arcade drive
 		Robot.m_driveTrain.setDriveArcade();
 
+		boolean strafeButtonPressed = false;
+		
 		// Check the state of the manual strafe button
-		boolean strafeButtonPressed = Robot.m_oi.actuateStrafe.get();
-
+		if(Robot.m_oi != null){
+			strafeButtonPressed = Robot.m_oi.actuateStrafe.get();
+		}
+		
 		// If the button is pressed, lift the wheel
-		addParallel(new ActuateStrafeSolenoid(strafeButtonPressed));
+		addSequential(new ActuateStrafeSolenoid(strafeButtonPressed));
 	}
 }

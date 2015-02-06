@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ElevatorMoveUp extends Command {
+public class DriveWithJoystick extends Command {
 
-    public ElevatorMoveUp() {
-        requires(Robot.m_elevator);
+    public DriveWithJoystick() {
+        requires(Robot.m_driveTrain);
     }
 
     // Called just before this Command runs the first time
@@ -19,12 +19,17 @@ public class ElevatorMoveUp extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double joystickPositionYVal = Robot.m_oi.getOperatorJoystick().getY();
-    	if (joystickPositionYVal >= 0){
-    		Robot.m_elevator.moveElevator(joystickPositionYVal);
-    	} else {
-    		joystickPositionYVal *= 0.1 ;
-    		Robot.m_elevator.moveElevator(joystickPositionYVal);
+    	
+    	boolean isStrafeMode = Robot.m_driveTrain.getDriveMode();
+    	
+    	double Yval = Robot.m_oi.getDriveJoystick().getRawAxis(1);
+    	double Xval = Robot.m_oi.getDriveJoystick().getRawAxis(0);
+    	double Zval = Robot.m_oi.getDriveJoystick().getRawAxis(2);
+    	
+    	if(isStrafeMode){
+    		Robot.m_driveTrain.drive(-Yval, Xval);
+    	} else{
+        	Robot.m_driveTrain.strafeDrive(-Yval, -Zval, -Xval);
     	}
     	
     }
@@ -36,10 +41,13 @@ public class ElevatorMoveUp extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.m_driveTrain.strafeDrive(0.0, 0.0, 0.0);
+
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.m_driveTrain.strafeDrive(0.0, 0.0, 0.0);
     }
 }

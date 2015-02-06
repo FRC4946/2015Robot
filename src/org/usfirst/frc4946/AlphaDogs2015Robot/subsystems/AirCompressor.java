@@ -13,6 +13,7 @@ public class AirCompressor extends Subsystem {
 	Compressor m_compressor = RobotMap.airCompressorCompressor;
 
 	public void initDefaultCommand() {
+		m_compressor.setClosedLoopControl(true);
 		m_compressor.start();
 	}
 }

@@ -17,6 +17,7 @@ public class Grabber extends Subsystem {
 
 
     public void initDefaultCommand() {	
+    	setDefaultCommand(new GrabberDoNothing());
     }
     
     /**Controls left arm solenoid

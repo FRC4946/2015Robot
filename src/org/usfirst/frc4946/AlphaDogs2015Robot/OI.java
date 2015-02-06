@@ -25,11 +25,11 @@ public class OI {
     public JoystickButton toggleDriveMode;
     public Joystick operatorJoystick;
     
-    public JoystickButton feederArmToggle;
-    public JoystickButton feederMotorButtonCW;
-    public JoystickButton feederMotorButtonCCW;
-    public JoystickButton feederMotorButtonIn;
-    public JoystickButton feederMotorButtonOut;
+    //public JoystickButton feederArmToggle;
+    //public JoystickButton feederMotorButtonCW;
+    //public JoystickButton feederMotorButtonCCW;
+    //public JoystickButton feederMotorButtonIn;
+    //public JoystickButton feederMotorButtonOut;
     
     
     
@@ -54,16 +54,16 @@ public class OI {
         rightGrabberPosition3 = new JoystickButton(operatorJoystick, 5);	// Button 5 puts the right arm in the large position
         rightGrabberPosition3.whenPressed(new SetRightGrabberArm(3));
 
-    	feederArmToggle = new JoystickButton(operatorJoystick, 5);
-	    feederMotorButtonCW = new JoystickButton(operatorJoystick, 6);
-	    feederMotorButtonCW.whenPressed(new WheelMovement(1));//CW movement I think
-	    feederMotorButtonCW.whenReleased(new WheelMovement(0));//stops pls ty
-	    feederMotorButtonCCW = new JoystickButton(operatorJoystick, 7);
-	    feederMotorButtonCCW.whenPressed(new WheelMovement(2));//CCW movement I think
-	    feederMotorButtonCCW.whenReleased(new WheelMovement(0));//stops pls ty
-	    feederMotorButtonIn = new JoystickButton(operatorJoystick, 8);
-	    feederMotorButtonIn.whenPressed(new WheelMovement(3));//Intake movement I think
-	    feederMotorButtonIn.whenReleased(new WheelMovement(0));//stops pls ty
+    	//feederArmToggle = new JoystickButton(operatorJoystick, 5);
+	    //feederMotorButtonCW = new JoystickButton(operatorJoystick, 6);
+	    //feederMotorButtonCW.whenPressed(new WheelMovement(1));//CW movement I think
+	    //feederMotorButtonCW.whenReleased(new WheelMovement(0));//stops pls ty
+	    //feederMotorButtonCCW = new JoystickButton(operatorJoystick, 7);
+	    //feederMotorButtonCCW.whenPressed(new WheelMovement(2));//CCW movement I think
+	    //feederMotorButtonCCW.whenReleased(new WheelMovement(0));//stops pls ty
+	    //feederMotorButtonIn = new JoystickButton(operatorJoystick, 8);
+	    //feederMotorButtonIn.whenPressed(new WheelMovement(3));//Intake movement I think
+	    //feederMotorButtonIn.whenReleased(new WheelMovement(0));//stops pls ty
     	
         
     	// =*=*=*=*=*= Driver Joystick =*=*=*=*=*=
@@ -90,20 +90,20 @@ public class OI {
         SmartDashboard.putData("Shift High Gear", new ShiftGear(true));
 
         SmartDashboard.putData("Shift Low Gear", new ShiftGear(false));
-        
+
         SmartDashboard.putData("Left Arm Retracted (Postion 0)", new SetLeftGrabberArm(false));
 
         SmartDashboard.putData("Left Arm Retracted (Postion 1)", new SetLeftGrabberArm(true));
-        
-        SmartDashboard.putData("Right Arm Position 0", new SetRightGrabberArm(0));
-        
-        SmartDashboard.putData("Right Arm Postion 1", new SetRightGrabberArm(1));
-        
-        SmartDashboard.putData("Right Arm Postion 2", new SetRightGrabberArm(2));
-        
-        SmartDashboard.putData("Right Arm Postion 3", new SetRightGrabberArm(3));
 
+        SmartDashboard.putData("Right Arm Position 0", new SetRightGrabberArm(0));
+
+        SmartDashboard.putData("Right Arm Postion 1", new SetRightGrabberArm(1));
+
+        SmartDashboard.putData("Right Arm Postion 2", new SetRightGrabberArm(2));
+
+        SmartDashboard.putData("Right Arm Postion 3", new SetRightGrabberArm(3));
     }
+
     
     /**
      * Get the Drive joystick
@@ -122,6 +122,4 @@ public class OI {
     public Joystick getOperatorJoystick() {
         return operatorJoystick;
     }
-
-}
-
+    }

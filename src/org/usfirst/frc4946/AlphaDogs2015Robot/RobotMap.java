@@ -25,15 +25,15 @@ public class RobotMap {
     public static RobotDrive driveTrainRobotDrive;
     public static DoubleSolenoid driveTrainGearShifterSolenoid;
     public static DoubleSolenoid driveTrainWheelDropperSolenoid;
+
     public static Gyro driveTrainGyro;
     public static Encoder driveTrainLeftEncoder;
     public static Encoder driveTrainRightEncoder;
     public static Encoder driveTrainStrafeEncoder;
-    public static DigitalInput driveTrainFrontLimitSwitch;
     
-    public static Solenoid feederSolenoid;
-    public static SpeedController feederLeftMotor;
-    public static SpeedController feederRightMotor;
+    //public static Solenoid feederSolenoid;
+    //public static SpeedController feederLeftMotor;
+    //public static SpeedController feederRightMotor;
     
     public static Solenoid grabberLeftArmSolenoid;
     public static Solenoid grabberSmallRightArmSolenoid;
@@ -47,6 +47,7 @@ public class RobotMap {
     public static AnalogPotentiometer elevatorAnalogPotentiometer;
     public static DigitalInput elevatorBottomLimitSwitch;
     public static DigitalInput elevatorTopLimitSwitch;
+    public static DigitalInput driveTrainFrontLimitSwitch;
     
     public static void init() {
     	
@@ -102,12 +103,8 @@ public class RobotMap {
         driveTrainRightEncoder.setDistancePerPulse(1.0);
         driveTrainRightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         
-        driveTrainStrafeEncoder = new Encoder(6, 7, false, EncodingType.k4X);
-        LiveWindow.addSensor("Drive Train", "Strafe Encoder", driveTrainStrafeEncoder);
-        driveTrainStrafeEncoder.setDistancePerPulse(1.0);
-        driveTrainStrafeEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+        elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 80, 0.0);
 
-        elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 1.0, 0.0);
         LiveWindow.addSensor("Elevator", "Analog Potentiometer", elevatorAnalogPotentiometer);
         
         elevatorBottomLimitSwitch = new DigitalInput(0);
