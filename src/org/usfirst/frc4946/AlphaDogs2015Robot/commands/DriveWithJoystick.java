@@ -27,9 +27,9 @@ public class DriveWithJoystick extends Command {
     	double Zval = Robot.m_oi.getDriveJoystick().getRawAxis(2);
     	
     	if(isStrafeMode){
-    		Robot.m_driveTrain.drive(Yval, -Xval);
+    		Robot.m_driveTrain.drive(-Yval, Xval);
     	} else{
-        	Robot.m_driveTrain.strafeDrive(Yval, -Zval, Xval);
+        	Robot.m_driveTrain.strafeDrive(-Yval, -Zval, -Xval);
     	}
     	
     }

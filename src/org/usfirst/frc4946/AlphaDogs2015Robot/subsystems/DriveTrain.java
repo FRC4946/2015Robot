@@ -66,6 +66,7 @@ public class DriveTrain extends Subsystem {
         rotateValue = (rotateValue * (0.7 + 0.2 * driveSpeed)); // 0.7 to 0.9
         
         
+        m_strafeMotor.set(0.0);
 		m_robotDrive.arcadeDrive(moveValue, rotateValue);	
 	}
 
@@ -79,30 +80,30 @@ public class DriveTrain extends Subsystem {
 	public void strafeDrive(double moveValue, double rotateValue, double strafeValue) {
 		
     	
-//		// Limit the value of the strafe wheel from [-1.0, 1.0]
-//		if (strafeValue > 1.0) {
-//			strafeValue = 1.0;
-//        }
-//        if (strafeValue < -1.0) {
-//        	strafeValue = -1.0;s
-//        }        
-//        
-//        // Get the throttle value from the drive joystick
-//        double driveSpeed = Robot.m_oi.getDriveJoystick().getThrottle();
-//        driveSpeed *= -1;                        //Flip range from (1, -1) to (-1, 1)
-//        driveSpeed = (driveSpeed + 1) / 2;    // Shift to (0,1)
-//
-//        //Scale motor speed based off of the drive joystick throttle
-//        moveValue = moveValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
-//        rotateValue = (rotateValue * (0.7 + 0.2 * driveSpeed)); // 0.7 to 0.9
-//        strafeValue = strafeValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
-//        
-//        // Maually square inputs to add precision near middle of Joystick for strafing
-//    	if (strafeValue >= 0) {
-//    		strafeValue = strafeValue * strafeValue;
-//    	} else {
-//    		strafeValue = -strafeValue * strafeValue;  // Keeps negative value if strafe movement was negative
-//    	}
+		// Limit the value of the strafe wheel from [-1.0, 1.0]
+		if (strafeValue > 1.0) {
+			strafeValue = 1.0;
+        }
+        if (strafeValue < -1.0) {
+        	strafeValue = -1.0;
+        }        
+        
+        // Get the throttle value from the drive joystick
+        double driveSpeed = Robot.m_oi.getDriveJoystick().getThrottle();
+        driveSpeed *= -1;                        //Flip range from (1, -1) to (-1, 1)
+        driveSpeed = (driveSpeed + 1) / 2;    // Shift to (0,1)
+
+        //Scale motor speed based off of the drive joystick throttle
+        moveValue = moveValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
+        rotateValue = rotateValue * (0.7 + 0.2 * driveSpeed); // 0.7 to 0.9
+        strafeValue = strafeValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
+        
+        // Manually square inputs to add precision near middle of Joystick for strafing
+    	if (strafeValue >= 0) {
+    		strafeValue = strafeValue * strafeValue;
+    	} else {
+    		strafeValue = -strafeValue * strafeValue;  // Keeps negative value if strafe movement was negative
+    	}
 		
     	// Set the motors to the desired speed
 		m_robotDrive.arcadeDrive(moveValue, rotateValue);
