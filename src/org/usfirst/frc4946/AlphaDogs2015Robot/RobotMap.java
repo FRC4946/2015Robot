@@ -25,10 +25,11 @@ public class RobotMap {
     public static RobotDrive driveTrainRobotDrive;
     public static DoubleSolenoid driveTrainGearShifterSolenoid;
     public static DoubleSolenoid driveTrainWheelDropperSolenoid;
-    //public static Gyro driveTrainGyro;
-    //public static Encoder driveTrainLeftEncoder;
-    //public static Encoder driveTrainRightEncoder;
-    //public static Encoder driveTrainStrafeEncoder;
+
+    public static Gyro driveTrainGyro;
+    public static Encoder driveTrainLeftEncoder;
+    public static Encoder driveTrainRightEncoder;
+    public static Encoder driveTrainStrafeEncoder;
     
     //public static Solenoid feederSolenoid;
     //public static SpeedController feederLeftMotor;
@@ -46,6 +47,7 @@ public class RobotMap {
     public static AnalogPotentiometer elevatorAnalogPotentiometer;
     public static DigitalInput elevatorBottomLimitSwitch;
     public static DigitalInput elevatorTopLimitSwitch;
+    public static DigitalInput driveTrainFrontLimitSwitch;
     
     public static void init() {
     	
@@ -87,19 +89,19 @@ public class RobotMap {
         
         
         // Sensors
-        //driveTrainGyro = new Gyro(1);
-        //LiveWindow.addSensor("Drive Train", "Gyro", driveTrainGyro);
-        //driveTrainGyro.setSensitivity(0.007);
+        driveTrainGyro = new Gyro(1);
+        LiveWindow.addSensor("Drive Train", "Gyro", driveTrainGyro);
+        driveTrainGyro.setSensitivity(0.007);
         
-        //driveTrainLeftEncoder = new Encoder(2, 3, false, EncodingType.k4X);
-        //LiveWindow.addSensor("Drive Train", "Left Encoder", driveTrainLeftEncoder);
-        //driveTrainLeftEncoder.setDistancePerPulse(1.0);
-        //driveTrainLeftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+        driveTrainLeftEncoder = new Encoder(2, 3, false, EncodingType.k4X);
+        LiveWindow.addSensor("Drive Train", "Left Encoder", driveTrainLeftEncoder);
+        driveTrainLeftEncoder.setDistancePerPulse(1.0);
+        driveTrainLeftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         
-        //driveTrainRightEncoder = new Encoder(4, 5, false, EncodingType.k4X);
-        //LiveWindow.addSensor("Drive Train", "Right Encoder", driveTrainRightEncoder);
-        //driveTrainRihtEncoder.setDistancePerPulse(1.0);
-        //driveTrainRightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+        driveTrainRightEncoder = new Encoder(4, 5, false, EncodingType.k4X);
+        LiveWindow.addSensor("Drive Train", "Right Encoder", driveTrainRightEncoder);
+        driveTrainRightEncoder.setDistancePerPulse(1.0);
+        driveTrainRightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         
         elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 80, 0.0);
 
@@ -110,5 +112,8 @@ public class RobotMap {
         
         elevatorTopLimitSwitch = new DigitalInput(1);
         LiveWindow.addSensor("Elevator", "Top Limit Switch", elevatorTopLimitSwitch);
+        
+        driveTrainFrontLimitSwitch = new DigitalInput(8);
+        LiveWindow.addSensor("Drive Train", "Front Limit Switch", driveTrainFrontLimitSwitch);
     }
 }

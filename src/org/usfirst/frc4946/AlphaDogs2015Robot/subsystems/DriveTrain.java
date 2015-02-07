@@ -20,18 +20,35 @@ public class DriveTrain extends Subsystem {
     SpeedController m_strafeMotor = RobotMap.driveTrainStrafeMotor;
     DoubleSolenoid m_gearShifterSolenoid = RobotMap.driveTrainGearShifterSolenoid;
     DoubleSolenoid m_wheelDropperSolenoid = RobotMap.driveTrainWheelDropperSolenoid;
-    //Gyro m_gyro = RobotMap.driveTrainGyro;
-    //Encoder m_leftEncoder = RobotMap.driveTrainLeftEncoder;
-    //Encoder m_rightEncoder = RobotMap.driveTrainRightEncoder;
-    //Encoder m_strafeEncoder = RobotMap.driveTrainStrafeEncoder;
+	Gyro m_gyro = RobotMap.driveTrainGyro;
+	Encoder m_leftEncoder = RobotMap.driveTrainLeftEncoder;
+	Encoder m_rightEncoder = RobotMap.driveTrainRightEncoder;
+	Encoder m_strafeEncoder = RobotMap.driveTrainStrafeEncoder;
+
+	private boolean isStrafeMode;
+    DigitalInput m_frontLimitSwitch = RobotMap.driveTrainFrontLimitSwitch;
     
-    private boolean isStrafeMode;
+    /* Encoder (presumably) pulses 1000 times per revolution
+	 * Wheel's circumference is (6.0 * pi) inches
+	 * 1 encoder pulse is (0.006 * pi) inches
+	 * */
+	double kDistancePerPulse = 0.006 * Math.PI;
 	
+    //save the initial position of the gyroscope
+    double gyroInitialPosition;
+
+    
+    
     public void initDefaultCommand() {	
 		setDefaultCommand(new DriveWithJoystick());
 		
+		m_leftEncoder.setDistancePerPulse(kDistancePerPulse);
+		m_rightEncoder.setDistancePerPulse(kDistancePerPulse);
+		m_strafeEncoder.setDistancePerPulse(kDistancePerPulse);
+		
 		//save the initial position of the gyroscope
 		//double gyroscopeInitialPosition;
+
     }
     
     /**
@@ -154,7 +171,53 @@ public class DriveTrain extends Subsystem {
 			m_wheelDropperSolenoid.set(DoubleSolenoid.Value.kOff);
 		}
 	}
+
+	/**
+     * Get the Left Encoder
+     * 
+     * @return The lesft encoder
+     */
+	public Encoder getLeftEncoder() {
+		return m_leftEncoder;
+	}
 	
+	/**
+     * Get the Right Encoder
+     * 
+     * @return The right encoder
+     */
+	public Encoder getRightEncoder() {
+		return m_rightEncoder;
+	}
+
+	/**
+     * Get the Strafe Encoder
+     * 
+     * @return The strafe encoder
+     */
+	public Encoder getStrafeEncoder() {
+		return m_strafeEncoder;
+	}
+	
+	/**
+     * Get the Gyro
+     * 
+     * @return The gyro
+     */
+	public Gyro getGyro() {
+		return m_gyro;
+		
+	}
+	
+	/**
+     * Get the state of the front limit switch
+     * 
+     * @return Whether or not the switch is pressed
+     */
+	public boolean getLimitSwitchState() {
+		return m_frontLimitSwitch.get();
+		
+	}
 	
 	public boolean getDriveMode(){
 		return isStrafeMode;
