@@ -1,4 +1,4 @@
-package org.usfirst.frc4946.AlphaDogs2015Robot.commands;
+package org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

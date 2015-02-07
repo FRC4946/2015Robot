@@ -1,4 +1,4 @@
-package org.usfirst.frc4946.AlphaDogs2015Robot.commands;
+package org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 

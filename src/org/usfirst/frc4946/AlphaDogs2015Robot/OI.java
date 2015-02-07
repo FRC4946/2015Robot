@@ -1,6 +1,12 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ActuateStrafeSolenoid;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToArcadeMode;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToStrafeMode;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ShiftGear;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetLeftGrabberArm;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetRightGrabberArm;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;

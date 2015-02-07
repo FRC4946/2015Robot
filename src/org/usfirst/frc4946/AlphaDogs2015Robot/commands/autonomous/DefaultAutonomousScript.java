@@ -1,8 +1,8 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.SetLeftGrabberArm;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.SetRightGrabberArm;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetLeftGrabberArm;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetRightGrabberArm;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.*;
