@@ -8,36 +8,27 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 /**
  *
  */
-public class ElevatorMove extends Command {
+public class ElevatorMoveToPosition extends Command {
 
-    public ElevatorMove() {
+	private double m_setPos;
+	
+    public ElevatorMoveToPosition(double newPos) {
         requires(Robot.m_elevator);
+        m_setPos = newPos;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.m_elevator.setFinalTarget(m_setPos);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
     	double elevatorPos = Robot.m_elevator.getElevatorPos();
     	SmartDashboard.putNumber("Elevor Position", elevatorPos);
     	
-    	double joystickPositionYVal = Robot.m_oi.getOperatorJoystick().getY();
-    	if (joystickPositionYVal > 0){
-    		joystickPositionYVal *= 0.1 ;
-    		//if (robot arm is below max position according to sensor) {
-    		 Robot.m_elevator.moveElevator(joystickPositionYVal);
-    		 //}
-    	}
-    	else if (joystickPositionYVal < 0){
-    		//if (robot arm is above min position according to sensor){
-    		joystickPositionYVal *= 0.1 ;
-    		Robot.m_elevator.moveElevator(joystickPositionYVal);
-    		//}
-    	}
-    	
+    	Robot.m_elevator.updateTrajectoryTrack();
+  
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -47,10 +38,12 @@ public class ElevatorMove extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.m_elevator.manualMoveElevator(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

@@ -2,6 +2,7 @@ package org.usfirst.frc4946.AlphaDogs2015Robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Preferences;
@@ -45,7 +46,7 @@ public class Robot extends IterativeRobot {
 
    //public static Feeder m_feeder;
     
-    private CameraServer m_camServer;
+    //private CameraServer m_camServer;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -54,9 +55,9 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	    	
     	
-        m_proportional = m_prefs.getDouble("ProportionalValue", 0.0);
-        m_integral = m_prefs.getDouble("IntegralValue", 0.0);
-        m_derivative = m_prefs.getDouble("DerivativeValue", 0.0);
+        //m_proportional = m_prefs.getDouble("ProportionalValue", 0.0);
+        //m_integral = m_prefs.getDouble("IntegralValue", 0.0);
+        //m_derivative = m_prefs.getDouble("DerivativeValue", 0.0);
 
         RobotMap.init();
         m_driveTrain = new DriveTrain();
@@ -122,10 +123,14 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(m_airCompressor);
         SmartDashboard.putData(m_elevator);
         
-        m_camServer = CameraServer.getInstance();
+        PowerDistributionPanel m_PDP = new PowerDistributionPanel();
+        SmartDashboard.putData("PDP", m_PDP);
+        
+        
+        //m_camServer = CameraServer.getInstance();
         //server.setQuality(25);
         //the camera name (ex "cam0") can be found through the roborio web interface
-        m_camServer.startAutomaticCapture("cam0");
+        //m_camServer.startAutomaticCapture("cam0");
         
     }
 

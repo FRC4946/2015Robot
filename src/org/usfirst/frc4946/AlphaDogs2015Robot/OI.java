@@ -5,6 +5,7 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ActuateStrafeS
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToArcadeMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToStrafeMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ShiftGear;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetLeftGrabberArm;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetRightGrabberArm;
 
@@ -28,6 +29,12 @@ public class OI {
     public JoystickButton rightGrabberPosition1;
     public JoystickButton rightGrabberPosition2;
     public JoystickButton rightGrabberPosition3;
+    public JoystickButton setPIDMode;
+    public JoystickButton setManualMode;
+    public JoystickButton setElevatorPosition1;
+    public JoystickButton setElevatorPosition2;
+    public JoystickButton setElevatorPosition3;
+
     public JoystickButton toggleDriveMode;
     
     public JoystickButton gyroButton0;
@@ -66,6 +73,18 @@ public class OI {
         rightGrabberPosition1.whenPressed(new SetRightGrabberArm(1));
         rightGrabberPosition3 = new JoystickButton(operatorJoystick, 5);	// Button 5 puts the right arm in the large position
         rightGrabberPosition3.whenPressed(new SetRightGrabberArm(3));
+        
+        setPIDMode = new JoystickButton(operatorJoystick, 8);	// Button 5 puts the right arm in the large position
+        setPIDMode.whenPressed(new SetElevatorMode(true));	// Button 5 puts the right arm in the large position
+        setManualMode = new JoystickButton(operatorJoystick, 9);
+        setManualMode.whenPressed(new SetElevatorMode(false));	// Button 5 puts the right arm in the large position
+
+        setElevatorPosition1 = new JoystickButton(operatorJoystick, 6);	// Button 5 puts the right arm in the large position
+        setElevatorPosition1.whenPressed(new ElevatorMoveToPosition(20.0));	// Button 5 puts the right arm in the large position
+        setElevatorPosition2 = new JoystickButton(operatorJoystick, 7);	// Button 5 puts the right arm in the large position
+        setElevatorPosition2.whenPressed(new ElevatorMoveToPosition(40.0));	// Button 5 puts the right arm in the large position
+        setElevatorPosition3 = new JoystickButton(operatorJoystick, 10);	// Button 5 puts the right arm in the large position
+        setElevatorPosition3.whenPressed(new ElevatorMoveToPosition(65.0));	// Button 5 puts the right arm in the large position
 
     	//feederArmToggle = new JoystickButton(operatorJoystick, 5);
 	    //feederMotorButtonCW = new JoystickButton(operatorJoystick, 6);
@@ -122,6 +141,13 @@ public class OI {
         SmartDashboard.putData("Right Arm Postion 2", new SetRightGrabberArm(2));
 
         SmartDashboard.putData("Right Arm Postion 3", new SetRightGrabberArm(3));
+        
+        
+        
+        
+      //  double m_desiredElevatorPosition = SmartDashboard.getNumber("Elevator Height", 30);
+        
+       // SmartDashboard.putData("Move Elevator", new ElevatorMoveToPosition(m_desiredElevatorPosition));
     }
 
     

@@ -62,6 +62,7 @@ public class RobotMap {
         driveTrainRightRearDriveMotor =		new CANTalon(3);
         driveTrainStrafeMotor =				new CANTalon(4);
         elevatorElevatorMotor =				new CANTalon(5);
+        //LiveWindow.addActuator("Elevator", "Elevator Motor", (LiveWindowSendable) elevatorElevatorMotor);
         //feederLeftMotor =					new VictorSP(0);
         //feederRightMotor =				new VictorSP(1);
 
@@ -103,8 +104,12 @@ public class RobotMap {
         driveTrainRightEncoder.setDistancePerPulse(1.0);
         driveTrainRightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         
-        elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 80, 0.0);
-
+        driveTrainStrafeEncoder = new Encoder(6, 7, false, EncodingType.k4X);
+        LiveWindow.addSensor("Drive Train", "Right Encoder", driveTrainRightEncoder);
+        driveTrainStrafeEncoder.setDistancePerPulse(1.0);
+        driveTrainStrafeEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+        
+        elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 85.27, 7.5);
         LiveWindow.addSensor("Elevator", "Analog Potentiometer", elevatorAnalogPotentiometer);
         
         elevatorBottomLimitSwitch = new DigitalInput(0);

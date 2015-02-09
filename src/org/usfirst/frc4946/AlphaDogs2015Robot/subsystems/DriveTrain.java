@@ -113,7 +113,7 @@ public class DriveTrain extends Subsystem {
 
         //Scale motor speed based off of the drive joystick throttle
         moveValue = moveValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
-        rotateValue = rotateValue * (0.7 + 0.2 * driveSpeed); // 0.7 to 0.9
+        rotateValue = rotateValue * (0.3 + 0.2 * driveSpeed); // 0.3 to 0.5
         strafeValue = strafeValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
         
         // Manually square inputs to add precision near middle of Joystick for strafing
