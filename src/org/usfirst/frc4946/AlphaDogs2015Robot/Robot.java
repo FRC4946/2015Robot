@@ -28,9 +28,7 @@ public class Robot extends IterativeRobot {
     CommandGroup m_autonomousCommandGroup;
     //SendableChooser m_pickAutonomous;
     SendableChooser m_autonomousStartingPosition;
-    SendableChooser m_autonomousAmountToMove;
-    SendableChooser m_autonomousDirectionToMove;
-    //SendableChooser m_autonomousToteIsPreLoaded;
+    SendableChooser m_autonomousAmountOrDirectionToMove;
     private String m_autonomousStatus = "";
 
     public static OI m_oi;
@@ -79,18 +77,12 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Select autonomous starting position", m_autonomousStartingPosition);
         
         // Select the number of positions to move
-        m_autonomousAmountToMove = new SendableChooser();
-        m_autonomousAmountToMove.addDefault("Do not pick up any additional totes", 0);
-        m_autonomousAmountToMove.addObject("Move 1 space", 1);
-        m_autonomousAmountToMove.addObject("Move 2 spaces", 2);
-        SmartDashboard.putData("IF POSITION IS NOT MIDDLE: Select the number of positions to move", m_autonomousAmountToMove);
+        m_autonomousAmountOrDirectionToMove = new SendableChooser();
+        m_autonomousAmountOrDirectionToMove.addDefault("Do not pick up any additional totes", 0);
+        m_autonomousAmountOrDirectionToMove.addObject("Move 1 space OR move left", 1);
+        m_autonomousAmountOrDirectionToMove.addObject("Move 2 spaces OR move right", 2);
+        SmartDashboard.putData("directionOrAmount", m_autonomousAmountOrDirectionToMove);
 
-        // Select the direction to move
-        m_autonomousDirectionToMove = new SendableChooser();
-        m_autonomousDirectionToMove.addDefault("Do not pick up any additional totes", 0);
-        m_autonomousDirectionToMove.addObject("Move left 1 space", 1);
-        m_autonomousDirectionToMove.addObject("Move right 1 space", 2);
-        SmartDashboard.putData("IF POSITION IS MIDDLE: Select the direction to move", m_autonomousDirectionToMove);
         
         // Select whether the tote is pre-loaded or not
         //m_autonomousToteIsPreLoaded = new SendableChooser();
@@ -147,17 +139,9 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-    	SmartDashboard.putString("Autonomous Status", "PLX WORK");
-
     	
     	int pos = (int) m_autonomousStartingPosition.getSelected();
-    	
-    	int amountOrDirection;
-    	if(pos != 1){
-    		amountOrDirection = (int) m_autonomousAmountToMove.getSelected();
-    	} else{
-    		amountOrDirection = (int) m_autonomousDirectionToMove.getSelected();
-    	}
+    	int amountOrDirection = (int) m_autonomousAmountOrDirectionToMove.getSelected();
     	
     	//boolean toteIsLoaded = (boolean) m_autonomousToteIsPreLoaded.getSelected();
     	
