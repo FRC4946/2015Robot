@@ -5,7 +5,6 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ActuateStrafeS
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToArcadeMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToStrafeMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ShiftGear;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetLeftGrabberArm;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetRightGrabberArm;
 
@@ -29,13 +28,6 @@ public class OI {
     public JoystickButton rightGrabberPosition1;
     public JoystickButton rightGrabberPosition2;
     public JoystickButton rightGrabberPosition3;
-    public JoystickButton setPIDMode;
-    public JoystickButton setManualMode;
-    public JoystickButton setElevatorPosition1;
-    public JoystickButton setElevatorPosition2;
-    public JoystickButton setElevatorPosition3;
-    public JoystickButton setElevatorPosition4;
-
     public JoystickButton toggleDriveMode;
     
     public JoystickButton gyroButton0;
@@ -66,40 +58,14 @@ public class OI {
         leftGrabber.whenPressed(new SetLeftGrabberArm(true));	// Actuate the left arm in when button is held,
         leftGrabber.whenReleased(new SetLeftGrabberArm(false));	// And actuate it out when the button is released
 
+        rightGrabberPosition0 = new JoystickButton(operatorJoystick, 2);	// Button 2 brings the right arm all the way in
+        rightGrabberPosition0.whenPressed(new SetRightGrabberArm(0));
         rightGrabberPosition2 = new JoystickButton(operatorJoystick, 3);	// Button 3 puts the right arm in the middle position
         rightGrabberPosition2.whenPressed(new SetRightGrabberArm(2));
-        rightGrabberPosition2.whenReleased(new SetRightGrabberArm(0));
-
         rightGrabberPosition1 = new JoystickButton(operatorJoystick, 4);	// Button 4 puts the right arm in the short position
         rightGrabberPosition1.whenPressed(new SetRightGrabberArm(1));
-        rightGrabberPosition1.whenReleased(new SetRightGrabberArm(0));
-
         rightGrabberPosition3 = new JoystickButton(operatorJoystick, 5);	// Button 5 puts the right arm in the large position
         rightGrabberPosition3.whenPressed(new SetRightGrabberArm(3));
-        rightGrabberPosition3.whenReleased(new SetRightGrabberArm(0));
-
-        
-        
-        setManualMode = new JoystickButton(operatorJoystick, 9);
-        setManualMode.whenPressed(new SetElevatorMode(false));	// Button 5 puts the right arm in the large position
-        setManualMode.whileHeld(new ElevatorMoveManual());	// Button 5 puts the right arm in the large position
-
-        setElevatorPosition1 = new JoystickButton(operatorJoystick, 6);	// Button 5 puts the right arm in the large position
-        setElevatorPosition1.whenPressed(new SetElevatorMode(true));
-       	setElevatorPosition1.whileHeld(new ElevatorMoveToPosition(9.5));    
-
-        setElevatorPosition2 = new JoystickButton(operatorJoystick, 7);	// Button 5 puts the right arm in the large position
-        setElevatorPosition2.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition2.whileHeld(new ElevatorMoveToPosition(22.0));	// Button 5 puts the right arm in the large position
- 
-        setElevatorPosition3 = new JoystickButton(operatorJoystick, 10);	// Button 5 puts the right arm in the large position
-        setElevatorPosition3.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition3.whileHeld(new ElevatorMoveToPosition(33.5));	// Button 5 puts the right arm in the large position
-
-        setElevatorPosition4 = new JoystickButton(operatorJoystick, 11);	// Button 5 puts the right arm in the large position
-        setElevatorPosition4.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition4.whileHeld(new ElevatorMoveToPosition(45.0));
-        
 
     	//feederArmToggle = new JoystickButton(operatorJoystick, 5);
 	    //feederMotorButtonCW = new JoystickButton(operatorJoystick, 6);
@@ -123,8 +89,8 @@ public class OI {
         highGear.whenPressed(new ShiftGear(true));
         
         actuateStrafe = new JoystickButton(driveJoystick, 3);		// Button 3 actuates the strafe wheel dropper.
-        actuateStrafe.whenPressed(new ActuateStrafeSolenoid(false));	// Lift the wheel whenever the button is held
-        actuateStrafe.whenReleased(new ActuateStrafeSolenoid(true));
+        actuateStrafe.whenPressed(new ActuateStrafeSolenoid(true));	// Lift the wheel whenever the button is held
+        actuateStrafe.whenReleased(new ActuateStrafeSolenoid(false));
         
 
         toggleDriveMode = new JoystickButton(driveJoystick, 5);	// Button 5 toggles driving modes.
@@ -132,11 +98,11 @@ public class OI {
         toggleDriveMode.whenReleased(new SetToArcadeMode());
         
         // Gyro Buttons
-        //gyroButton0 = new JoystickButton(driveJoystick, 5);
-        //gyroButton0.whenPressed(RotateRobotWithGyro(0));
-        //gyroButton90 = new JoystickButton(driveJoystick, 6);
-        //gyroButton180 = new JoystickButton(driveJoystick, 7);
-        //gyroButton270 = new JoystickButton(driveJoystick, 8);
+        gyroButton0 = new JoystickButton(driveJoystick, 5);
+        gyroButton0.whenPressed(RotateRobotWithGyro(0));
+        gyroButton90 = new JoystickButton(driveJoystick, 6);
+        gyroButton180 = new JoystickButton(driveJoystick, 7);
+        gyroButton270 = new JoystickButton(driveJoystick, 8);
         
         
 	    
@@ -156,15 +122,13 @@ public class OI {
         SmartDashboard.putData("Right Arm Postion 2", new SetRightGrabberArm(2));
 
         SmartDashboard.putData("Right Arm Postion 3", new SetRightGrabberArm(3));
-        
-        
-        
-        
-      //  double m_desiredElevatorPosition = SmartDashboard.getNumber("Elevator Height", 30);
-        
-       // SmartDashboard.putData("Move Elevator", new ElevatorMoveToPosition(m_desiredElevatorPosition));
     }
 
+    
+    private Command RotateRobotWithGyro(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
     /**
      * Get the Drive joystick

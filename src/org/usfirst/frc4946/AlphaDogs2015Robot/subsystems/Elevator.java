@@ -15,6 +15,7 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveManual;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.IntermediatePIDControl;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -56,7 +57,7 @@ public class Elevator extends Subsystem {
     
     public void initDefaultCommand() {    
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new ElevatorMoveManual());
+        setDefaultCommand(new IntermediatePIDControl());
         
         // Default to manual operation mode
         setControlMode(false);
