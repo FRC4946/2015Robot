@@ -23,9 +23,11 @@ public class ElevatorMoveManual extends Command {
     	
     	double elevatorPos = Robot.m_elevator.getElevatorPos();
     	SmartDashboard.putNumber("Elevator Position", elevatorPos);
-
     	
     	double joystickPositionYVal = Robot.m_oi.getOperatorJoystick().getY();
+
+    	
+    	SmartDashboard.putNumber("Joystick pos", joystickPositionYVal);    	
     	
     	//joystickPositionYVal *= -1;
     	

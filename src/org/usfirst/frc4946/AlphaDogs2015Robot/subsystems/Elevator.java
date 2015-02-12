@@ -32,11 +32,10 @@ public class Elevator extends Subsystem {
     DigitalInput m_topLimitSwitch = RobotMap.elevatorTopLimitSwitch;
 
     double q_0 = 0.0; // The initial position when a new setPoint is set
-    double V_max = 4.5; // The maximum velocity, in inches/second
+    double V_max = 8; // The maximum velocity, in inches/second
     double q_f = 0.0; // The final position, or the setPoint
     double t_i = 0.0; // The initial time when a new setPoint is set
     double t_f = 0.0; // The final time, or when the movement is expected to finish
-    //double t_f_abs = 0.0;
 
     
     
@@ -77,11 +76,13 @@ public class Elevator extends Subsystem {
     public void manualMoveElevator(double joystickValue) {
     	
     	double curPos = m_analogPotentiometer.get();
-    	if (curPos > 9.5 || curPos < 60){
-    		m_elevatorMotor.set(0.0);
-    	} else {
+    	if (curPos > 9.5 && curPos < 60){
     		m_elevatorMotor.set(joystickValue);
-    	}
+    	} else if(curPos < 9.5){
+    		m_elevatorMotor.set(0.1);
+    	} else if(curPos > 60){
+     		m_elevatorMotor.set(-0.1);
+     	}
     }
 
     /**
@@ -123,8 +124,7 @@ public class Elevator extends Subsystem {
 		t_i = System.currentTimeMillis()/1000.0;
 		q_f = setPos;
 
-		t_f = 1.5*	(q_f-q_0)/V_max;
-		//t_f_abs = 1.5*	(Math.abs(q_f-q_0))	/V_max;
+		t_f = 1.5*	Math.abs(q_f-q_0)/V_max;
 
 		m_PIDisAtPosition = false;
 	}

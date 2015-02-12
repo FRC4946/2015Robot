@@ -90,13 +90,13 @@ public class OI {
 
 
         setElevatorPosition2 = new JoystickButton(operatorJoystick, 7);	// Button 5 puts the right arm in the large position
-        setElevatorPosition1.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition1.whileHeld(new ElevatorMoveToPosition(40.0));	// Button 5 puts the right arm in the large position
+        setElevatorPosition2.whenPressed(new SetElevatorMode(true));
+        setElevatorPosition2.whileHeld(new ElevatorMoveToPosition(40.0));	// Button 5 puts the right arm in the large position
 
         
         setElevatorPosition3 = new JoystickButton(operatorJoystick, 10);	// Button 5 puts the right arm in the large position
-        setElevatorPosition1.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition1.whileHeld(new ElevatorMoveToPosition(60.0));	// Button 5 puts the right arm in the large position
+        setElevatorPosition3.whenPressed(new SetElevatorMode(true));
+        setElevatorPosition3.whileHeld(new ElevatorMoveToPosition(60.0));	// Button 5 puts the right arm in the large position
 
 
     	//feederArmToggle = new JoystickButton(operatorJoystick, 5);

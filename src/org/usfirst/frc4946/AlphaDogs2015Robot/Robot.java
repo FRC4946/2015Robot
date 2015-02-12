@@ -162,7 +162,7 @@ public class Robot extends IterativeRobot {
     	//boolean toteIsLoaded = (boolean) m_autonomousToteIsPreLoaded.getSelected();
     	
     	//m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection, toteIsLoaded);
-    	m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection);
+    	m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection, true);
     	
         if(m_autonomousCommandGroup != null) {
             m_autonomousCommandGroup.start();
