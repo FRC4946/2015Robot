@@ -83,6 +83,7 @@ public class OI {
         setManualMode = new JoystickButton(operatorJoystick, 9);
         setManualMode.whenPressed(new SetElevatorMode(false));	// Button 5 puts the right arm in the large position
         setManualMode.whileHeld(new ElevatorMoveManual());	// Button 5 puts the right arm in the large position
+        setManualMode.whenReleased(new SetElevatorMode(true));
 
         setElevatorPosition1 = new JoystickButton(operatorJoystick, 6);	// Button 5 puts the right arm in the large position
         setElevatorPosition1.whenPressed(new SetElevatorMode(true));
