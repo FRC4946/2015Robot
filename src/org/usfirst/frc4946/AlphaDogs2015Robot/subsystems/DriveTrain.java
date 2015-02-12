@@ -3,6 +3,7 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.subsystems;
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ActuateStrafeSolenoid;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.DriveWithJoystick;
 
 import edu.wpi.first.wpilibj.*;
@@ -81,8 +82,9 @@ public class DriveTrain extends Subsystem {
         
         //Scale motor speed based off of the drive joystick throttle
         moveValue = moveValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
-        rotateValue = (rotateValue * (0.7 + 0.2 * driveSpeed)); // 0.7 to 0.9
+        rotateValue = (rotateValue * (0.7 + 0.3 * driveSpeed)); // 0.7 to 1.0
         
+     
         
         m_strafeMotor.set(0.0);
 		m_robotDrive.arcadeDrive(moveValue, rotateValue);	
@@ -122,6 +124,10 @@ public class DriveTrain extends Subsystem {
     	} else {
     		strafeValue = -strafeValue * strafeValue;  // Keeps negative value if strafe movement was negative
     	}
+    	
+    	if (moveValue >= 0.75) {
+    		new ActuateStrafeSolenoid(true);
+    	}
 		
     	// Set the motors to the desired speed
 		m_robotDrive.arcadeDrive(moveValue, rotateValue);
@@ -129,6 +135,19 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	
+	
+	/**
+	 * Strafe driving for the DriveTrain. 
+	 * @param moveValue Speed in range [-1,1]
+	 * @param rotateValue Rotation in range [-1,1]
+	 * @param strafeValue Strafe speed in range [-1,1]
+	 */
+	public void autoStrafeDrive(double moveValue, double rotateValue, double strafeValue) {
+		
+    	// Set the motors to the desired speed
+		m_robotDrive.arcadeDrive(moveValue, rotateValue);
+		m_strafeMotor.set(strafeValue);
+	}
 	
 	/**
 	 * Arcade style driving for the DriveTrain. 

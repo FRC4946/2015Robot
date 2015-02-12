@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class SetLeftGrabberArm extends Command {
 
-	public boolean m_leftArmExtended;
+	public boolean m_leftArmExtended = true;
 	
     public SetLeftGrabberArm(boolean position) {
         requires(Robot.m_grabber);
