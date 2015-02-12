@@ -11,74 +11,140 @@
 
 package org.usfirst.frc4946.AlphaDogs2015Robot.subsystems;
 
+import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMove;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveManual;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  *
  */
-public class Elevator extends PIDSubsystem {
+public class Elevator extends Subsystem {
     SpeedController m_elevatorMotor = RobotMap.elevatorElevatorMotor;
     AnalogPotentiometer m_analogPotentiometer = RobotMap.elevatorAnalogPotentiometer;
+    public PIDController m_elevatorPIDController = new PIDController(0.2, 0.0, 0.0, m_analogPotentiometer, m_elevatorMotor);
+
     DigitalInput m_bottomLimitSwitch = RobotMap.elevatorBottomLimitSwitch;
     DigitalInput m_topLimitSwitch = RobotMap.elevatorTopLimitSwitch;
 
+    double q_0 = 0.0; // The initial position when a new setPoint is set
+    double V_max = 8; // The maximum velocity, in inches/second
+    double q_f = 0.0; // The final position, or the setPoint
+    double t_i = 0.0; // The initial time when a new setPoint is set
+    double t_f = 0.0; // The final time, or when the movement is expected to finish
+
+    
+    
+    private boolean m_PIDisAtPosition = false;
+    private boolean m_isPIDControl = false;
 
     // Initialize your subsystem here
     public Elevator(double kP, double kI, double kD) {
-        super("Elevator", kP, kI, kD);
-        setAbsoluteTolerance(0.2);
-        getPIDController().setContinuous(false);
-        LiveWindow.addActuator("Elevator", "PIDSubsystem Controller", getPIDController());
+        m_elevatorPIDController.setAbsoluteTolerance(0.2);
 
+        // Default to manual operation mode
+        setControlMode(false);
         
-        
-        // Use these to get going:s
-        // setSetpoint() -  Sets where the PID controller should move the system
-        //                  to
-        // enable() - Enables the PID controller.
+        m_elevatorPIDController.setInputRange(9.6, 60);
+        m_elevatorPIDController.setOutputRange(-0.5, 0.5);
+
     }
     
     public void initDefaultCommand() {    
         // Set the default command for a subsystem here.
-        setDefaultCommand(new ElevatorMove());
+        //setDefaultCommand(new ElevatorMoveManual());
+        
+        // Default to manual operation mode
+        setControlMode(false);
        
     }
      	
+    /**
+     * Get the current position of the elevator, according to the linear transducer
+     * 
+     * @return The height of the elevator, in inches
+     */
     public double getElevatorPos() {
     	return m_analogPotentiometer.get();
     }
     
     
-    public void moveElevator(double joystickValue) {
+    public void manualMoveElevator(double joystickValue) {
     	
     	double curPos = m_analogPotentiometer.get();
-    	if (curPos < 70 && curPos >10){
-    	m_elevatorMotor.set(joystickValue);
-    	}
-    	else {
-    		m_elevatorMotor.set(0.0);
-    	}
+    	if (curPos > 9.5 && curPos < 60){
+    		m_elevatorMotor.set(joystickValue);
+    	} else if(curPos < 9.5){
+    		m_elevatorMotor.set(0.1);
+    	} else if(curPos > 60){
+     		m_elevatorMotor.set(-0.1);
+     	}
     }
+
+    /**
+     * Calculate the current desired position, and pass that position to the PID controller.
+     * 
+     */
+    public void updateTrajectoryTrack(){
+    	double t_now = System.currentTimeMillis()/1000.0;
+    	double t_elapsed = (t_now - t_i);
+    	double q_now = q_0 + ((-3* ((q_f-q_0)/(-0.5*t_f*t_f*t_f)) *t_f )/2)*t_elapsed*t_elapsed + ((q_f-q_0)/(-0.5*t_f*t_f*t_f))*t_elapsed*t_elapsed*t_elapsed;
     	
-    
-    protected double returnPIDInput() {
-        // Return your input value for the PID loop
-        // e.g. a sensor, like a potentiometer:
-        // yourPot.getAverageVoltage() / kYourMaxVoltage;
+    	m_PIDisAtPosition = false;
 
-        return m_analogPotentiometer.get();
+    	
+    	// If the elevator's position delta is too large (Greater than 6in) stop the motor
+    	if(Math.abs(getElevatorPos() - q_now) > 6){
+    		m_elevatorPIDController.setSetpoint(getElevatorPos());
+    	}
+    	
+    	// Once the desired time has been reached, stop calculating and updating the desired position
+    	if(t_elapsed > t_f){
+    		m_elevatorPIDController.setSetpoint(q_f);
+    		m_PIDisAtPosition = true;
+    	}
+    	else{
+    		m_elevatorPIDController.setSetpoint(q_now);
+        	m_PIDisAtPosition = false;
+    	}
     }
     
-    protected void usePIDOutput(double output) {
-        // Use output to drive your system, like a motor
-        // e.g. yourMotor.set(output);
+    /**
+     * Calculate the final position and time to be used in the trajectory tracking controller.
+     * This should be called when a new setpoint is first set.
+     * 
+     * @param setPos The height to move to, in inches
+     */
+	public void setFinalTarget(double setPos) {
+		q_0 = getElevatorPos();
+		t_i = System.currentTimeMillis()/1000.0;
+		q_f = setPos;
 
-        m_elevatorMotor.pidWrite(output);
-    }
+		t_f = 1.5*	Math.abs(q_f-q_0)/V_max;
+
+		m_PIDisAtPosition = false;
+	}
+	
+	/**
+	 * Set the mode of the elevator motor to either closed-loop control or open-loop control
+	 * 
+	 * @param modeIsPID If the control mode should be set to closed-loop PID control. [true] for closed-loop, [false] for open
+	 */
+	public void setControlMode(boolean modeIsPID){		
+		m_isPIDControl = modeIsPID;
+		
+		if(m_isPIDControl){
+			m_elevatorPIDController.enable();
+		} else {
+			m_elevatorPIDController.disable();
+		}
+	}
+	
+	public boolean getPIDisAtPosition(){
+		return m_PIDisAtPosition;
+	}
 }

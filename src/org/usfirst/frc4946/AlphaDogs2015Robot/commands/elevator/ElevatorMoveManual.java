@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 /**
  *
  */
-public class ElevatorMove extends Command {
+public class ElevatorMoveManual extends Command {
 
-    public ElevatorMove() {
+    public ElevatorMoveManual() {
         requires(Robot.m_elevator);
     }
 
@@ -22,19 +22,25 @@ public class ElevatorMove extends Command {
     protected void execute() {
     	
     	double elevatorPos = Robot.m_elevator.getElevatorPos();
-    	SmartDashboard.putNumber("Elevor Position", elevatorPos);
+    	SmartDashboard.putNumber("Elevator Position", elevatorPos);
     	
     	double joystickPositionYVal = Robot.m_oi.getOperatorJoystick().getY();
+
+    	
+    	SmartDashboard.putNumber("Joystick pos", joystickPositionYVal);    	
+    	
+    	//joystickPositionYVal *= -1;
+    	
     	if (joystickPositionYVal > 0){
-    		joystickPositionYVal *= 0.1 ;
+    		joystickPositionYVal *= 0.5 ;
     		//if (robot arm is below max position according to sensor) {
-    		 Robot.m_elevator.moveElevator(joystickPositionYVal);
+    		 Robot.m_elevator.manualMoveElevator(joystickPositionYVal);
     		 //}
     	}
     	else if (joystickPositionYVal < 0){
     		//if (robot arm is above min position according to sensor){
-    		joystickPositionYVal *= 0.1 ;
-    		Robot.m_elevator.moveElevator(joystickPositionYVal);
+    		joystickPositionYVal *= 0.5 ;
+    		Robot.m_elevator.manualMoveElevator(joystickPositionYVal);
     		//}
     	}
     	
@@ -47,10 +53,12 @@ public class ElevatorMove extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.m_elevator.manualMoveElevator(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

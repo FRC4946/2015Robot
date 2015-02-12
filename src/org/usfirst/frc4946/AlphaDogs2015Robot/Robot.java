@@ -2,6 +2,7 @@ package org.usfirst.frc4946.AlphaDogs2015Robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Preferences;
@@ -29,7 +30,7 @@ public class Robot extends IterativeRobot {
     SendableChooser m_autonomousStartingPosition;
     SendableChooser m_autonomousAmountToMove;
     SendableChooser m_autonomousDirectionToMove;
-    SendableChooser m_autonomousToteIsPreLoaded;
+    //SendableChooser m_autonomousToteIsPreLoaded;
     private String m_autonomousStatus = "";
 
     public static OI m_oi;
@@ -45,7 +46,7 @@ public class Robot extends IterativeRobot {
 
    //public static Feeder m_feeder;
     
-    private CameraServer m_camServer;
+    //private CameraServer m_camServer;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -54,9 +55,9 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	    	
     	
-        m_proportional = m_prefs.getDouble("ProportionalValue", 0.0);
-        m_integral = m_prefs.getDouble("IntegralValue", 0.0);
-        m_derivative = m_prefs.getDouble("DerivativeValue", 0.0);
+        //m_proportional = m_prefs.getDouble("ProportionalValue", 0.0);
+        //m_integral = m_prefs.getDouble("IntegralValue", 0.0);
+        //m_derivative = m_prefs.getDouble("DerivativeValue", 0.0);
 
         RobotMap.init();
         m_driveTrain = new DriveTrain();
@@ -92,10 +93,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("IF POSITION IS MIDDLE: Select the direction to move", m_autonomousDirectionToMove);
         
         // Select whether the tote is pre-loaded or not
-        m_autonomousToteIsPreLoaded = new SendableChooser();
-        m_autonomousToteIsPreLoaded.addDefault("Tote is pre-loaded", true);
-        m_autonomousToteIsPreLoaded.addObject("Tote is not pre-loaded", false);
-        SmartDashboard.putData("Select whether or not the tote is pre-loaded", m_autonomousToteIsPreLoaded);
+        //m_autonomousToteIsPreLoaded = new SendableChooser();
+       //m_autonomousToteIsPreLoaded.addDefault("Tote is pre-loaded", true);
+        //m_autonomousToteIsPreLoaded.addObject("Tote is not pre-loaded", false);
+       // SmartDashboard.putData("Select whether or not the tote is pre-loaded", m_autonomousToteIsPreLoaded);
         
         //m_pickAutonomous = new SendableChooser();
         //m_pickAutonomous.addDefault("Left position   | Move 1 space  | Tote pre-loaded",	new DefaultAutonomousScript(0, 1, true));
@@ -122,10 +123,14 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(m_airCompressor);
         SmartDashboard.putData(m_elevator);
         
-        m_camServer = CameraServer.getInstance();
+        PowerDistributionPanel m_PDP = new PowerDistributionPanel();
+        SmartDashboard.putData("PDP", m_PDP);
+        
+        
+        //m_camServer = CameraServer.getInstance();
         //server.setQuality(25);
         //the camera name (ex "cam0") can be found through the roborio web interface
-        m_camServer.startAutomaticCapture("cam0");
+        //m_camServer.startAutomaticCapture("cam0");
         
     }
 
@@ -142,6 +147,8 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
+    	SmartDashboard.putString("Autonomous Status", "PLX WORK");
+
     	
     	int pos = (int) m_autonomousStartingPosition.getSelected();
     	
@@ -152,13 +159,15 @@ public class Robot extends IterativeRobot {
     		amountOrDirection = (int) m_autonomousDirectionToMove.getSelected();
     	}
     	
-    	boolean toteIsLoaded = (boolean) m_autonomousToteIsPreLoaded.getSelected();
+    	//boolean toteIsLoaded = (boolean) m_autonomousToteIsPreLoaded.getSelected();
     	
-    	m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection, toteIsLoaded);
+    	//m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection, toteIsLoaded);
+    	m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection, true);
+    	
         if(m_autonomousCommandGroup != null) {
             m_autonomousCommandGroup.start();
         } else {
-            setAutonomousStatus("Autonomous command is null");
+        	SmartDashboard.putString("Autonomous Status", "Autonomous command is null");
         }
     }
     

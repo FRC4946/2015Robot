@@ -51,8 +51,8 @@ public class DefaultAutonomousScript extends CommandGroup {
 			// TODO: Close arms, lift elevator to position 1
 			addParallel(new SetLeftGrabberArm(false));
 			addSequential(new SetRightGrabberArm(0));
-			Robot.m_elevator.enable();
-	        Robot.m_elevator.setSetpoint(1.0);
+			//Robot.m_elevator.enable();
+	        //Robot.m_elevator.setSetpoint(1.0);
 		}
 
 		// If we need to pick up another tote...
