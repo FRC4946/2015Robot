@@ -66,6 +66,7 @@ public class DriveMaintainingOrientation extends Command {
     	
     	m_leftEncoder = Robot.m_driveTrain.getLeftEncoder();
     	m_rightEncoder = Robot.m_driveTrain.getRightEncoder();
+    	m_strafeEncoder = Robot.m_driveTrain.getRightEncoder();
     	m_gyro = Robot.m_driveTrain.getGyro();
     	m_accelerationTime = 0;
     	m_counter = 0;
@@ -87,7 +88,8 @@ public class DriveMaintainingOrientation extends Command {
     	
     	
     	// Take the average of the left and right encoders to find the forward/backwards distance traveled
-    	m_driveTravelledDistance = (m_leftEncoder.getDistance() + m_leftEncoder.getDistance()) / 2;
+    	//m_driveTravelledDistance = (m_leftEncoder.getDistance() + m_leftEncoder.getDistance()) / 2;
+    	m_driveTravelledDistance ++;
     	
     	
         // m_accelerationTime * 50 gives number of cycles robot must accelerate for, as the CPU runs at 50Hz
@@ -128,7 +130,8 @@ public class DriveMaintainingOrientation extends Command {
     	
     	
     	// Find the lateral distance traveled
-    	m_strafeTravelledDistance = m_strafeEncoder.getDistance();
+    	//m_strafeTravelledDistance = m_strafeEncoder.getDistance();
+    	m_strafeTravelledDistance ++;
     	
         // m_accelerationTimeStrafe * 50 gives number of cycles robot must accelerate for, as the CPU runs at 50Hz
     	
