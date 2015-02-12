@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot {
     SendableChooser m_autonomousStartingPosition;
     SendableChooser m_autonomousAmountToMove;
     SendableChooser m_autonomousDirectionToMove;
-    SendableChooser m_autonomousToteIsPreLoaded;
+    //SendableChooser m_autonomousToteIsPreLoaded;
     private String m_autonomousStatus = "";
 
     public static OI m_oi;
@@ -93,10 +93,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("IF POSITION IS MIDDLE: Select the direction to move", m_autonomousDirectionToMove);
         
         // Select whether the tote is pre-loaded or not
-        m_autonomousToteIsPreLoaded = new SendableChooser();
-        m_autonomousToteIsPreLoaded.addDefault("Tote is pre-loaded", true);
-        m_autonomousToteIsPreLoaded.addObject("Tote is not pre-loaded", false);
-        SmartDashboard.putData("Select whether or not the tote is pre-loaded", m_autonomousToteIsPreLoaded);
+        //m_autonomousToteIsPreLoaded = new SendableChooser();
+       //m_autonomousToteIsPreLoaded.addDefault("Tote is pre-loaded", true);
+        //m_autonomousToteIsPreLoaded.addObject("Tote is not pre-loaded", false);
+       // SmartDashboard.putData("Select whether or not the tote is pre-loaded", m_autonomousToteIsPreLoaded);
         
         //m_pickAutonomous = new SendableChooser();
         //m_pickAutonomous.addDefault("Left position   | Move 1 space  | Tote pre-loaded",	new DefaultAutonomousScript(0, 1, true));
@@ -147,6 +147,8 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
+    	SmartDashboard.putString("Autonomous Status", "PLX WORK");
+
     	
     	int pos = (int) m_autonomousStartingPosition.getSelected();
     	
@@ -157,13 +159,15 @@ public class Robot extends IterativeRobot {
     		amountOrDirection = (int) m_autonomousDirectionToMove.getSelected();
     	}
     	
-    	boolean toteIsLoaded = (boolean) m_autonomousToteIsPreLoaded.getSelected();
+    	//boolean toteIsLoaded = (boolean) m_autonomousToteIsPreLoaded.getSelected();
     	
-    	m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection, toteIsLoaded);
+    	//m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection, toteIsLoaded);
+    	m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection);
+    	
         if(m_autonomousCommandGroup != null) {
             m_autonomousCommandGroup.start();
         } else {
-            setAutonomousStatus("Autonomous command is null");
+        	SmartDashboard.putString("Autonomous Status", "Autonomous command is null");
         }
     }
     

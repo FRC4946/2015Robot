@@ -26,17 +26,21 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Elevator extends Subsystem {
     SpeedController m_elevatorMotor = RobotMap.elevatorElevatorMotor;
     AnalogPotentiometer m_analogPotentiometer = RobotMap.elevatorAnalogPotentiometer;
-    PIDController m_elevatorPIDController = new PIDController(0.2, 0.0, 0.0, m_analogPotentiometer, m_elevatorMotor);
+    public PIDController m_elevatorPIDController = new PIDController(0.2, 0.0, 0.0, m_analogPotentiometer, m_elevatorMotor);
 
     DigitalInput m_bottomLimitSwitch = RobotMap.elevatorBottomLimitSwitch;
     DigitalInput m_topLimitSwitch = RobotMap.elevatorTopLimitSwitch;
 
     double q_0 = 0.0; // The initial position when a new setPoint is set
-    double V_max = 3; // The maximum velocity, in inches/second
+    double V_max = 4.5; // The maximum velocity, in inches/second
     double q_f = 0.0; // The final position, or the setPoint
     double t_i = 0.0; // The initial time when a new setPoint is set
     double t_f = 0.0; // The final time, or when the movement is expected to finish
+    //double t_f_abs = 0.0;
+
     
+    
+    private boolean m_PIDisAtPosition = false;
     private boolean m_isPIDControl = false;
 
     // Initialize your subsystem here
@@ -46,14 +50,14 @@ public class Elevator extends Subsystem {
         // Default to manual operation mode
         setControlMode(false);
         
-        m_elevatorPIDController.setInputRange(20, 60);
+        m_elevatorPIDController.setInputRange(9.6, 60);
         m_elevatorPIDController.setOutputRange(-0.5, 0.5);
 
     }
     
     public void initDefaultCommand() {    
         // Set the default command for a subsystem here.
-        setDefaultCommand(new ElevatorMoveManual());
+        //setDefaultCommand(new ElevatorMoveManual());
         
         // Default to manual operation mode
         setControlMode(false);
@@ -72,13 +76,12 @@ public class Elevator extends Subsystem {
     
     public void manualMoveElevator(double joystickValue) {
     	
-    	//double curPos = m_analogPotentiometer.get();
-    	//if (curPos < 55 && curPos >10){
+    	double curPos = m_analogPotentiometer.get();
+    	if (curPos > 9.5 || curPos < 60){
+    		m_elevatorMotor.set(0.0);
+    	} else {
     		m_elevatorMotor.set(joystickValue);
-    	//}
-    	//else {
-    	//	m_elevatorMotor.set(0.0);
-    	//}
+    	}
     }
 
     /**
@@ -90,17 +93,22 @@ public class Elevator extends Subsystem {
     	double t_elapsed = (t_now - t_i);
     	double q_now = q_0 + ((-3* ((q_f-q_0)/(-0.5*t_f*t_f*t_f)) *t_f )/2)*t_elapsed*t_elapsed + ((q_f-q_0)/(-0.5*t_f*t_f*t_f))*t_elapsed*t_elapsed*t_elapsed;
     	
+    	m_PIDisAtPosition = false;
+
+    	
     	// If the elevator's position delta is too large (Greater than 6in) stop the motor
-    	if(Math.abs(getElevatorPos() - q_f) > 6){
+    	if(Math.abs(getElevatorPos() - q_now) > 6){
     		m_elevatorPIDController.setSetpoint(getElevatorPos());
     	}
     	
     	// Once the desired time has been reached, stop calculating and updating the desired position
     	if(t_elapsed > t_f){
     		m_elevatorPIDController.setSetpoint(q_f);
+    		m_PIDisAtPosition = true;
     	}
     	else{
     		m_elevatorPIDController.setSetpoint(q_now);
+        	m_PIDisAtPosition = false;
     	}
     }
     
@@ -113,8 +121,12 @@ public class Elevator extends Subsystem {
 	public void setFinalTarget(double setPos) {
 		q_0 = getElevatorPos();
 		t_i = System.currentTimeMillis()/1000.0;
-		t_f = 1.5*(q_f-q_0)/V_max;
 		q_f = setPos;
+
+		t_f = 1.5*	(q_f-q_0)/V_max;
+		//t_f_abs = 1.5*	(Math.abs(q_f-q_0))	/V_max;
+
+		m_PIDisAtPosition = false;
 	}
 	
 	/**
@@ -130,5 +142,9 @@ public class Elevator extends Subsystem {
 		} else {
 			m_elevatorPIDController.disable();
 		}
+	}
+	
+	public boolean getPIDisAtPosition(){
+		return m_PIDisAtPosition;
 	}
 }

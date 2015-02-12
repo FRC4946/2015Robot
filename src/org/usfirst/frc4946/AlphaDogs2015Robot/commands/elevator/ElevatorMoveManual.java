@@ -22,11 +22,12 @@ public class ElevatorMoveManual extends Command {
     protected void execute() {
     	
     	double elevatorPos = Robot.m_elevator.getElevatorPos();
-    	SmartDashboard.putNumber("Elevor Position", elevatorPos);
+    	SmartDashboard.putNumber("Elevator Position", elevatorPos);
+
     	
     	double joystickPositionYVal = Robot.m_oi.getOperatorJoystick().getY();
     	
-    	joystickPositionYVal *= -1;
+    	//joystickPositionYVal *= -1;
     	
     	if (joystickPositionYVal > 0){
     		joystickPositionYVal *= 0.5 ;
@@ -50,10 +51,12 @@ public class ElevatorMoveManual extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.m_elevator.manualMoveElevator(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

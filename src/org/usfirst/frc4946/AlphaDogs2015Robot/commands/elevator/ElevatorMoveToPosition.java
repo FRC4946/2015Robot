@@ -25,7 +25,10 @@ public class ElevatorMoveToPosition extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double elevatorPos = Robot.m_elevator.getElevatorPos();
-    	SmartDashboard.putNumber("Elevor Position", elevatorPos);
+    	SmartDashboard.putNumber("Elevator Position", elevatorPos);
+    	SmartDashboard.putNumber("Elevator User Target", m_setPos);
+    	SmartDashboard.putNumber("Elevator Current Target", Robot.m_elevator.m_elevatorPIDController.getSetpoint());
+
     	
     	Robot.m_elevator.updateTrajectoryTrack();
   
@@ -33,12 +36,14 @@ public class ElevatorMoveToPosition extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+
+    		return Robot.m_elevator.getPIDisAtPosition();
+    	
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.m_elevator.manualMoveElevator(0.0);
+    	Robot.m_elevator.m_elevatorPIDController.setSetpoint(Robot.m_elevator.getElevatorPos());
     }
 
     // Called when another command which requires one or more of the same
