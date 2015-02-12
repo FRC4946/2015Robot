@@ -34,6 +34,7 @@ public class OI {
     public JoystickButton setElevatorPosition1;
     public JoystickButton setElevatorPosition2;
     public JoystickButton setElevatorPosition3;
+    public JoystickButton setElevatorPosition4;
 
     public JoystickButton toggleDriveMode;
     
@@ -83,21 +84,22 @@ public class OI {
         setManualMode.whenPressed(new SetElevatorMode(false));	// Button 5 puts the right arm in the large position
         setManualMode.whileHeld(new ElevatorMoveManual());	// Button 5 puts the right arm in the large position
 
-
         setElevatorPosition1 = new JoystickButton(operatorJoystick, 6);	// Button 5 puts the right arm in the large position
         setElevatorPosition1.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition1.whileHeld(new ElevatorMoveToPosition(20.0));	// Button 5 puts the right arm in the large position
-
+       	setElevatorPosition1.whileHeld(new ElevatorMoveToPosition(9.5));    
 
         setElevatorPosition2 = new JoystickButton(operatorJoystick, 7);	// Button 5 puts the right arm in the large position
         setElevatorPosition2.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition2.whileHeld(new ElevatorMoveToPosition(40.0));	// Button 5 puts the right arm in the large position
-
-        
+        setElevatorPosition2.whileHeld(new ElevatorMoveToPosition(22.0));	// Button 5 puts the right arm in the large position
+ 
         setElevatorPosition3 = new JoystickButton(operatorJoystick, 10);	// Button 5 puts the right arm in the large position
         setElevatorPosition3.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition3.whileHeld(new ElevatorMoveToPosition(60.0));	// Button 5 puts the right arm in the large position
+        setElevatorPosition3.whileHeld(new ElevatorMoveToPosition(33.5));	// Button 5 puts the right arm in the large position
 
+        setElevatorPosition4 = new JoystickButton(operatorJoystick, 11);	// Button 5 puts the right arm in the large position
+        setElevatorPosition4.whenPressed(new SetElevatorMode(true));
+        setElevatorPosition4.whileHeld(new ElevatorMoveToPosition(45.0));
+        
 
     	//feederArmToggle = new JoystickButton(operatorJoystick, 5);
 	    //feederMotorButtonCW = new JoystickButton(operatorJoystick, 6);
