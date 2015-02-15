@@ -152,6 +152,7 @@ public class OI {
         gyroReset = new JoystickButton(driveJoystick, 7);
         gyroReset.whenPressed(new ResetGyro());
         
+        // Not properly implemented
         toggleLimitAcceleration = new JoystickButton(driveJoystick, 8);
         toggleLimitAcceleration.whenPressed(new ToggleLimitAcceleration());
     }

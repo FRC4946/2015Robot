@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveWithGyro extends Command {
+public class MaintainOrientation extends Command {
 
 	private double m_driveSpeed = 0.0;
 	private double m_strafeSpeed = 0.0;
@@ -21,7 +21,7 @@ public class DriveWithGyro extends Command {
 
 
 	
-    public DriveWithGyro(double driveSpeed, double strafeSpeed) {
+    public MaintainOrientation(double driveSpeed, double strafeSpeed) {
         requires(Robot.m_driveTrain);
         requires(Robot.m_elevator);
         
@@ -31,15 +31,13 @@ public class DriveWithGyro extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-    	m_gyro.reset();
-    	
-    	Robot.m_driveTrain.m_gyroPIDController.setSetpoint(0.0);
+    protected void initialize() {    	
+    	Robot.m_driveTrain.m_gyroPIDController.setSetpoint(m_gyro.getAngle());
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_driveTrain.autoStrafeDrive(m_driveSpeed, Robot.m_driveTrain.m_gyroPIDController.get(), m_strafeSpeed);
+    	Robot.m_driveTrain.autoStrafeDrive(m_driveSpeed, Robot.m_driveTrain.m_gyroPIDController.getOutput(), m_strafeSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
