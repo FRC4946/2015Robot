@@ -10,15 +10,24 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
  */
 public class ElevatorMoveToPosition extends Command {
 
+	private double m_newSetPos;
 	private double m_setPos;
 	
     public ElevatorMoveToPosition(double newPos) {
         requires(Robot.m_elevator);
-        m_setPos = newPos;
+        m_newSetPos = newPos;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
+    	m_setPos = m_newSetPos;
+    	
+    	//Add the 2.5 inches for the carry mode
+    	if (Robot.m_oi.togglePlaceCarry.get() == true) {
+    		m_setPos -= 4;
+    	}
+    	
     	Robot.m_elevator.setFinalTarget(m_setPos);
     }
 

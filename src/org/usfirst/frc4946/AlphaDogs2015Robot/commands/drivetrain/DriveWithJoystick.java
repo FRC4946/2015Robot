@@ -2,15 +2,22 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class DriveWithJoystick extends Command {
 
+	private Gyro m_gyro;
+	boolean isGyroMode = Robot.m_driveTrain.getGyroMode();
+	
     public DriveWithJoystick() {
         requires(Robot.m_driveTrain);
+    	m_gyro = Robot.m_driveTrain.getGyro();
+
     }
 
     // Called just before this Command runs the first time
@@ -20,17 +27,28 @@ public class DriveWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	boolean isStrafeMode = Robot.m_driveTrain.getDriveMode();
+    	//boolean isStrafeMode = Robot.m_driveTrain.getDriveMode();
     	
-    	double Yval = Robot.m_oi.getDriveJoystick().getRawAxis(1);
-    	double Xval = Robot.m_oi.getDriveJoystick().getRawAxis(0);
-    	double Zval = Robot.m_oi.getDriveJoystick().getRawAxis(2);
+		double Yval = Robot.m_oi.getDriveJoystick().getRawAxis(1);
+		double Xval = Robot.m_oi.getDriveJoystick().getRawAxis(0);
+		double Zval = Robot.m_oi.getDriveJoystick().getRawAxis(2);
+		
+		SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
+
+		if (isGyroMode) {
+			Robot.m_driveTrain.gyroDrive(-Yval, -Xval);    	
+		}
     	
-    	if(isStrafeMode){
-    		Robot.m_driveTrain.drive(-Yval, Xval);
-    	} else{
-        	Robot.m_driveTrain.strafeDrive(-Yval, -Zval, -Xval);
-    	}
+    	if (!isGyroMode) {
+			//    	if(isStrafeMode){							// This is commented out because strafe mode is unneeded
+			//    		Robot.m_driveTrain.drive(-Yval, Xval);
+			//    	} else{
+			Robot.m_driveTrain.strafeDrive(-Yval, -Zval, -Xval);
+			//    	}
+		}
+    	
+    	
+    	
     	
     }
 

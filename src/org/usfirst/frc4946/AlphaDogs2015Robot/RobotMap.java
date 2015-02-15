@@ -109,7 +109,7 @@ public class RobotMap {
         driveTrainStrafeEncoder.setDistancePerPulse(1.0);
         driveTrainStrafeEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         
-        elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 85.27, 7.5);
+        elevatorAnalogPotentiometer = new AnalogPotentiometer(0, 85.27, 4);
         LiveWindow.addSensor("Elevator", "Analog Potentiometer", elevatorAnalogPotentiometer);
         
         elevatorBottomLimitSwitch = new DigitalInput(0);

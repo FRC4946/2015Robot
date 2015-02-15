@@ -1,6 +1,7 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
+import org.usfirst.frc4946.AlphaDogs2015Robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.*;
@@ -29,20 +30,9 @@ public class ElevatorMoveManual extends Command {
     	
     	SmartDashboard.putNumber("Joystick pos", joystickPositionYVal);    	
     	
-    	//joystickPositionYVal *= -1;
-    	
-    	if (joystickPositionYVal > 0){
-    		joystickPositionYVal *= 0.5 ;
-    		//if (robot arm is below max position according to sensor) {
-    		 Robot.m_elevator.manualMoveElevator(joystickPositionYVal);
-    		 //}
-    	}
-    	else if (joystickPositionYVal < 0){
-    		//if (robot arm is above min position according to sensor){
-    		joystickPositionYVal *= 0.5 ;
-    		Robot.m_elevator.manualMoveElevator(joystickPositionYVal);
-    		//}
-    	}
+    	joystickPositionYVal *= RobotConstants.ELEVATOR_MAX_OUTPUT ;
+   		Robot.m_elevator.manualMoveElevator(joystickPositionYVal);
+
     	
     }
 

@@ -12,6 +12,7 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot.subsystems;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
+import org.usfirst.frc4946.AlphaDogs2015Robot.RobotConstants;
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveManual;
@@ -28,7 +29,6 @@ public class Elevator extends Subsystem {
     SpeedController m_elevatorMotor = RobotMap.elevatorElevatorMotor;
     AnalogPotentiometer m_analogPotentiometer = RobotMap.elevatorAnalogPotentiometer;
     public PIDController m_elevatorPIDController = new PIDController(0.2, 0.0, 0.0, m_analogPotentiometer, m_elevatorMotor);
-
     DigitalInput m_bottomLimitSwitch = RobotMap.elevatorBottomLimitSwitch;
     DigitalInput m_topLimitSwitch = RobotMap.elevatorTopLimitSwitch;
 
@@ -42,16 +42,17 @@ public class Elevator extends Subsystem {
     
     private boolean m_PIDisAtPosition = false;
     private boolean m_isPIDControl = false;
-
+    private boolean m_isCarryMode;
+    
     // Initialize your subsystem here
     public Elevator(double kP, double kI, double kD) {
         m_elevatorPIDController.setAbsoluteTolerance(0.2);
 
         // Default to manual operation mode
         setControlMode(false);
-        
-        m_elevatorPIDController.setInputRange(9.6, 60);
-        m_elevatorPIDController.setOutputRange(-0.5, 0.5);
+      
+        m_elevatorPIDController.setInputRange(RobotConstants.ELEVATOR_MINIMUM_HEIGHT, RobotConstants.ELEVATOR_MAXIMUM_HEIGHT);
+        m_elevatorPIDController.setOutputRange(-1 * RobotConstants.ELEVATOR_MAX_OUTPUT, RobotConstants.ELEVATOR_MAX_OUTPUT);
 
     }
     
@@ -77,12 +78,13 @@ public class Elevator extends Subsystem {
     public void manualMoveElevator(double joystickValue) {
     	
     	double curPos = m_analogPotentiometer.get();
-    	if (curPos > 9.5 && curPos < 60){
+    	if (curPos > RobotConstants.ELEVATOR_MINIMUM_HEIGHT &&
+    			curPos < RobotConstants.ELEVATOR_MAXIMUM_HEIGHT){
     		m_elevatorMotor.set(joystickValue);
-    	} else if(curPos < 9.5){
-    		m_elevatorMotor.set(0.1);
-    	} else if(curPos > 60){
-     		m_elevatorMotor.set(-0.1);
+    	} else if(curPos < RobotConstants.ELEVATOR_MINIMUM_HEIGHT){
+    		m_elevatorMotor.set(0.2);
+    	} else if(curPos > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT){
+     		m_elevatorMotor.set(-0.2);
      	}
     }
 
@@ -135,7 +137,7 @@ public class Elevator extends Subsystem {
 	 * 
 	 * @param modeIsPID If the control mode should be set to closed-loop PID control. [true] for closed-loop, [false] for open
 	 */
-	public void setControlMode(boolean modeIsPID){		
+	public void setControlMode(boolean modeIsPID) {		
 		m_isPIDControl = modeIsPID;
 		
 		if(m_isPIDControl){
@@ -145,7 +147,15 @@ public class Elevator extends Subsystem {
 		}
 	}
 	
-	public boolean getPIDisAtPosition(){
+	public boolean getPIDisAtPosition() {
 		return m_PIDisAtPosition;
+	}
+	
+	public boolean getCarryMode() {
+		return m_isCarryMode;
+	}
+	
+	public void setCarryMode(boolean carryMode) {
+		m_isCarryMode = carryMode;
 	}
 }

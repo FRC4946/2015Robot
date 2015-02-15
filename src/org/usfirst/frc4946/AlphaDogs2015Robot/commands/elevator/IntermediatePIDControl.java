@@ -1,6 +1,7 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
+import org.usfirst.frc4946.AlphaDogs2015Robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,21 +28,24 @@ public class IntermediatePIDControl extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	currentPos = Robot.m_elevator.getElevatorPos(); 
+    	
     	if(Math.abs(Robot.m_oi.getOperatorJoystick().getY())>0.05){
     		newSetPoint = (currentPos + (3*Robot.m_oi.getOperatorJoystick().getY()));
     	}
     	
+    	// Limit how far away from the current position the setPoint can be
     	if(newSetPoint-currentPos>6){
     		newSetPoint= currentPos+6;
-    	}
-    	else if(newSetPoint-currentPos<-6){
+    	} else if(newSetPoint-currentPos < -6){
         	newSetPoint= currentPos -6;
     	}
-    	if(newSetPoint>60){
-    		newSetPoint=60;
+    	
+    	// Limit the elevator to within the limits
+    	if(newSetPoint > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT){
+    		newSetPoint = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
     	}
-    	if(newSetPoint<9.5){
-    		newSetPoint=9.5;
+    	if(newSetPoint < RobotConstants.ELEVATOR_MINIMUM_HEIGHT){
+    		newSetPoint = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
     	}
     	
     	

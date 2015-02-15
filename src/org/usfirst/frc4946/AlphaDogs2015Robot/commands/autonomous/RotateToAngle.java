@@ -3,58 +3,62 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 
 import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class DriveWithGyro extends Command {
+public class RotateToAngle extends Command {
 
-	private double m_driveSpeed = 0.0;
-	private double m_strafeSpeed = 0.0;
-	private double kP = 0.05;
+	public double m_angle = 0.0;
+	public double curAngle;
 	private Gyro m_gyro;
 
-
 	
-    public DriveWithGyro(double driveSpeed, double strafeSpeed) {
+    public RotateToAngle(double newAngle) {
         requires(Robot.m_driveTrain);
-        requires(Robot.m_elevator);
-        
-        m_driveSpeed = driveSpeed;
-        m_strafeSpeed = strafeSpeed;
     	m_gyro = Robot.m_driveTrain.getGyro();
+        m_angle = newAngle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	m_gyro.reset();
-    	
-    	Robot.m_driveTrain.m_gyroPIDController.setSetpoint(0.0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_driveTrain.autoStrafeDrive(m_driveSpeed, Robot.m_driveTrain.m_gyroPIDController.get(), m_strafeSpeed);
+    	curAngle = m_gyro.getAngle() % 360;
+    	SmartDashboard.putNumber("Gyro", curAngle);
+    	double error = m_angle - m_gyro.getAngle();
+    	double correct = error*0.1;
+    	
+    	if(correct > 0.5){
+    		correct = 0.5;
+    	}
+    	else if(correct < -0.5){
+    		correct = -0.5;
+    	}
+    	
+    	Robot.m_driveTrain.autoStrafeDrive(0.0, -correct, 0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	    	
+        if (Math.abs(m_angle - m_gyro.getAngle()) < 3) {
+        	return true;
+        }
         return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.m_driveTrain.strafeDrive(0.0, 0.0, 0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

@@ -14,6 +14,11 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.*;
 
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.DrawMode;
+import com.ni.vision.NIVision.Image;
+import com.ni.vision.NIVision.ShapeMode;
+
 import edu.wpi.first.wpilibj.CameraServer;
 
 /**
@@ -44,7 +49,9 @@ public class Robot extends IterativeRobot {
 
    //public static Feeder m_feeder;
     
-    //private CameraServer m_camServer;
+    private CameraServer m_camServer;
+    int session;
+    Image frame;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -66,6 +73,8 @@ public class Robot extends IterativeRobot {
 
         m_oi = new OI(); // Make sure you define this AFTER the subsystems.
 
+        
+        
         
         // =*=*=*=*=*= Autonomous Setup =*=*=*=*=*=
         
@@ -115,12 +124,15 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(m_airCompressor);
         SmartDashboard.putData(m_elevator);
         
-        PowerDistributionPanel m_PDP = new PowerDistributionPanel();
-        SmartDashboard.putData("PDP", m_PDP);
-        
+        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+
+        // the camera name (ex "cam0") can be found through the roborio web interface
+        session = NIVision.IMAQdxOpenCamera("cam0",
+                NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+        NIVision.IMAQdxConfigureGrab(session);
         
         //m_camServer = CameraServer.getInstance();
-        //server.setQuality(25);
+        //m_camServer.setQuality(25);
         //the camera name (ex "cam0") can be found through the roborio web interface
         //m_camServer.startAutomaticCapture("cam0");
         
@@ -145,8 +157,8 @@ public class Robot extends IterativeRobot {
     	
     	//boolean toteIsLoaded = (boolean) m_autonomousToteIsPreLoaded.getSelected();
     	
-    	//m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection, toteIsLoaded);
     	m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection);
+    	//m_autonomousCommandGroup = new TestAuto();
     	
         if(m_autonomousCommandGroup != null) {
             m_autonomousCommandGroup.start();
@@ -166,6 +178,9 @@ public class Robot extends IterativeRobot {
         if(m_autonomousCommandGroup != null) {
             m_autonomousCommandGroup.cancel();
         }
+        
+        NIVision.IMAQdxStartAcquisition(session);
+
     }
 
     /**
@@ -173,7 +188,9 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        
+     
+        NIVision.IMAQdxGrab(session, frame, 1);
+        CameraServer.getInstance().setImage(frame);
     }
 
     /**

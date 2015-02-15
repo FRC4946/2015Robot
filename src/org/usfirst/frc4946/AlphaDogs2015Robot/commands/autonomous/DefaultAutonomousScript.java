@@ -44,44 +44,37 @@ public class DefaultAutonomousScript extends CommandGroup {
 		addSequential(new ActuateStrafeSolenoid(true));
 		addSequential(new OpenGrabberArms());
 		
-		addSequential(new Wait(2));
+		addSequential(new Wait(0.5));
 		
 		// Lower the elevator all the way down
 		addSequential(new SetElevatorMode(true));
-		addSequential(new ElevatorMoveToPosition(9.5));
-		
-		addSequential(new Wait(2));
-
+		addSequential(new ElevatorMoveToPosition(8.1));
 		
 		// Close the grabber arms in order to grasp the first tote.
 		addSequential(new CloseGrabberArms());
 
-		addSequential(new Wait(2));
+		addSequential(new Wait(0.1));
 
 		
-		// Lift the elevator to 12 inches
-		addSequential(new ElevatorMoveToPosition(15.0));
-
-		addSequential(new Wait(2));
-
+		// If we\re moving forwards
+		if(m_mouvementDirectionOrAmount == 0){
+			addSequential(new ElevatorMoveToPosition(18.0));
+		}
 		
 		// If we need to pick up another tote
-		if (m_mouvementDirectionOrAmount > 0) {
+		else if (m_mouvementDirectionOrAmount > 0) {
 			
 			addSequential(new ElevatorMoveToPosition(30.0));
-
-			addSequential(new Wait(2));
-
 			
 			// Drive backwards 2 feet
 			//addSequential(new DriveMaintainingOrientation(0.2, -24, 0, 0));
-			addSequential(new SimpleAutoDrive(-0.5, 0.0, 0.0), 2);			
+			addSequential(new SimpleAutoDrive(-0.8, 0.0, 0.0), 1);			
 			
-			addSequential(new Wait(2));
+			addSequential(new Wait(0.1));
 			
 			addSequential(new ActuateStrafeSolenoid(false));
 			
-			addSequential(new Wait(2));
+			addSequential(new Wait(0.1));
 
 
 			
@@ -89,7 +82,9 @@ public class DefaultAutonomousScript extends CommandGroup {
 			if (m_initialPosition == 0) {
 				// Drive right 3 feet 10.5 inches
 				//addSequential (new DriveMaintainingOrientation(0.0, 0.0, 0.5, 46.5));
-				addSequential(new SimpleAutoDrive(0.0, 0.5, 0.0), 3);			
+				addSequential(new RotateToAngle(90));
+				addSequential(new SimpleAutoDrive(0.8, 0.0, 0.0), 3);
+				addSequential(new RotateToAngle(-90));
 
 			}
 
@@ -97,7 +92,10 @@ public class DefaultAutonomousScript extends CommandGroup {
 			else if (m_initialPosition == 2) {
 				// Drive left 3 feet 10.5 inches
 				//addSequential (new DriveMaintainingOrientation(0.0, 0.0, 0.5, -46.5));
-				addSequential(new SimpleAutoDrive(0.0, -0.5, 0.0), 3);			
+				addSequential(new RotateToAngle(-90));
+				addSequential(new SimpleAutoDrive(0.8, 0.0, 0.0), 3);
+				addSequential(new RotateToAngle(90));
+
 			}
 
 			// If we started in the middle position
@@ -105,51 +103,52 @@ public class DefaultAutonomousScript extends CommandGroup {
 				if (m_mouvementDirectionOrAmount == 1) {
 					// Drive left 3 feet 10.5 inches
 					//addSequential(new DriveMaintainingOrientation(0, 0, 0.2, -46.5));
-					addSequential(new SimpleAutoDrive(0.0, 0.5, 0.0), 3);			
+					addSequential(new RotateToAngle(90));
+					addSequential(new SimpleAutoDrive(0.8, 0.0, 0.0), 3);
+					addSequential(new RotateToAngle(-90));
+
 
 				} else if (m_mouvementDirectionOrAmount == 2) {
 					m_mouvementDirectionOrAmount = 1;
 					// Drive right 3 feet 10.5 inches
 					//addSequential(new DriveMaintainingOrientation(0, 0, 0.2, 46.5));
-					addSequential(new SimpleAutoDrive(0.0, -0.5, 0.0), 3);			
+					addSequential(new RotateToAngle(-90));
+					addSequential(new SimpleAutoDrive(0.8, 0.0, 0.0), 3);
+					addSequential(new RotateToAngle(90));
 					
 				}
 			}
 
 			
-			addSequential(new Wait(2));
+			addSequential(new Wait(0.1));
 			addSequential(new ActuateStrafeSolenoid(true));
-			addSequential(new Wait(2));
+			addSequential(new Wait(0.1));
 			
 			// Drive forwards 2 feet (Or until limit switch hits?)
 			//addSequential(new DriveMaintainingOrientation(0.2, 24, 0, 0));
 			addSequential(new SimpleAutoDrive(0.5, 0.0, 0.0), 2);			
 
-			addSequential(new Wait(2));
+			addSequential(new Wait(0.1));
 
 			
 			// Drop the elevator slightly, then open the arms
 			addSequential(new ElevatorMoveToPosition(18.0));
-
-			addSequential(new Wait(2));
 			
 			addSequential(new OpenGrabberArms());
 
-			addSequential(new Wait(2));
+			addSequential(new Wait(0.1));
 
 
 			// Drop the elevator more, close the arms, lift to position 1
-			addSequential(new ElevatorMoveToPosition(9.5));
-			
-			addSequential(new Wait(2));
-			
+			addSequential(new ElevatorMoveToPosition(8.1));
+						
 			addSequential(new CloseGrabberArms());
 			
-			addSequential(new Wait(2));
+			addSequential(new Wait(0.1));
 			
-			addSequential(new ElevatorMoveToPosition(15));
+			addSequential(new ElevatorMoveToPosition(18));
 			
-			addSequential(new Wait(2));
+			addSequential(new Wait(0.1));
 		}
 
 //		// If we need to pick up another tote
@@ -194,26 +193,24 @@ public class DefaultAutonomousScript extends CommandGroup {
 		
 		//Drive forwards 11 feet 6 inches in order to enter the Auto zone
 		//addSequential(new DriveMaintainingOrientation(0.2, 138, 0, 0));
-		addSequential(new SimpleAutoDrive(0.5, 0.0, 0.0), 2);			
+		addSequential(new SimpleAutoDrive(0.5, 0.0, 0.0), 5);			
 
-		addSequential(new Wait(2));
+		addSequential(new Wait(0.1));
 		
 		// Place the tote stack on the ground. Open the grabber arms to full size
-		addSequential(new ElevatorMoveToPosition(9.5));
-		
-		addSequential(new Wait(2));
-		
+		addSequential(new ElevatorMoveToPosition(8.1));
+				
 		addSequential(new OpenGrabberArms());
 		
-		addSequential(new Wait(2));
+		addSequential(new Wait(0.1));
 
 		// Drive backwards 1 foot in order to be fully clear of the tote stack
 		//addSequential(new DriveMaintainingOrientation(0.2, -12, 0, 0));
-		addSequential(new SimpleAutoDrive(-0.5, 0.0, 0.0), 2);			
+		addSequential(new SimpleAutoDrive(-0.5, 0.0, 0.0), 3);			
 
 		
 		// Do donuts
-		addSequential(new SimpleAutoDrive(0.0, 0.0, 0.5));
+		addSequential(new SimpleAutoDrive(0.0, 0.0, 0.8));
 		
 
 		
