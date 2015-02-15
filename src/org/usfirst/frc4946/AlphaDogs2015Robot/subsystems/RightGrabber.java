@@ -2,7 +2,7 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.subsystems;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.GrabberDoNothing;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.RightGrabberDoNothing;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -17,7 +17,7 @@ public class RightGrabber extends Subsystem {
 
 
     public void initDefaultCommand() {	
-    	setDefaultCommand(new GrabberDoNothing());
+    	setDefaultCommand(new RightGrabberDoNothing());
     }
     
     /**

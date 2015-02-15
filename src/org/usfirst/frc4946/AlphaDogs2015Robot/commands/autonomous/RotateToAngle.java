@@ -40,7 +40,7 @@ public class RotateToAngle extends Command {
     	// Uncomment this:
     	
     	//double error = m_angle - m_gyro.getAngle();
-    	//double correct = error*-0.1;
+    	//double correct = error*-0.1; //lol
     	//if(correct > 0.5) correct = 0.5;
     	//else if(correct < -0.5) correct = -0.5;
     	//Robot.m_driveTrain.autoStrafeDrive(0.0, correct, 0.0);

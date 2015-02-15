@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.command.Command;
  * Do nothing
  * @author Matthew
  */
-public class GrabberDoNothing extends Command {
+public class RightGrabberDoNothing extends Command {
 
-    public GrabberDoNothing() {
-        requires(Robot.m_rightGrabber);
+    public RightGrabberDoNothing() {
+    	requires(Robot.m_rightGrabber);
     }
 
     protected void initialize() {
