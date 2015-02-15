@@ -31,7 +31,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 public class Robot extends IterativeRobot {
 
     CommandGroup m_autonomousCommandGroup;
-    //SendableChooser m_pickAutonomous;
+    SendableChooser m_pickAutonomous;
     SendableChooser m_autonomousStartingPosition;
     SendableChooser m_autonomousAmountOrDirectionToMove;
     private String m_autonomousStatus = "";
@@ -80,16 +80,16 @@ public class Robot extends IterativeRobot {
         
         // Select the starting position
         m_autonomousStartingPosition = new SendableChooser();
-        m_autonomousStartingPosition.addDefault("Left position", 0);
-        m_autonomousStartingPosition.addObject("Middle position", 1);
-        m_autonomousStartingPosition.addObject("Right position", 2);
+        m_autonomousStartingPosition.addDefault("Tote stacking: Left position", 0);
+        m_autonomousStartingPosition.addObject("Tote stacking: Middle position", 1);
+        m_autonomousStartingPosition.addObject("Tote stacking: Right position", 2);
         SmartDashboard.putData("Select autonomous starting position", m_autonomousStartingPosition);
         
         // Select the number of positions to move
         m_autonomousAmountOrDirectionToMove = new SendableChooser();
-        m_autonomousAmountOrDirectionToMove.addDefault("Do not pick up any additional totes", 0);
-        m_autonomousAmountOrDirectionToMove.addObject("Move 1 space OR move left", 1);
-        m_autonomousAmountOrDirectionToMove.addObject("Move 2 spaces OR move right", 2);
+        m_autonomousAmountOrDirectionToMove.addDefault("Tote stacking: Do not pick up any additional totes", 0);
+        m_autonomousAmountOrDirectionToMove.addObject("Tote stacking: Move 1 space OR move left", 1);
+        m_autonomousAmountOrDirectionToMove.addObject("Tote stacking: Move 2 spaces OR move right", 2);
         SmartDashboard.putData("directionOrAmount", m_autonomousAmountOrDirectionToMove);
 
         
@@ -99,22 +99,12 @@ public class Robot extends IterativeRobot {
         //m_autonomousToteIsPreLoaded.addObject("Tote is not pre-loaded", false);
        // SmartDashboard.putData("Select whether or not the tote is pre-loaded", m_autonomousToteIsPreLoaded);
         
-        //m_pickAutonomous = new SendableChooser();
-        //m_pickAutonomous.addDefault("Left position   | Move 1 space  | Tote pre-loaded",	new DefaultAutonomousScript(0, 1, true));
-        //m_pickAutonomous.addObject("Left position   | Move 1 space  | Tote not pre-loaded",	new DefaultAutonomousScript(0, 1, false));
-        //m_pickAutonomous.addObject("Left position   | Move 2 spaces | Tote pre-loaded",		new DefaultAutonomousScript(0, 2, true));
-        //m_pickAutonomous.addObject("Left position   | Move 2 spaces | Tote not pre-loaded",	new DefaultAutonomousScript(0, 2, false));
-        //m_pickAutonomous.addObject("Middle position | Move left     | Tote pre-loaded",		new DefaultAutonomousScript(1, 1, true));
-        //m_pickAutonomous.addObject("Middle position | Move left     | Tote not pre-loaded",	new DefaultAutonomousScript(1, 1, false));
-        //m_pickAutonomous.addObject("Middle position | Move right    | Tote pre-loaded",		new DefaultAutonomousScript(1, 2, true));
-        //m_pickAutonomous.addObject("Middle position | Move right    | Tote not pre-loaded",	new DefaultAutonomousScript(1,2, false));
-        //m_pickAutonomous.addObject("Right position  | Move 1 space  | Tote pre-loaded",		new DefaultAutonomousScript(2, 1, true));
-        //m_pickAutonomous.addObject("Right position  | Move 1 space  | Tote not pre-loaded",	new DefaultAutonomousScript(2, 1, false));
-        //m_pickAutonomous.addObject("Right position  | Move 2 spaces | Tote pre-loaded",		new DefaultAutonomousScript(2, 2, true));
-        //m_pickAutonomous.addObject("Right position  | Move 2 spaces | Tote not pre-loaded",	new DefaultAutonomousScript(2, 2, false));
-        //m_pickAutonomous.addObject("Any position    | Don't strafe  | Tote pre-loaded",		new DefaultAutonomousScript(0, 0, true));
-        //m_pickAutonomous.addObject("Any position    | Don't strafe  | Tote not pre-loaded",	new DefaultAutonomousScript(0, 0, false));
-        //SmartDashboard.putData("Select Autonomous Mode", m_pickAutonomous);
+        m_pickAutonomous = new SendableChooser();
+        m_pickAutonomous.addDefault("Tote stacking. See other selectors",								new ToteStackAutonomousScript(-1, -1));
+        m_pickAutonomous.addObject("Pickup the recycling container",									new RecyclingContainerAutonomousScript());
+        m_pickAutonomous.addObject("Recycling container + tote (Robot parallel to driver's wall)",		new RecyclingContainerPlusToteAutonomousScript(false));
+        m_pickAutonomous.addObject("Recycling container + tote (Robot perpendicular to driver's wall)",	new RecyclingContainerPlusToteAutonomousScript(true));
+        SmartDashboard.putData("Select Autonomous Mode", m_pickAutonomous);
         
         SmartDashboard.putString("Autonomous Status", getAutonomousStatus());
 
@@ -144,13 +134,14 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	
-    	int pos = (int) m_autonomousStartingPosition.getSelected();
-    	int amountOrDirection = (int) m_autonomousAmountOrDirectionToMove.getSelected();
-    	
+    	RobotConstants.autonomousInitialPosition = (int) m_autonomousStartingPosition.getSelected();
+    	RobotConstants.autonomousDirectionOrAmount = (int) m_autonomousAmountOrDirectionToMove.getSelected();
     	//boolean toteIsLoaded = (boolean) m_autonomousToteIsPreLoaded.getSelected();
     	
-    	m_autonomousCommandGroup = new DefaultAutonomousScript(pos, amountOrDirection);
-    	//m_autonomousCommandGroup = new TestAuto();
+    	//m_autonomousCommandGroup = new ToteStackAutonomousScript(pos, amountOrDirection);
+    	//m_autonomousCommandGroup = new TestAuto();    	
+    	m_autonomousCommandGroup = (CommandGroup) m_pickAutonomous.getSelected();
+
     	
         if(m_autonomousCommandGroup != null) {
             m_autonomousCommandGroup.start();

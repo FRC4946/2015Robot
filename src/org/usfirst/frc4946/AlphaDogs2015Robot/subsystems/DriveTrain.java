@@ -6,8 +6,7 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ActuateStrafeSolenoid;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.DriveWithJoystick;
-import org.usfirst.frc4946.AlphaDogs2015Robot.util.DummyPIDOutput;
-import org.usfirst.frc4946.AlphaDogs2015Robot.util.DummyPIDOutputInterface;
+import org.usfirst.frc4946.AlphaDogs2015Robot.util.SimplePIController;
 
 import edu.wpi.first.wpilibj.*;
 //import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -23,8 +22,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveTrain extends Subsystem {
 	RobotDrive m_robotDrive = RobotMap.driveTrainRobotDrive;
 	SpeedController m_strafeMotor = RobotMap.driveTrainStrafeMotor;
-	DummyPIDOutput m_GyroCorrectPIDOutput = new DummyPIDOutput();
-	public PIDController m_gyroPIDController;
+	public SimplePIController m_gyroPIDController;
 	DoubleSolenoid m_gearShifterSolenoid = RobotMap.driveTrainGearShifterSolenoid;
 	DoubleSolenoid m_wheelDropperSolenoid = RobotMap.driveTrainWheelDropperSolenoid;
 	Gyro m_gyro = RobotMap.driveTrainGyro;
@@ -51,11 +49,14 @@ public class DriveTrain extends Subsystem {
 	public void initDefaultCommand() {	
 		
 		m_gyro.initGyro(); //Set up Gyro first, since DriveWithJoystick uses the gyro
+		m_gyro.reset();
 		m_gyro.setPIDSourceParameter(PIDSource.PIDSourceParameter.kAngle);
-		m_gyroPIDController = new PIDController(0.01, 0.01, 0, getGyro(), m_GyroCorrectPIDOutput);
+		m_gyroPIDController = new SimplePIController(0.1, 0.01, getGyro());
 		m_gyroPIDController.setContinuous(true);
+		m_gyroPIDController.setDirection(false);
 		m_gyroPIDController.setInputRange(0, 360);
-		m_gyroPIDController.setOutputRange(-0.2, 0.2);
+		m_gyroPIDController.setOutputRange(-0.5, 0.5);
+		m_gyroPIDController.setTolerence(2);
 		
 		
 		setDefaultCommand(new DriveWithJoystick());
@@ -193,7 +194,7 @@ public class DriveTrain extends Subsystem {
 		}
 
 		// Set the motors to the desired speed
-		m_robotDrive.arcadeDrive(moveValue, m_gyroPIDController.get());
+		m_robotDrive.arcadeDrive(moveValue, m_gyroPIDController.getOutput());
 		m_strafeMotor.set(strafeValue);
 	}
 
