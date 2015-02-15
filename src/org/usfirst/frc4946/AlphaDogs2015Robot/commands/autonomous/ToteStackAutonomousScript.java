@@ -14,10 +14,18 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 /**
  * @author Matthew
  */
-public class DefaultAutonomousScript extends CommandGroup {
+public class ToteStackAutonomousScript extends CommandGroup {
 	private int m_initialPosition = 0;
 	private int m_mouvementDirectionOrAmount = 0;
 
+	public void setInitialPosition(int initPos){
+		m_initialPosition = initPos;
+	}
+	public void setMouvementDirectionOrAmout(int mouvement){
+		m_mouvementDirectionOrAmount = mouvement;
+	}
+	
+	
 	/**
 	 * The standard autonomous command.
 	 * 
@@ -37,16 +45,23 @@ public class DefaultAutonomousScript extends CommandGroup {
 	 *            number of totes to move. If this value is 0, the robot will
 	 *            not pick up any additional totes.
 	 */
-	public DefaultAutonomousScript(int position, int movementDirection) {
+	public ToteStackAutonomousScript(int position, int movementDirection) {
 		m_initialPosition = position;
 		m_mouvementDirectionOrAmount = movementDirection;
 		SmartDashboard.putString("Autonomous Status", getStatus());
 
 
-		// There are currently 1.5 seconds worth of delays
+		// In 3 tote, there are currently 1.5 seconds worth of delays
 		// 11 x 0.05 sec delays
 		//  5 x 0.1  sec delays
+		
+		// There are 15.95 seconds worth of driving
+		// 4 x 1    sec driving towards/away from totes
+		// 2 x 3    sec driving sideways to next tote
+		// 1 x 5.2  sec driving into the auto zone
+		// 1 x 0.75 sec driving away from the final tote stack
 
+		// There is some time spend moving the elevator, I don't know how long
 
 		// Lift the strafe wheel, open the arms
 		addParallel(new ActuateStrafeSolenoid(true));
@@ -123,7 +138,7 @@ public class DefaultAutonomousScript extends CommandGroup {
 			// Drop the elevator slightly, then open the arms
 			addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_DROP_ON_TOTE_HEIGHT));
 			addSequential(new OpenGrabberArms());
-			addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
+			//addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
 
 
 			// Drop the elevator more, close the arms, lift to position 1
@@ -174,7 +189,7 @@ public class DefaultAutonomousScript extends CommandGroup {
 			// Drop the elevator slightly, then open the arms
 			addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_DROP_ON_TOTE_HEIGHT));
 			addSequential(new OpenGrabberArms());
-			addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
+			//addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
 
 
 			// Drop the elevator more, close the arms, lift to position 1
