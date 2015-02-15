@@ -121,21 +121,13 @@ public class Robot extends IterativeRobot {
         
         SmartDashboard.putData(m_driveTrain);
         SmartDashboard.putData(m_grabber);
-        SmartDashboard.putData(m_airCompressor);
         SmartDashboard.putData(m_elevator);
         
         frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 
-        // the camera name (ex "cam0") can be found through the roborio web interface
         session = NIVision.IMAQdxOpenCamera("cam0",
                 NIVision.IMAQdxCameraControlMode.CameraControlModeController);
         NIVision.IMAQdxConfigureGrab(session);
-        
-        //m_camServer = CameraServer.getInstance();
-        //m_camServer.setQuality(25);
-        //the camera name (ex "cam0") can be found through the roborio web interface
-        //m_camServer.startAutomaticCapture("cam0");
-        
     }
 
     /**
