@@ -16,7 +16,8 @@ public class Wait extends Command {
 
     	requires(Robot.m_elevator);
     	requires(Robot.m_driveTrain);
-    	requires(Robot.m_grabber);
+    	requires(Robot.m_leftGrabber);
+    	requires(Robot.m_rightGrabber);
     	m_delayCycles = delaySecs * 50;
     	
     }

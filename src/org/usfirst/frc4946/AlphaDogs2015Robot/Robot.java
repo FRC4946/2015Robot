@@ -38,7 +38,8 @@ public class Robot extends IterativeRobot {
 
     public static OI m_oi;
     public static DriveTrain m_driveTrain;
-    public static Grabber m_grabber;
+    public static RightGrabber m_rightGrabber;
+    public static LeftGrabber m_leftGrabber;
     public static AirCompressor m_airCompressor;
     public static Elevator m_elevator;
     
@@ -66,7 +67,8 @@ public class Robot extends IterativeRobot {
 
         RobotMap.init();
         m_driveTrain = new DriveTrain();
-        m_grabber = new Grabber();
+        m_rightGrabber = new RightGrabber();
+        m_leftGrabber = new LeftGrabber();
         m_airCompressor = new AirCompressor();
         m_elevator = new Elevator(m_proportional, m_integral, m_derivative);
         //m_feeder = new Feeder();
@@ -104,13 +106,14 @@ public class Robot extends IterativeRobot {
         m_pickAutonomous.addObject("Pickup the recycling container",									new RecyclingContainerAutonomousScript());
         m_pickAutonomous.addObject("Recycling container + tote (Robot parallel to driver's wall)",		new RecyclingContainerPlusToteAutonomousScript(false));
         m_pickAutonomous.addObject("Recycling container + tote (Robot perpendicular to driver's wall)",	new RecyclingContainerPlusToteAutonomousScript(true));
+        m_pickAutonomous.addObject("Test Auto: Simply maintain the initial orientation",				new TestAuto());
         SmartDashboard.putData("Select Autonomous Mode", m_pickAutonomous);
         
         SmartDashboard.putString("Autonomous Status", getAutonomousStatus());
 
         
         SmartDashboard.putData(m_driveTrain);
-        SmartDashboard.putData(m_grabber);
+        SmartDashboard.putData(m_rightGrabber);
         SmartDashboard.putData(m_elevator);
         
         frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);

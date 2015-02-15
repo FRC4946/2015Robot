@@ -18,7 +18,7 @@ public class SetRightGrabberArm extends Command {
      * Position 3 is 6 inches 
      */
     public SetRightGrabberArm(int position) {
-        requires(Robot.m_grabber);
+        requires(Robot.m_rightGrabber);
         m_rightArmPosition = position;
     }
 
@@ -27,19 +27,19 @@ public class SetRightGrabberArm extends Command {
 
     protected void execute() {
     	if (m_rightArmPosition == 0){
-    		Robot.m_grabber.setRightArm(0);
+    		Robot.m_rightGrabber.setRightArm(0);
     	}
     	else if (m_rightArmPosition == 1){
-    		Robot.m_grabber.setRightArm(1);
+    		Robot.m_rightGrabber.setRightArm(1);
     	}
     	else if (m_rightArmPosition == 2){
-    		Robot.m_grabber.setRightArm(2);
+    		Robot.m_rightGrabber.setRightArm(2);
     	}
     	else if (m_rightArmPosition == 3){
-    		Robot.m_grabber.setRightArm(3);
+    		Robot.m_rightGrabber.setRightArm(3);
     	}
     	else{
-    		Robot.m_grabber.setRightArm(0);
+    		Robot.m_rightGrabber.setRightArm(0);
     	}
     }
 

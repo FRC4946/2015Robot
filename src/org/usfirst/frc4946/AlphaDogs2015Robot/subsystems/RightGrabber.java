@@ -9,10 +9,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 
 /**
- *Subsystem for controlling left and right solenoids
+ *Subsystem for controlling right solenoids
  */
-public class Grabber extends Subsystem {
-    Solenoid leftArmSolenoid = RobotMap.grabberLeftArmSolenoid;
+public class RightGrabber extends Subsystem {
     Solenoid smallRightArmSolenoid = RobotMap.grabberSmallRightArmSolenoid;
     Solenoid bigRightArmSolenoid = RobotMap.grabberBigRightArmSolenoid;
 
@@ -20,19 +19,6 @@ public class Grabber extends Subsystem {
     public void initDefaultCommand() {	
     	setDefaultCommand(new GrabberDoNothing());
     }
-    
-    /**Controls left arm solenoid
-     * 
-     */
-    public void setLeftArm(boolean isExtended){
-    	if(isExtended == true){
-    		leftArmSolenoid.set(true);
-    	}
-    	else{
-    		leftArmSolenoid.set(false);
-    	}
-    }
-    
     
     /**
      *Controls right arm solenoid

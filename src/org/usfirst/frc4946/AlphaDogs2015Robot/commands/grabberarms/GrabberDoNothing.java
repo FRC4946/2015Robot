@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class GrabberDoNothing extends Command {
 
     public GrabberDoNothing() {
-        requires(Robot.m_grabber);
+        requires(Robot.m_rightGrabber);
     }
 
     protected void initialize() {

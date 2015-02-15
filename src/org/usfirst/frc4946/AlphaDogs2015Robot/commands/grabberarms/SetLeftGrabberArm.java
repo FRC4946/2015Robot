@@ -12,7 +12,7 @@ public class SetLeftGrabberArm extends Command {
 	public boolean m_leftArmExtended = true;
 	
     public SetLeftGrabberArm(boolean position) {
-        requires(Robot.m_grabber);
+        requires(Robot.m_leftGrabber);
         m_leftArmExtended = position;
     }
 
@@ -21,10 +21,10 @@ public class SetLeftGrabberArm extends Command {
 
     protected void execute() {
     	if (m_leftArmExtended == true){
-    		Robot.m_grabber.setLeftArm(true);
+    		Robot.m_leftGrabber.setLeftArm(true);
     	}
     	else {
-    		Robot.m_grabber.setLeftArm(false);
+    		Robot.m_leftGrabber.setLeftArm(false);
     	}
     }
 

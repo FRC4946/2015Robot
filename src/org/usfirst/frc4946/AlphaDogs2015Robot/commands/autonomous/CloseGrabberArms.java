@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CloseGrabberArms extends Command {
 
     public CloseGrabberArms() {
-        requires(Robot.m_grabber);
+    	requires(Robot.m_leftGrabber);
+        requires(Robot.m_rightGrabber);
     }
 
     // Called just before this Command runs the first time
@@ -19,8 +20,8 @@ public class CloseGrabberArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		Robot.m_grabber.setLeftArm(false);
-    		Robot.m_grabber.setRightArm(0);
+    		Robot.m_leftGrabber.setLeftArm(false);
+    		Robot.m_rightGrabber.setRightArm(0);
 
     }
 
