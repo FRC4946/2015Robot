@@ -20,7 +20,7 @@ public class RotateToAngle extends Command {
     public RotateToAngle(double newAngle) {
         requires(Robot.m_driveTrain);
     	m_gyro = Robot.m_driveTrain.getGyro();
-        //m_angle = newAngle;
+        //m_angle = newAngle;    	// Uncomment this
     }
 
     // Called just before this Command runs the first time
@@ -34,17 +34,18 @@ public class RotateToAngle extends Command {
     protected void execute() {
     	curAngle = m_gyro.getAngle() % 360;
     	SmartDashboard.putNumber("Gyro", curAngle);
+    	
+    	
+    	
+    	// Uncomment this:
+    	
     	//double error = m_angle - m_gyro.getAngle();
-    	//double correct = error*0.1;
-    	
-    	//if(correct > 0.5){
-    	//	correct = 0.5;
-    	//}
-    	//else if(correct < -0.5){
-    	//	correct = -0.5;
-    	//}
-    	
-    	
+    	//double correct = error*-0.1;
+    	//if(correct > 0.5) correct = 0.5;
+    	//else if(correct < -0.5) correct = -0.5;
+    	//Robot.m_driveTrain.autoStrafeDrive(0.0, correct, 0.0);
+
+    	// Comment out this
     	Robot.m_driveTrain.autoStrafeDrive(0.0, Robot.m_driveTrain.m_gyroPIDController.getOutput(), 0.0);
     }
 

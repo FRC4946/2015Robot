@@ -90,7 +90,7 @@ public class SimplePIController {
 		double error = m_setpoint - m_inputVal;
 		integralTerm += ki * (error * timeChange);
 
-		if (m_isContinuous == false) {
+		if (m_isContinuous) {
 			if (Math.abs(error) > (m_maximumInput - m_minimumInput) / 2) {
 				if (error > 0) {
 					error = error - m_maximumInput + m_minimumInput;
@@ -132,10 +132,26 @@ public class SimplePIController {
 
 	public void updateInputVal() {
 		m_inputVal = m_inputSource.pidGet();
+
+		// If need be, adjust the input to fit in the input range.
+		// Rather than saying "If it's too big, set it to the biggest allowed,"
+		// We want the controller to be able to utilize its continuous functionality.
+		// Therefore, we just re-map the input to fit into the input range using the modulus operator.
+		if(m_isContinuous){
+			if(m_inputVal > m_maximumInput){
+				m_inputVal = m_inputVal % m_maximumInput;
+			}
+			else if (m_inputVal < m_minimumInput){
+				while (m_inputVal < m_minimumInput){
+					m_inputVal += m_maximumInput;
+				}
+				m_inputVal = m_inputVal % m_maximumInput;
+			}
+		}
 	}
 
-    public boolean onTarget() {
-    	this.updateInputVal();
-        return (Math.abs(m_setpoint - m_inputVal) < m_tolerance / 100 * (m_maximumInput - m_minimumInput));
-    }
+	public boolean onTarget() {
+		this.updateInputVal();
+		return (Math.abs(m_setpoint - m_inputVal) < m_tolerance / 100 * (m_maximumInput - m_minimumInput));
+	}
 }
