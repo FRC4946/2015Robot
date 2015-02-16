@@ -29,24 +29,24 @@ public class RightGrabber extends Subsystem {
      */
     public void setRightArm(int rightArmPosition){
     	if(rightArmPosition == 0){
-    		smallRightArmSolenoid.set(false);
-    		bigRightArmSolenoid.set(false);
+    		smallRightArmSolenoid.set(true);
+    		bigRightArmSolenoid.set(true);
     	}
     	else if (rightArmPosition == 1){
-    		smallRightArmSolenoid.set(true);
-    		bigRightArmSolenoid.set(false);
+    		smallRightArmSolenoid.set(false);
+    		bigRightArmSolenoid.set(true);
     	}
     	else if (rightArmPosition == 2){
-    		smallRightArmSolenoid.set(false);
-    		bigRightArmSolenoid.set(true);
+    		smallRightArmSolenoid.set(true);
+    		bigRightArmSolenoid.set(false);
     	}
     	else if (rightArmPosition == 3){
-    		smallRightArmSolenoid.set(true);
-    		bigRightArmSolenoid.set(true);
-    	}
-    	else{
     		smallRightArmSolenoid.set(false);
     		bigRightArmSolenoid.set(false);
+    	}
+    	else{
+    		smallRightArmSolenoid.set(true);
+    		bigRightArmSolenoid.set(true);
     	}
     		
     }

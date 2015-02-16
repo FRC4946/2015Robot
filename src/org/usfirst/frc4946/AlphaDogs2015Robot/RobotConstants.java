@@ -38,8 +38,8 @@ public final class RobotConstants {
 	public static final double AUTONOMOUS_DRIVE_FINISH_SPEED = 1.0;			// The speed at which to drive 1" away from the dropped totes
 	public static final double AUTONOMOUS_DRIVE_FINISH_TIMEOUT = 0.75;		// For how long to drive away from the dropped totes
 
-	public static final double AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_SPEED = 1.0;			// The speed at which to drive 1" away from the dropped totes
-	public static final double AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_TIMEOUT = 1.6;		// For how long to drive away from the dropped totes
+	public static final double AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_SPEED = 0.8;			// The speed at which to drive 1" away from the dropped totes
+	public static final double AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_TIMEOUT = 0.8;		// For how long to drive away from the dropped totes
 	public static final double AUTONOMOUS_DRIVE_FORWARDS_TO_TOTE_SPEED = 0.7;		// The speed at which to drive 1" away from the dropped totes
 	public static final double AUTONOMOUS_DRIVE_FORWARDS_TO_TOTE_TIMEOUT = 0.5;		// For how long to drive away from the dropped totes
 	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SLOW_SPEED = 0.8;		// The speed at which to drive 12" into the auto zone

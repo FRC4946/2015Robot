@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous.*;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
 import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.*;
 
 import com.ni.vision.NIVision;
@@ -134,9 +135,8 @@ public class Robot extends IterativeRobot {
      */
     public void disabledInit(){
 
-        SmartDashboard.putData("Select autonomous starting position", m_autonomousStartingPosition);
-        SmartDashboard.putData("directionOrAmount", m_autonomousAmountOrDirectionToMove);
-        SmartDashboard.putData("Select Autonomous Mode", m_pickAutonomous);
+        new ActuateStrafeSolenoid(true).start();
+        new OpenGrabberArms().start();
     	
     }
 
@@ -150,8 +150,6 @@ public class Robot extends IterativeRobot {
     	RobotConstants.autonomousDirectionOrAmount = (int) m_autonomousAmountOrDirectionToMove.getSelected();
     	//boolean toteIsLoaded = (boolean) m_autonomousToteIsPreLoaded.getSelected();
     	
-    	//m_autonomousCommandGroup = new ToteStackAutonomousScript(pos, amountOrDirection);
-    	//m_autonomousCommandGroup = new TestAuto();    	
     	m_autonomousCommandGroup = (CommandGroup) m_pickAutonomous.getSelected();
 
     	

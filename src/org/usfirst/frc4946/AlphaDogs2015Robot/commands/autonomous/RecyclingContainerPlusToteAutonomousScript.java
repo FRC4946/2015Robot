@@ -15,16 +15,13 @@ public class RecyclingContainerPlusToteAutonomousScript extends CommandGroup {
 	public  RecyclingContainerPlusToteAutonomousScript(boolean shouldStrafe) {
 
 
-		// Lift the strafe wheel, open the arms
-		addParallel(new ActuateStrafeSolenoid(true));
-		//addSequential(new OpenGrabberArms());
-		//addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
-
+		// Lift the strafe wheel
+		addSequential(new ActuateStrafeSolenoid(true));
 
 
 		// Lower the elevator to just beneath the lip of the RC
-		//addSequential(new SetElevatorMode(true));
-		//addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_PICKUP_CONTAINER_HEIGHT));
+		addSequential(new SetElevatorMode(true));
+		addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_PICKUP_CONTAINER_HEIGHT));
 
 		// Close the grabber arms in order to grasp recycling container
 		addSequential(new CloseGrabberArms());
@@ -41,7 +38,7 @@ public class RecyclingContainerPlusToteAutonomousScript extends CommandGroup {
 			addSequential(new ActuateStrafeSolenoid(false));
 			addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_STRAFE));
 
-			// Strafe left
+			// Strafe right
 			addSequential(new SimpleAutoDrive(0.0, -RobotConstants.AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_SPEED, 0.0), RobotConstants.AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_TIMEOUT);
 			addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 

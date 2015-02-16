@@ -24,10 +24,10 @@ public class LeftGrabber extends Subsystem {
      */
     public void setLeftArm(boolean isExtended){
     	if(isExtended == true){
-    		leftArmSolenoid.set(true);
+    		leftArmSolenoid.set(false);
     	}
     	else{
-    		leftArmSolenoid.set(false);
+    		leftArmSolenoid.set(true);
     	}
     }
 }
