@@ -108,7 +108,8 @@ public class Robot extends IterativeRobot {
        // SmartDashboard.putData("Select whether or not the tote is pre-loaded", m_autonomousToteIsPreLoaded);
         
         m_pickAutonomous = new SendableChooser();
-        m_pickAutonomous.addDefault("Tote stacking. See other selectors",								new ToteStackAutonomousScript(-1, -1));
+        m_pickAutonomous.addDefault("Tote stacking WITH strafe. See other selectors",					new ToteStackStrafeAutonomousScript(-1, -1));
+        m_pickAutonomous.addObject("Tote stacking WITHOUT strafe. See other selectors",					new ToteStackStraightAutonomousScript(-1, -1));
         m_pickAutonomous.addObject("Pickup the recycling container",									new RecyclingContainerAutonomousScript());
         m_pickAutonomous.addObject("Recycling container + tote (Robot parallel to driver's wall)",		new RecyclingContainerPlusToteAutonomousScript(false));
         m_pickAutonomous.addObject("Recycling container + tote (Robot perpendicular to driver's wall)",	new RecyclingContainerPlusToteAutonomousScript(true));

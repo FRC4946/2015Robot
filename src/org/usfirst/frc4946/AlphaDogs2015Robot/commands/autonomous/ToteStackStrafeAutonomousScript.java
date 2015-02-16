@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 /**
  * @author Matthew
  */
-public class ToteStackAutonomousScript extends CommandGroup {
+public class ToteStackStrafeAutonomousScript extends CommandGroup {
 	private int m_initialPosition = 0;
 	private int m_mouvementDirectionOrAmount = 0;
 
@@ -45,7 +45,7 @@ public class ToteStackAutonomousScript extends CommandGroup {
 	 *            number of totes to move. If this value is 0, the robot will
 	 *            not pick up any additional totes.
 	 */
-	public ToteStackAutonomousScript(int position, int movementDirection) {
+	public ToteStackStrafeAutonomousScript(int position, int movementDirection) {
 		m_initialPosition = position;
 		m_mouvementDirectionOrAmount = movementDirection;
 		SmartDashboard.putString("Autonomous Status", getStatus());
