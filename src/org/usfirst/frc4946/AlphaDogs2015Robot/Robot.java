@@ -38,10 +38,13 @@ public class Robot extends IterativeRobot {
 
     public static OI m_oi;
     public static DriveTrain m_driveTrain;
+    public static StrafeDropper m_strafeDropper;
     public static RightGrabber m_rightGrabber;
     public static LeftGrabber m_leftGrabber;
     public static AirCompressor m_airCompressor;
     public static Elevator m_elevator;
+    public static Transmission m_transmission;
+
     
     Preferences m_prefs;
     double m_proportional = 0.0;
@@ -70,7 +73,9 @@ public class Robot extends IterativeRobot {
         m_rightGrabber = new RightGrabber();
         m_leftGrabber = new LeftGrabber();
         m_airCompressor = new AirCompressor();
+        m_strafeDropper = new StrafeDropper();
         m_elevator = new Elevator(m_proportional, m_integral, m_derivative);
+        m_transmission = new Transmission();
         //m_feeder = new Feeder();
 
         m_oi = new OI(); // Make sure you define this AFTER the subsystems.
@@ -106,7 +111,7 @@ public class Robot extends IterativeRobot {
         m_pickAutonomous.addObject("Pickup the recycling container",									new RecyclingContainerAutonomousScript());
         m_pickAutonomous.addObject("Recycling container + tote (Robot parallel to driver's wall)",		new RecyclingContainerPlusToteAutonomousScript(false));
         m_pickAutonomous.addObject("Recycling container + tote (Robot perpendicular to driver's wall)",	new RecyclingContainerPlusToteAutonomousScript(true));
-        m_pickAutonomous.addObject("Test Auto: Simply maintain the initial orientation",				new TestAuto());
+        m_pickAutonomous.addObject("Recycling container + 2 totes (Robot perpendicular)",				new RecyclingContainerPlusTwoToteAutonomousScript());
         SmartDashboard.putData("Select Autonomous Mode", m_pickAutonomous);
         
         SmartDashboard.putString("Autonomous Status", getAutonomousStatus());
@@ -129,6 +134,10 @@ public class Robot extends IterativeRobot {
      */
     public void disabledInit(){
 
+        SmartDashboard.putData("Select autonomous starting position", m_autonomousStartingPosition);
+        SmartDashboard.putData("directionOrAmount", m_autonomousAmountOrDirectionToMove);
+        SmartDashboard.putData("Select Autonomous Mode", m_pickAutonomous);
+    	
     }
 
     public void disabledPeriodic() {

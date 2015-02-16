@@ -20,7 +20,7 @@ public class RotateToAngle extends Command {
     public RotateToAngle(double newAngle) {
         requires(Robot.m_driveTrain);
     	m_gyro = Robot.m_driveTrain.getGyro();
-        //m_angle = newAngle;    	// Uncomment this
+        m_angle = newAngle;
     }
 
     // Called just before this Command runs the first time

@@ -2,7 +2,7 @@ package org.usfirst.frc4946.AlphaDogs2015Robot;
 
 public final class RobotConstants {
 
-	public static final double ELEVATOR_MAX_OUTPUT = 0.8;
+	public static final double ELEVATOR_MAX_OUTPUT = 1.0;
 	public static final double ELEVATOR_MINIMUM_HEIGHT = 8.2;
 	public static final double ELEVATOR_MAXIMUM_HEIGHT = 66.0;
 	
@@ -34,17 +34,17 @@ public final class RobotConstants {
 	public static final double AUTONOMOUS_DRIVE_CLEAR_TOTE_SPEED = 0.5;		// The speed at which to drive ~2" back away from the initial pos
 	public static final double AUTONOMOUS_DRIVE_CLEAR_TOTE_TIMEOUT = 1;		// For how long to drive back ~2"
 	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SPEED = 0.8;		// The speed at which to drive 12" into the auto zone
-	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT = 5.2;	// For how long to drive into the auto zone, 12"
+	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT = 2.0;	// For how long to drive into the auto zone, 12"
 	public static final double AUTONOMOUS_DRIVE_FINISH_SPEED = 1.0;			// The speed at which to drive 1" away from the dropped totes
 	public static final double AUTONOMOUS_DRIVE_FINISH_TIMEOUT = 0.75;		// For how long to drive away from the dropped totes
 
-	public static final double AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_SPEED = 0.5;			// The speed at which to drive 1" away from the dropped totes
-	public static final double AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_TIMEOUT = 0.8;		// For how long to drive away from the dropped totes
-	public static final double AUTONOMOUS_DRIVE_FORWARDS_TO_TOTE_SPEED = 0.5;		// The speed at which to drive 1" away from the dropped totes
-	public static final double AUTONOMOUS_DRIVE_FORWARDS_TO_TOTE_TIMEOUT = 0.4;		// For how long to drive away from the dropped totes
-	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SLOW_SPEED = 0.4;		// The speed at which to drive 12" into the auto zone
-	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SLOW_TIMEOUT = 10.4;	// For how long to drive into the auto zone, 12"
-	
+	public static final double AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_SPEED = 1.0;			// The speed at which to drive 1" away from the dropped totes
+	public static final double AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_TIMEOUT = 1.6;		// For how long to drive away from the dropped totes
+	public static final double AUTONOMOUS_DRIVE_FORWARDS_TO_TOTE_SPEED = 0.7;		// The speed at which to drive 1" away from the dropped totes
+	public static final double AUTONOMOUS_DRIVE_FORWARDS_TO_TOTE_TIMEOUT = 0.5;		// For how long to drive away from the dropped totes
+	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SLOW_SPEED = 0.8;		// The speed at which to drive 12" into the auto zone
+	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SLOW_TIMEOUT = 2.0;	// For how long to drive into the auto zone, 12"
+
 	public static int autonomousInitialPosition;
 	public static int autonomousDirectionOrAmount;
 
