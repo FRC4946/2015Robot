@@ -39,7 +39,7 @@ public class RecyclingContainerPlusToteAutonomousScript extends CommandGroup {
 			addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_STRAFE));
 
 			// Strafe right
-			addSequential(new SimpleAutoDrive(0.0, -RobotConstants.AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_SPEED, 0.0), RobotConstants.AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_TIMEOUT);
+			addSequential(new SimpleAutoDrive(0.0, -RobotConstants.AUTONOMOUS_DRIVE_STRAFE_FROM_RC_TO_TOTE_SPEED, 0.0), RobotConstants.AUTONOMOUS_DRIVE_STRAFE_FROM_RC_TO_TOTE_TIMEOUT);
 			addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 
 			// Raise the strafe
@@ -50,7 +50,7 @@ public class RecyclingContainerPlusToteAutonomousScript extends CommandGroup {
 		// If we're facing parallel to the driver's wall
 		else {
 			// Drive forwards
-			addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_FORWARDS_TO_TOTE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_FORWARDS_TO_TOTE_TIMEOUT);
+			addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_FORWARDS_FROM_RC_TO_TOTE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_FORWARDS_FROM_RC_TO_TOTE_TIMEOUT);
 			addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 
 			// Drop the RC onto the tote next to it
@@ -76,8 +76,9 @@ public class RecyclingContainerPlusToteAutonomousScript extends CommandGroup {
 
 		//Drive forwards 12 feet in order to enter the Auto zone
 		addParallel(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_TRANSPORT_HEIGHT));
-		addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_SLOW_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_SLOW_TIMEOUT);
-
+		//addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT);
+		addSequential(new DecelerateAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_SPEED, 0.0, 0.0, 0.4, 0.4, RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT));
+		
 		// Place the tote stack on the ground. Open the grabber arms to full size
 		if(shouldStrafe == false ) {
 			addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_PICKUP_HEIGHT));

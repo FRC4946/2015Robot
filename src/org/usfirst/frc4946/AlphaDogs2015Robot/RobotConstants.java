@@ -4,7 +4,7 @@ public final class RobotConstants {
 
 	public static final double ELEVATOR_MAX_OUTPUT = 1.0;
 	public static final double ELEVATOR_MINIMUM_HEIGHT = 8.2;
-	public static final double ELEVATOR_MAXIMUM_HEIGHT = 66.0;
+	public static final double ELEVATOR_MAXIMUM_HEIGHT = 66.25;
 	
 	public static final double DRIVETRAIN_MAX_ACCEL = 0.01;	// This value should be in the unit "Voltage per Cycle".
 
@@ -19,7 +19,7 @@ public final class RobotConstants {
 	public static final double AUTONOMOUS_ELEVATOR_PICKUP_CONTAINER_HEIGHT = 16;
 	public static final double AUTONOMOUS_ELEVATOR_CARRY_CONTAINER_HEIGHT = 24;
 	public static final double AUTONOMOUS_ELEVATOR_CONTAINER_ABOVE_TOTE_HEIGHT = 38;
-	public static final double AUTONOMOUS_ELEVATOR_CONTAINER_DROP_ON_TOTE_HEIGHT = 34;	// Drops a tote onto another tote
+	public static final double AUTONOMOUS_ELEVATOR_CONTAINER_DROP_ON_TOTE_HEIGHT = 25;	// Drops a tote onto another tote
 
 
 
@@ -33,17 +33,16 @@ public final class RobotConstants {
 	public static final double AUTONOMOUS_DRIVE_TO_NEXT_TOTE_TIMEOUT = 3;	// How long it takes us to drive from one tote to the next. Should be 6'9"
 	public static final double AUTONOMOUS_DRIVE_CLEAR_TOTE_SPEED = 0.5;		// The speed at which to drive ~2" back away from the initial pos
 	public static final double AUTONOMOUS_DRIVE_CLEAR_TOTE_TIMEOUT = 1;		// For how long to drive back ~2"
-	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SPEED = 0.8;		// The speed at which to drive 12" into the auto zone
-	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT = 2.0;	// For how long to drive into the auto zone, 12"
-	public static final double AUTONOMOUS_DRIVE_FINISH_SPEED = 1.0;			// The speed at which to drive 1" away from the dropped totes
-	public static final double AUTONOMOUS_DRIVE_FINISH_TIMEOUT = 0.75;		// For how long to drive away from the dropped totes
+	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SPEED = 0.6;		// The speed at which to drive 12" into the auto zone
+	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT = 1.0;	// For how long to drive into the auto zone, 12"
+	public static final double AUTONOMOUS_DRIVE_BACKUP_SPEED = 0.8;			// The speed at which to drive 12" into the auto zone
+	public static final double AUTONOMOUS_DRIVE_BACKUP_TIMEOUT = 0.5;		// For how long to drive into the auto zone, 12"
 
-	public static final double AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_SPEED = 0.8;			// The speed at which to drive 1" away from the dropped totes
-	public static final double AUTONOMOUS_DRIVE_STRAFE_TO_TOTE_TIMEOUT = 0.8;		// For how long to drive away from the dropped totes
-	public static final double AUTONOMOUS_DRIVE_FORWARDS_TO_TOTE_SPEED = 0.7;		// The speed at which to drive 1" away from the dropped totes
-	public static final double AUTONOMOUS_DRIVE_FORWARDS_TO_TOTE_TIMEOUT = 0.5;		// For how long to drive away from the dropped totes
-	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SLOW_SPEED = 0.8;		// The speed at which to drive 12" into the auto zone
-	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SLOW_TIMEOUT = 2.0;	// For how long to drive into the auto zone, 12"
+	public static final double AUTONOMOUS_DRIVE_STRAFE_FROM_RC_TO_TOTE_SPEED = 0.8;			// The speed at which to drive 1" away from the dropped totes
+	public static final double AUTONOMOUS_DRIVE_STRAFE_FROM_RC_TO_TOTE_TIMEOUT = 0.8;		// For how long to drive away from the dropped totes
+	public static final double AUTONOMOUS_DRIVE_FORWARDS_FROM_RC_TO_TOTE_SPEED = 0.3;		// The speed at which to drive 1" away from the dropped totes
+	public static final double AUTONOMOUS_DRIVE_FORWARDS_FROM_RC_TO_TOTE_TIMEOUT = 0.9;		// For how long to drive away from the dropped totes
+	public static final double ELEVATOR_MAX_VELOCITY = 12;
 
 	public static int autonomousInitialPosition;
 	public static int autonomousDirectionOrAmount;

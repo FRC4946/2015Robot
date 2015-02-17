@@ -33,7 +33,6 @@ public class Elevator extends Subsystem {
     DigitalInput m_topLimitSwitch = RobotMap.elevatorTopLimitSwitch;
 
     double q_0 = 0.0; // The initial position when a new setPoint is set
-    double V_max = 12; // The maximum velocity, in inches/second
     double q_f = 0.0; // The final position, or the setPoint
     double t_i = 0.0; // The initial time when a new setPoint is set
     double t_f = 0.0; // The final time, or when the movement is expected to finish
@@ -127,7 +126,7 @@ public class Elevator extends Subsystem {
 		t_i = System.currentTimeMillis()/1000.0;
 		q_f = setPos;
 
-		t_f = 1.5*	Math.abs(q_f-q_0)/V_max;
+		t_f = 1.5*	Math.abs(q_f-q_0)/RobotConstants.ELEVATOR_MAX_VELOCITY;
 
 		m_PIDisAtPosition = false;
 	}

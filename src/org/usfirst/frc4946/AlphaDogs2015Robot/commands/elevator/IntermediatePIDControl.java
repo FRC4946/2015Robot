@@ -30,14 +30,17 @@ public class IntermediatePIDControl extends Command {
     	currentPos = Robot.m_elevator.getElevatorPos(); 
     	
     	if(Math.abs(Robot.m_oi.getOperatorJoystick().getY())>0.05){
-    		newSetPoint = (currentPos + (3*Robot.m_oi.getOperatorJoystick().getY()));
+    		newSetPoint = (currentPos + (RobotConstants.ELEVATOR_MAX_VELOCITY*Robot.m_oi.getOperatorJoystick().getY()));
+    	}
+    	else{
+    		newSetPoint = currentPos;
     	}
     	
     	// Limit how far away from the current position the setPoint can be
-    	if(newSetPoint-currentPos>6){
-    		newSetPoint= currentPos+6;
-    	} else if(newSetPoint-currentPos < -6){
-        	newSetPoint= currentPos -6;
+    	if(newSetPoint-currentPos>RobotConstants.ELEVATOR_MAX_VELOCITY){
+    		newSetPoint= currentPos+RobotConstants.ELEVATOR_MAX_VELOCITY;
+    	} else if(newSetPoint-currentPos < -RobotConstants.ELEVATOR_MAX_VELOCITY){
+        	newSetPoint= currentPos -RobotConstants.ELEVATOR_MAX_VELOCITY;
     	}
     	
     	// Limit the elevator to within the limits

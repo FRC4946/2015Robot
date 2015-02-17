@@ -42,18 +42,21 @@ public class DriveTrain extends Subsystem {
 	double gyroInitialPosition;
 
 
+	public void initGyro(){
+		m_gyro.initGyro(); //Set up Gyro first, since DriveWithJoystick uses the gyro
+
+	}
 
 	public void initDefaultCommand() {	
 
-		m_gyro.initGyro(); //Set up Gyro first, since DriveWithJoystick uses the gyro
 		m_gyro.reset();
 		m_gyro.setPIDSourceParameter(PIDSource.PIDSourceParameter.kAngle);
-		m_gyroPIDController = new SimplePIController(0.1, 0.01, getGyro());
+		m_gyroPIDController = new SimplePIController(0.01, 0.005, getGyro());
 		m_gyroPIDController.setContinuous(true);
 		m_gyroPIDController.setDirection(false);
 		m_gyroPIDController.setInputRange(0, 360);
-		m_gyroPIDController.setOutputRange(-0.5, 0.5);
-		m_gyroPIDController.setTolerence(5);
+		m_gyroPIDController.setOutputRange(-0.3, 0.3);
+		m_gyroPIDController.setTolerence(3);
 
 
 		setDefaultCommand(new DriveWithJoystick());
@@ -99,7 +102,7 @@ public class DriveTrain extends Subsystem {
 
 		//Scale motor speed based off of the drive joystick throttle
 		moveValue = moveValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
-		rotateValue = (rotateValue * (0.5 + 0.3 * driveSpeed)); // 0.5 to 0.8
+		rotateValue = rotateValue * (0.3 + 0.5 * driveSpeed); // 0.5 to 0.8
 		m_strafeMotor.set(0.0);
 		m_robotDrive.arcadeDrive(moveValue, rotateValue);	
 	}
@@ -126,8 +129,8 @@ public class DriveTrain extends Subsystem {
 		if (moveValue >= 0.0) moveValue = (moveValue * moveValue);
 		else moveValue = -(moveValue * moveValue);
 
-		if (rotateValue >= 0.0) rotateValue = (rotateValue * rotateValue);
-		else rotateValue = -(rotateValue * rotateValue);
+		//if (rotateValue >= 0.0) rotateValue = (rotateValue * rotateValue);
+		//else rotateValue = -(rotateValue * rotateValue);
 
 		if (strafeValue >= 0.0) strafeValue = (strafeValue * strafeValue);
 		else strafeValue = -(strafeValue * strafeValue);
@@ -136,7 +139,7 @@ public class DriveTrain extends Subsystem {
 		//Scale motor speed based off of the drive joystick throttle
 		double driveSpeed = getThrottle();
 		moveValue = moveValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
-		rotateValue = rotateValue * (0.5 + 0.3 * driveSpeed); // 0.5 to 0.8
+		rotateValue = rotateValue * (0.1 + 0.5 * driveSpeed); // 0.1 to 0.6
 		strafeValue = strafeValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
 
 
@@ -155,8 +158,18 @@ public class DriveTrain extends Subsystem {
 	 * @param strafeValue Strafe speed in range [-1,1]
 	 */
 	public void gyroDrive(double moveValue, double strafeValue) {
-		double gyroPos = (m_gyro.getAngle() % 360); //correct Gyro range to [0, 360]
+		double gyroPos = m_gyro.getAngle();
 
+		if(gyroPos > 360){
+			gyroPos = gyroPos % 360;
+		}
+		else if (gyroPos < 0){
+			while (gyroPos < 0){
+				gyroPos += 360;
+			}
+			gyroPos = gyroPos % 360;
+		}
+		
 		//If the closest angle is 0
 		if (Math.abs(gyroPos) <= 45) {
 			m_gyroPIDController.setSetpoint(0.0);

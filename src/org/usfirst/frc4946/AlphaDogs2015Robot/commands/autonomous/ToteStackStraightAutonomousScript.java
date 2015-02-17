@@ -63,7 +63,7 @@ public class ToteStackStraightAutonomousScript extends CommandGroup {
 		if (m_mouvementDirectionOrAmount > 0) {
 
 			// Drive forwards 3 feet while lifting the arms
-			addParallel(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_TRANSPORT_HEIGHT));
+			addParallel(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_ABOVE_TOTE_HEIGHT));
 			addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_CLEAR_TOTE_TIMEOUT);
 			addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 
@@ -89,7 +89,7 @@ public class ToteStackStraightAutonomousScript extends CommandGroup {
 		if (m_mouvementDirectionOrAmount > 1) {
 
 			// Drive forwards 3 feet while lifting the arms
-			addParallel(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_TRANSPORT_HEIGHT));
+			addParallel(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_ABOVE_TOTE_HEIGHT));
 			addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_CLEAR_TOTE_TIMEOUT);
 			addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 

@@ -1,4 +1,4 @@
-package org.usfirst.frc4946.AlphaDogs2015Robot.commands.transmission;
+package org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 
@@ -7,11 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TransmissionDoNothing extends Command {
+public class ToggleLeftArm extends Command {
 
-    public TransmissionDoNothing() {
-        // Use requires() here to declare subsystem dependencies
-        requires(Robot.m_transmission);
+    public ToggleLeftArm() {
+        requires(Robot.m_leftGrabber);
     }
 
     // Called just before this Command runs the first time
@@ -20,11 +19,12 @@ public class TransmissionDoNothing extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.m_leftGrabber.toggleLeftArm();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
