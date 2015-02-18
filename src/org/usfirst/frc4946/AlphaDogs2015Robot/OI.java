@@ -24,7 +24,8 @@ import edu.wpi.first.wpilibj.command.Command;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-
+	
+	//public String WOW = "SUCH ROBOT MUCH ALPHACA DOGE"; 
     public JoystickButton highGear;
     public JoystickButton lowGear;
     public JoystickButton actuateStrafe;
