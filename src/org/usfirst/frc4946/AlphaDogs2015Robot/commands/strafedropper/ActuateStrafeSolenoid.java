@@ -1,4 +1,4 @@
-package org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain;
+package org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 
@@ -15,7 +15,7 @@ public class ActuateStrafeSolenoid extends Command {
 	private int counter;
 	
 	public ActuateStrafeSolenoid(boolean isWheelRaised) {
-		requires(Robot.m_driveTrain);
+		requires(Robot.m_strafeDropper);
 		m_isWheelRaised = isWheelRaised;
 	}
 
@@ -25,9 +25,9 @@ public class ActuateStrafeSolenoid extends Command {
 
 	protected void execute() {
 		if (m_isWheelRaised){
-			Robot.m_driveTrain.setDropWheel(2);
+			Robot.m_strafeDropper.setDropWheel(2);
 		} else {
-			Robot.m_driveTrain.setDropWheel(1);
+			Robot.m_strafeDropper.setDropWheel(1);
 		}
 		counter ++;
 	}
@@ -37,11 +37,11 @@ public class ActuateStrafeSolenoid extends Command {
 		
 		// NO!!!
 		// We need to send power to the solenoids for at least a few cycles of the CPU, otherwise they won't fire.
-		return (counter > 5);
+		return (counter > 3);
 	}
 
 	protected void end() {
-		Robot.m_driveTrain.setDropWheel(0);
+		Robot.m_strafeDropper.setDropWheel(0);
 	}
 
 	protected void interrupted() {

@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveWithJoystick extends Command {
 
 	private Gyro m_gyro;
-	boolean isGyroMode = Robot.m_driveTrain.getGyroMode();
 	
     public DriveWithJoystick() {
         requires(Robot.m_driveTrain);
@@ -35,11 +34,11 @@ public class DriveWithJoystick extends Command {
 		
 		SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
 
-		if (isGyroMode) {
+		if (Robot.m_oi.toggleGyroMode.get() == true) {
 			Robot.m_driveTrain.gyroDrive(-Yval, -Xval);    	
 		}
     	
-    	if (!isGyroMode) {
+    	if (Robot.m_oi.toggleGyroMode.get() == false) {
 			//    	if(isStrafeMode){							// This is commented out because strafe mode is unneeded
 			//    		Robot.m_driveTrain.drive(-Yval, Xval);
 			//    	} else{

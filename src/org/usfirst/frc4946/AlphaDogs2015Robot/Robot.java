@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous.*;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
 import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.*;
 
 import com.ni.vision.NIVision;
@@ -34,16 +35,18 @@ public class Robot extends IterativeRobot {
     SendableChooser m_pickAutonomous;
     SendableChooser m_autonomousStartingPosition;
     SendableChooser m_autonomousAmountOrDirectionToMove;
-    private String m_autonomousStatus = "";
+    private String[] autonomousStatuses = {"NAN", "NAN", "NAN"};
 
     public static OI m_oi;
     public static DriveTrain m_driveTrain;
+    public static StrafeDropper m_strafeDropper;
     public static RightGrabber m_rightGrabber;
     public static LeftGrabber m_leftGrabber;
     public static AirCompressor m_airCompressor;
     public static Elevator m_elevator;
+    public static Transmission m_transmission;
+
     
-    Preferences m_prefs;
     double m_proportional = 0.0;
     double m_integral = 0.0;
     double m_derivative = 0.0;
@@ -66,11 +69,13 @@ public class Robot extends IterativeRobot {
         //m_derivative = m_prefs.getDouble("DerivativeValue", 0.0);
 
         RobotMap.init();
-        m_driveTrain = new DriveTrain();
+        m_driveTrain = new DriveTrain(); m_driveTrain.initGyro();
         m_rightGrabber = new RightGrabber();
         m_leftGrabber = new LeftGrabber();
         m_airCompressor = new AirCompressor();
+        m_strafeDropper = new StrafeDropper();
         m_elevator = new Elevator(m_proportional, m_integral, m_derivative);
+        m_transmission = new Transmission();
         //m_feeder = new Feeder();
 
         m_oi = new OI(); // Make sure you define this AFTER the subsystems.
@@ -102,11 +107,14 @@ public class Robot extends IterativeRobot {
        // SmartDashboard.putData("Select whether or not the tote is pre-loaded", m_autonomousToteIsPreLoaded);
         
         m_pickAutonomous = new SendableChooser();
-        m_pickAutonomous.addDefault("Tote stacking. See other selectors",								new ToteStackAutonomousScript(-1, -1));
+        m_pickAutonomous.addDefault("Drive forward",													new DriveAutonomousScript());
         m_pickAutonomous.addObject("Pickup the recycling container",									new RecyclingContainerAutonomousScript());
         m_pickAutonomous.addObject("Recycling container + tote (Robot parallel to driver's wall)",		new RecyclingContainerPlusToteAutonomousScript(false));
         m_pickAutonomous.addObject("Recycling container + tote (Robot perpendicular to driver's wall)",	new RecyclingContainerPlusToteAutonomousScript(true));
-        m_pickAutonomous.addObject("Test Auto: Simply maintain the initial orientation",				new TestAuto());
+        m_pickAutonomous.addObject("Recycling container + 2 totes (Robot perpendicular)",				new RecyclingContainerPlusTwoToteAutonomousScript());
+        m_pickAutonomous.addObject("Tote stacking - Square. See other selectors",						new ToteStackStrafeAutonomousScript(-1, -1));
+        m_pickAutonomous.addObject("Tote stacking - Straight. See other selectors",						new ToteStackStraightAutonomousScript(-1, -1));
+
         SmartDashboard.putData("Select Autonomous Mode", m_pickAutonomous);
         
         SmartDashboard.putString("Autonomous Status", getAutonomousStatus());
@@ -129,6 +137,9 @@ public class Robot extends IterativeRobot {
      */
     public void disabledInit(){
 
+        new ActuateStrafeSolenoid(true).start();
+        new OpenGrabberArms().start();
+    	
     }
 
     public void disabledPeriodic() {
@@ -139,17 +150,16 @@ public class Robot extends IterativeRobot {
     	
     	RobotConstants.autonomousInitialPosition = (int) m_autonomousStartingPosition.getSelected();
     	RobotConstants.autonomousDirectionOrAmount = (int) m_autonomousAmountOrDirectionToMove.getSelected();
-    	//boolean toteIsLoaded = (boolean) m_autonomousToteIsPreLoaded.getSelected();
     	
-    	//m_autonomousCommandGroup = new ToteStackAutonomousScript(pos, amountOrDirection);
-    	//m_autonomousCommandGroup = new TestAuto();    	
     	m_autonomousCommandGroup = (CommandGroup) m_pickAutonomous.getSelected();
 
     	
         if(m_autonomousCommandGroup != null) {
+        	setAutonomousStatus("Starting script:" + m_autonomousCommandGroup.getName());
+
             m_autonomousCommandGroup.start();
         } else {
-        	SmartDashboard.putString("Autonomous Status", "Autonomous command is null");
+        	setAutonomousStatus("Error: Autonomous command is null");
         }
     }
     
@@ -186,11 +196,19 @@ public class Robot extends IterativeRobot {
         LiveWindow.run();
     }
     
-    public String getAutonomousStatus(){
-    	return m_autonomousStatus;
+    public void setAutonomousStatus(String status) {
+       String backup1 = autonomousStatuses[0];
+       String backup2 = autonomousStatuses[1];
+       autonomousStatuses[0] = status;
+       autonomousStatuses[1] = backup1;
+       autonomousStatuses[2] = backup2;
     }
     
-    public void setAutonomousStatus(String status){
-    	m_autonomousStatus = status;
+    public String getAutonomousStatus() {
+        String status = "";
+        status = autonomousStatuses[0];
+        status = status + "\n" + autonomousStatuses[1];
+        status = status + "\n" + autonomousStatuses[2];
+        return status;
     }
 }

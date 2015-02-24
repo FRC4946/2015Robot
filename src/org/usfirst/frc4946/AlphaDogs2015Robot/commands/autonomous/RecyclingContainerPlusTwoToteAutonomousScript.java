@@ -10,14 +10,17 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class RecyclingContainerAutonomousScript extends CommandGroup {
+public class RecyclingContainerPlusTwoToteAutonomousScript extends CommandGroup {
 
-	public  RecyclingContainerAutonomousScript() {
+	public  RecyclingContainerPlusTwoToteAutonomousScript() {
 
 
-		// /open the arms
+		// Lift the strafe wheel, open the arms
+		addParallel(new ActuateStrafeSolenoid(true));
 		addSequential(new OpenGrabberArms());
 		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
+
+
 
 		// Lower the elevator to just beneath the lip of the RC
 		addSequential(new SetElevatorMode(true));
@@ -27,23 +30,50 @@ public class RecyclingContainerAutonomousScript extends CommandGroup {
 		addSequential(new CloseGrabberArms());
 		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
 
-		// Lift the RC just off of the ground
-		addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_CARRY_CONTAINER_HEIGHT));
-		
+
+
+		//Lift the elevator up high enough to place the RC on the tote
+		addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_CONTAINER_ABOVE_TOTE_HEIGHT));
+
+		// If we're facing perpendicular to the driver's wall
+		//Drop the strafe
 		addSequential(new ActuateStrafeSolenoid(false));
 		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_STRAFE));
-		
-		addSequential(new SimpleAutoDrive(0.0, 1, 0.0), 0.5);
+
+		// Strafe right
+		addSequential(new SimpleAutoDrive(0.0, -RobotConstants.AUTONOMOUS_DRIVE_STRAFE_FROM_RC_TO_TOTE_SPEED, 0.0), RobotConstants.AUTONOMOUS_DRIVE_STRAFE_FROM_RC_TO_TOTE_TIMEOUT);
 		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 
+		addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_CONTAINER_DROP_ON_TOTE_HEIGHT));
+		addSequential(new OpenGrabberArms());
+		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
+		
+		addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_PICKUP_HEIGHT));
+		addSequential(new CloseGrabberArms());
+		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
+
+		addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_ABOVE_TOTE_HEIGHT));
+		addSequential(new SimpleAutoDrive(0.0, 0.8, 0.0), 2);
+		
+		addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_DROP_ON_TOTE_HEIGHT));
+		addSequential(new OpenGrabberArms());
+		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
+		
+		addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_PICKUP_HEIGHT));
+		addSequential(new CloseGrabberArms());
+		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));		
+		
+		
+		// Raise the strafe
 		addSequential(new ActuateStrafeSolenoid(true));
 		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_STRAFE));
 
-
+		
+		
 		//Drive forwards 12 feet in order to enter the Auto zone
 		addParallel(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_TRANSPORT_HEIGHT));
 		addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT);
-		
+
 		// Place the tote stack on the ground. Open the grabber arms to full size
 		addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_PICKUP_HEIGHT));
 		addSequential(new OpenGrabberArms());

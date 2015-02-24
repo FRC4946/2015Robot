@@ -1,4 +1,4 @@
-package org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain;
+package org.usfirst.frc4946.AlphaDogs2015Robot.commands.transmission;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,7 +16,7 @@ public class ShiftGear extends Command {
 	private int counter;
 	
 	public ShiftGear(boolean isHighGear) {
-		requires(Robot.m_driveTrain);
+		requires(Robot.m_transmission);
 		m_isHighGear = isHighGear;
 	}
 
@@ -26,9 +26,9 @@ public class ShiftGear extends Command {
 
 	protected void execute() {
 		if (m_isHighGear){
-			Robot.m_driveTrain.setGear(2);
+			Robot.m_transmission.setGear(2);
 		} else {
-			Robot.m_driveTrain.setGear(1);
+			Robot.m_transmission.setGear(1);
 		}
 		
 		counter ++;
@@ -40,7 +40,7 @@ public class ShiftGear extends Command {
 	}
 
 	protected void end() {
-		Robot.m_driveTrain.setGear(0);
+		Robot.m_transmission.setGear(0);
 	}
 
 	protected void interrupted() {

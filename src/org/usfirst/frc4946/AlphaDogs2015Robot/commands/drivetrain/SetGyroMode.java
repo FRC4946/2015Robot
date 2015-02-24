@@ -15,6 +15,7 @@ public class SetGyroMode extends Command {
 	
     public SetGyroMode(boolean shouldGyro) {
         requires(Robot.m_driveTrain);
+        m_shouldGyro = shouldGyro;
     }
 
     // Called just before this Command runs the first time

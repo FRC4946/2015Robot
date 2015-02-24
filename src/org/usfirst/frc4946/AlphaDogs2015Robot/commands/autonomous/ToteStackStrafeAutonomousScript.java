@@ -2,11 +2,11 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotConstants;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ActuateStrafeSolenoid;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveToPosition;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.SetElevatorMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetLeftGrabberArm;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetRightGrabberArm;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.*;
@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 /**
  * @author Matthew
  */
-public class ToteStackAutonomousScript extends CommandGroup {
+public class ToteStackStrafeAutonomousScript extends CommandGroup {
 	private int m_initialPosition = 0;
 	private int m_mouvementDirectionOrAmount = 0;
 
@@ -45,7 +45,7 @@ public class ToteStackAutonomousScript extends CommandGroup {
 	 *            number of totes to move. If this value is 0, the robot will
 	 *            not pick up any additional totes.
 	 */
-	public ToteStackAutonomousScript(int position, int movementDirection) {
+	public ToteStackStrafeAutonomousScript(int position, int movementDirection) {
 		m_initialPosition = position;
 		m_mouvementDirectionOrAmount = movementDirection;
 		SmartDashboard.putString("Autonomous Status", getStatus());
@@ -95,12 +95,12 @@ public class ToteStackAutonomousScript extends CommandGroup {
 				addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 				addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_TIMEOUT);
 				addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
-				addSequential(new RotateToAngle(-90));
+				addSequential(new RotateToAngle(270));
 			}
 
 			// If we started in the right position, drive left 6'9"
 			else if (m_initialPosition == 2) {
-				addSequential(new RotateToAngle(-90));
+				addSequential(new RotateToAngle(270));
 				addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 				addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_TIMEOUT);
 				addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
@@ -115,12 +115,12 @@ public class ToteStackAutonomousScript extends CommandGroup {
 					addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 					addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_TIMEOUT);
 					addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
-					addSequential(new RotateToAngle(-90));
+					addSequential(new RotateToAngle(270));
 				}
 				// If we want to move right, drive right 6'9"
 				else if (m_mouvementDirectionOrAmount == 2) {
 					m_mouvementDirectionOrAmount = 1;
-					addSequential(new RotateToAngle(-90));
+					addSequential(new RotateToAngle(270));
 					addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 					addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_TIMEOUT);
 					addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
@@ -167,12 +167,12 @@ public class ToteStackAutonomousScript extends CommandGroup {
 				addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 				addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_TIMEOUT);
 				addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
-				addSequential(new RotateToAngle(-90));
+				addSequential(new RotateToAngle(270));
 			}
 
 			// If we started in the right position, drive left 6'9"
 			else if (m_initialPosition == 2) {
-				addSequential(new RotateToAngle(-90));
+				addSequential(new RotateToAngle(270));
 				addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
 				addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_TO_NEXT_TOTE_TIMEOUT);
 				addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_AFTER_DRIVE));
@@ -211,13 +211,8 @@ public class ToteStackAutonomousScript extends CommandGroup {
 		addSequential(new OpenGrabberArms());
 		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
 
-		// Drive backwards 1 foot in order to be fully clear of the tote stack
-		addSequential(new SimpleAutoDrive(-RobotConstants.AUTONOMOUS_DRIVE_FINISH_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_FINISH_TIMEOUT);
-
-
 
 		// End
-		addParallel(new CloseGrabberArms());
 		addSequential(new SimpleAutoDrive(0.0, 0.0, 0.0)); // Will run forever
 	}
 

@@ -1,16 +1,17 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ActuateStrafeSolenoid;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetGyroMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ResetGyro;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToArcadeMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToStrafeMode;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ShiftGear;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ToggleLimitAcceleration;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetLeftGrabberArm;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetRightGrabberArm;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.ToggleLeftArm;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.transmission.ShiftGear;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;
@@ -23,7 +24,8 @@ import edu.wpi.first.wpilibj.command.Command;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-
+	
+	//public String WOW = "SUCH ROBOT MUCH ALPHACA DOGE"; 
     public JoystickButton highGear;
     public JoystickButton lowGear;
     public JoystickButton actuateStrafe;
@@ -73,8 +75,9 @@ public class OI {
         operatorJoystick = new Joystick(1);
         
         leftGrabber = new JoystickButton(operatorJoystick, 1);	// Button 1 actuates the left arm.
-        leftGrabber.whenPressed(new SetLeftGrabberArm(true));	// Actuate the left arm in when button is held,
-        leftGrabber.whenReleased(new SetLeftGrabberArm(false));	// And actuate it out when the button is released
+        leftGrabber.whenPressed(new ToggleLeftArm());
+        //leftGrabber.whenPressed(new SetLeftGrabberArm(true));	// Actuate the left arm in when button is held,
+        //leftGrabber.whenReleased(new SetLeftGrabberArm(false));	// And actuate it out when the button is released
 
         rightGrabberPosition2 = new JoystickButton(operatorJoystick, 3);	// Button 3 puts the right arm in the middle position
         rightGrabberPosition2.whenPressed(new SetRightGrabberArm(2));
