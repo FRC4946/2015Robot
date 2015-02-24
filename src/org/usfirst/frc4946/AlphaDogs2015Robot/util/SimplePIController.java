@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.PIDSource;
 public class SimplePIController {
 
 	private double lastTime;
-	private double m_inputVal, m_output, m_setpoint;
+	private double m_inputVal = 0.0, m_output = 0.0, m_setpoint;
 	private double integralTerm = 0.0;
 	private double kp = 0.0, ki = 0.0;
 	private double m_minimumOutput = -1.0, m_maximumOutput = 1.0;

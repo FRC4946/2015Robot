@@ -129,7 +129,7 @@ public class DriveTrain extends Subsystem {
 		moveValue = moveValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
 		rotateValue = rotateValue * (0.5 + 0.3 * driveSpeed); // 0.5 to 0.8
 		strafeValue = strafeValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
-
+		rotateValue = Math.copySign(Math.pow(Math.abs(rotateValue), 3), rotateValue);
 
 		if (moveValue >= 0.75) {
 			new ActuateStrafeSolenoid(true);
