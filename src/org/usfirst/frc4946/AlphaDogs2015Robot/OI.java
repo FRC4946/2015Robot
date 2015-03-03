@@ -56,14 +56,6 @@ public class OI {
     //public JoystickButton feederMotorButtonCCW;
     //public JoystickButton feederMotorButtonIn;
     //public JoystickButton feederMotorButtonOut;
-    
-    
-    public double[] kElevatorPresets = {
-			(8.5 + 3.6),
-			(20 + 3.6),
-			(31.5 + 3.6),
-			(43 + 3.6)
-	};
 	
     
     public OI() {
@@ -103,19 +95,19 @@ public class OI {
 
         setElevatorPosition1 = new JoystickButton(operatorJoystick, 6);	// Button 5 puts the right arm in the large position
         setElevatorPosition1.whenPressed(new SetElevatorMode(true));
-       	setElevatorPosition1.whileHeld(new ElevatorMoveToPosition(kElevatorPresets[0]));    
+       	setElevatorPosition1.whileHeld(new ElevatorMoveToPosition(RobotConstants.kElevatorPresets[0]));    
 
         setElevatorPosition2 = new JoystickButton(operatorJoystick, 7);	// Button 5 puts the right arm in the large position
         setElevatorPosition2.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition2.whileHeld(new ElevatorMoveToPosition(kElevatorPresets[1]));	// Button 5 puts the right arm in the large position
+        setElevatorPosition2.whileHeld(new ElevatorMoveToPosition(RobotConstants.kElevatorPresets[1]));	// Button 5 puts the right arm in the large position
  
         setElevatorPosition3 = new JoystickButton(operatorJoystick, 10);	// Button 5 puts the right arm in the large position
         setElevatorPosition3.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition3.whileHeld(new ElevatorMoveToPosition(kElevatorPresets[2]));	// Button 5 puts the right arm in the large position
+        setElevatorPosition3.whileHeld(new ElevatorMoveToPosition(RobotConstants.kElevatorPresets[2]));	// Button 5 puts the right arm in the large position
 
         setElevatorPosition4 = new JoystickButton(operatorJoystick, 11);	// Button 5 puts the right arm in the large position
         setElevatorPosition4.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition4.whileHeld(new ElevatorMoveToPosition(kElevatorPresets[3]));
+        setElevatorPosition4.whileHeld(new ElevatorMoveToPosition(RobotConstants.kElevatorPresets[3]));
         
         togglePlaceCarry = new JoystickButton(operatorJoystick, 8);
         togglePlaceCarry.whenPressed(new ToggleCarry(false));
@@ -149,15 +141,14 @@ public class OI {
 
         // Gyro Buttons
         toggleGyroMode = new JoystickButton(driveJoystick, 5);
+        toggleGyroMode.whenPressed(new ResetGyro());
         toggleGyroMode.whenPressed(new SetGyroMode(true));
         toggleGyroMode.whenReleased(new SetGyroMode(false));
         
-        gyroReset = new JoystickButton(driveJoystick, 7);
-        gyroReset.whenPressed(new ResetGyro());
         
         // Not properly implemented
-        toggleLimitAcceleration = new JoystickButton(driveJoystick, 8);
-        toggleLimitAcceleration.whenPressed(new ToggleLimitAcceleration());
+        //toggleLimitAcceleration = new JoystickButton(driveJoystick, 8);
+        //toggleLimitAcceleration.whenPressed(new ToggleLimitAcceleration());
     }
 
 

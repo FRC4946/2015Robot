@@ -2,6 +2,7 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotConstants;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveToPosition;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveToPositionWithAccel;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.SetElevatorMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
 

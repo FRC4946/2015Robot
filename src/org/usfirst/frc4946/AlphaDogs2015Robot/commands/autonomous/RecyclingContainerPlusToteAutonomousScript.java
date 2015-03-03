@@ -2,6 +2,7 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotConstants;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveToPosition;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveToPositionWithAccel;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.SetElevatorMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
 
@@ -64,7 +65,7 @@ public class RecyclingContainerPlusToteAutonomousScript extends CommandGroup {
 			addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
 
 			// Raise the tote slightly off of the ground
-			addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_TRANSPORT_HEIGHT));
+			addSequential(new ElevatorMoveToPositionWithAccel(RobotConstants.AUTONOMOUS_ELEVATOR_TRANSPORT_HEIGHT));
 
 			// If we were parallel to the driver's wall, turn 90 degrees
 			addSequential(new RotateToAngle(270));
@@ -75,13 +76,13 @@ public class RecyclingContainerPlusToteAutonomousScript extends CommandGroup {
 
 
 		//Drive forwards 12 feet in order to enter the Auto zone
-		addParallel(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_TRANSPORT_HEIGHT));
+		addParallel(new ElevatorMoveToPositionWithAccel(RobotConstants.AUTONOMOUS_ELEVATOR_TRANSPORT_HEIGHT));
 		//addSequential(new SimpleAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_SPEED, 0.0, 0.0), RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT);
 		addSequential(new DecelerateAutoDrive(RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_SPEED, 0.0, 0.0, 0.4, 0.4, RobotConstants.AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT));
 		
 		// Place the tote stack on the ground. Open the grabber arms to full size
 		if(shouldStrafe == false ) {
-			addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_PICKUP_HEIGHT));
+			addSequential(new ElevatorMoveToPositionWithAccel(RobotConstants.AUTONOMOUS_ELEVATOR_PICKUP_HEIGHT));
 		}
 		addSequential(new OpenGrabberArms());
 		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));

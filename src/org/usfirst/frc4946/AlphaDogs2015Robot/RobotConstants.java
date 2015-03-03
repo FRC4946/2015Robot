@@ -8,6 +8,12 @@ public final class RobotConstants {
 	
 	public static final double DRIVETRAIN_MAX_ACCEL = 0.01;	// This value should be in the unit "Voltage per Cycle".
 
+    public static final double[] kElevatorPresets = {
+			(8.5),
+			(8.5 + 3.6),
+			(20 + 3.6),
+			(31.5 + 3.6),
+	};
 	
 	
 	
