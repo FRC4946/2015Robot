@@ -143,7 +143,7 @@ public class DriveTrain extends Subsystem {
 		strafeValue = strafeValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
 		rotateValue = Math.copySign(Math.pow(Math.abs(rotateValue), 3), rotateValue);
 
-		if (moveValue >= 0.75) {
+		if (Math.abs(moveValue) >= 0.75) {
 			Robot.m_strafeDropper.setDropWheel(2);
 		}
 
@@ -255,7 +255,7 @@ public class DriveTrain extends Subsystem {
 	/**
 	 * Get the Left Encoder
 	 * 
-	 * @return The lesft encoder
+	 * @return The left encoder
 	 */
 	public Encoder getLeftEncoder() {
 		return m_leftEncoder;

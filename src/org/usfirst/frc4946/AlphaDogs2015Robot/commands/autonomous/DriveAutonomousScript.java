@@ -1,7 +1,7 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotConstants;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveToPosition;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveToPositionWithAccel;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.SetElevatorMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
 
@@ -15,13 +15,13 @@ public class DriveAutonomousScript extends CommandGroup {
 	public  DriveAutonomousScript() {
 
 
-		// /open the arms
+		// Open the arms
 		addSequential(new OpenGrabberArms());
 		addSequential(new Wait(RobotConstants.AUTONOMOUS_DELAY_ACTUATE_ARMS));
 
 		// Lower the elevator to just beneath the lip of the RC
 		addSequential(new SetElevatorMode(true));
-		addSequential(new ElevatorMoveToPosition(RobotConstants.AUTONOMOUS_ELEVATOR_PICKUP_HEIGHT));
+		addSequential(new ElevatorMoveToPositionWithAccel(RobotConstants.AUTONOMOUS_ELEVATOR_PICKUP_HEIGHT));
 
 		// Make sure the strafe wheel is up
 		addSequential(new ActuateStrafeSolenoid(true));
