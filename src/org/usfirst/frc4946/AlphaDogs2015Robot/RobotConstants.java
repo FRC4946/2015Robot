@@ -4,17 +4,16 @@ public final class RobotConstants {
 
 	public static final double ELEVATOR_MAX_OUTPUT = 1.0;
 	public static final double ELEVATOR_MINIMUM_HEIGHT = 8.2;
+	public static final double ELEVATOR_RAMP_HEIGHT = 11;
 	public static final double ELEVATOR_MAXIMUM_HEIGHT = 66.25;
+	public static final double ELEVATOR_JOYSTICK_DEADZONE = 0.05;
 	
 	public static final double DRIVETRAIN_MAX_ACCEL = 0.01;	// This value should be in the unit "Voltage per Cycle".
 
-    public static final double[] kElevatorPresets = {
-			(8.5),
-			(8.5 + 3.6),
-			(20 + 3.6),
-			(31.5 + 3.6),
-	};
-	
+    public static final double ELEVATOR_HEIGHT_HOOK = 12;
+    public static final double ELEVATOR_HEIGHT_CARRY_ONE = 12.1;
+    public static final double ELEVATOR_HEIGHT_CARRY_TWO = 23.6;
+    public static final double ELEVATOR_HEIGHT_CARRY_THREE = 35.1;
 	
 	
 	
@@ -26,9 +25,6 @@ public final class RobotConstants {
 	public static final double AUTONOMOUS_ELEVATOR_CARRY_CONTAINER_HEIGHT = 24;
 	public static final double AUTONOMOUS_ELEVATOR_CONTAINER_ABOVE_TOTE_HEIGHT = 38;
 	public static final double AUTONOMOUS_ELEVATOR_CONTAINER_DROP_ON_TOTE_HEIGHT = 25;	// Drops a tote onto another tote
-
-
-
 	
 	
 	public static final double AUTONOMOUS_DELAY_ACTUATE_ARMS = 0.1; // How long to wait after opening/closing the arms

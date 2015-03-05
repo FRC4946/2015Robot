@@ -27,13 +27,17 @@ public class IntermediatePIDControl extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	currentPos = Robot.m_elevator.getElevatorPos(); 
+    	currentPos = Robot.m_elevator.getElevatorPos();
+    	double currentMinimumHeight = RobotConstants.ELEVATOR_RAMP_HEIGHT;
     	
-    	if(Math.abs(Robot.m_oi.getOperatorJoystick().getY())>0.05){
+    	if(Math.abs(Robot.m_oi.getOperatorJoystick().getY())>RobotConstants.ELEVATOR_JOYSTICK_DEADZONE){
     		newSetPoint = (currentPos + (RobotConstants.ELEVATOR_MAX_VELOCITY*Robot.m_oi.getOperatorJoystick().getY()));
+    		currentMinimumHeight = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
     	}
     	else{
-    		newSetPoint = currentPos;
+    		// Leave the setpoint where it last was, but raise the minimum by 2.8 inches
+    		currentMinimumHeight = RobotConstants.ELEVATOR_RAMP_HEIGHT;
+
     	}
     	
     	// Limit how far away from the current position the setPoint can be
@@ -47,8 +51,8 @@ public class IntermediatePIDControl extends Command {
     	if(newSetPoint > RobotConstants.ELEVATOR_MAXIMUM_HEIGHT){
     		newSetPoint = RobotConstants.ELEVATOR_MAXIMUM_HEIGHT;
     	}
-    	if(newSetPoint < RobotConstants.ELEVATOR_MINIMUM_HEIGHT){
-    		newSetPoint = RobotConstants.ELEVATOR_MINIMUM_HEIGHT;
+    	if(newSetPoint < currentMinimumHeight){
+    		newSetPoint = currentMinimumHeight;
     	}
     	
     	

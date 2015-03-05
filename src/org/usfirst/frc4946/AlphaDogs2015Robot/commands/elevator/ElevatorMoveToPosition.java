@@ -23,7 +23,7 @@ public class ElevatorMoveToPosition extends Command {
     	
     	
     	if (Robot.m_oi.togglePlaceCarry.get() == true &&
-    			m_newSetPos != RobotConstants.kElevatorPresets[0]) { // Preset 0 is for the hook. Don't mess with it
+    			m_newSetPos != RobotConstants.ELEVATOR_HEIGHT_HOOK) { // Preset 0 is for the hook. Don't mess with it
     		m_newSetPos -= 4;
     	}
     	

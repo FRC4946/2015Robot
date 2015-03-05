@@ -95,19 +95,19 @@ public class OI {
 
         setElevatorPosition1 = new JoystickButton(operatorJoystick, 6);	// Button 5 puts the right arm in the large position
         setElevatorPosition1.whenPressed(new SetElevatorMode(true));
-       	setElevatorPosition1.whileHeld(new ElevatorMoveToPosition(RobotConstants.kElevatorPresets[0]));    
+       	setElevatorPosition1.whileHeld(new ElevatorMoveToPosition(RobotConstants.ELEVATOR_HEIGHT_HOOK));    
 
         setElevatorPosition2 = new JoystickButton(operatorJoystick, 7);	// Button 5 puts the right arm in the large position
         setElevatorPosition2.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition2.whileHeld(new ElevatorMoveToPosition(RobotConstants.kElevatorPresets[1]));	// Button 5 puts the right arm in the large position
+        setElevatorPosition2.whileHeld(new ElevatorMoveToPosition(RobotConstants.ELEVATOR_HEIGHT_CARRY_ONE));	// Button 5 puts the right arm in the large position
  
-        setElevatorPosition3 = new JoystickButton(operatorJoystick, 10);	// Button 5 puts the right arm in the large position
+        setElevatorPosition3 = new JoystickButton(operatorJoystick, 11);	// Button 5 puts the right arm in the large position
         setElevatorPosition3.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition3.whileHeld(new ElevatorMoveToPosition(RobotConstants.kElevatorPresets[2]));	// Button 5 puts the right arm in the large position
+        setElevatorPosition3.whileHeld(new ElevatorMoveToPosition(RobotConstants.ELEVATOR_HEIGHT_CARRY_TWO));	// Button 5 puts the right arm in the large position
 
-        setElevatorPosition4 = new JoystickButton(operatorJoystick, 11);	// Button 5 puts the right arm in the large position
+        setElevatorPosition4 = new JoystickButton(operatorJoystick, 10);	// Button 5 puts the right arm in the large position
         setElevatorPosition4.whenPressed(new SetElevatorMode(true));
-        setElevatorPosition4.whileHeld(new ElevatorMoveToPosition(RobotConstants.kElevatorPresets[3]));
+        setElevatorPosition4.whileHeld(new ElevatorMoveToPosition(RobotConstants.ELEVATOR_HEIGHT_CARRY_THREE));
         
         togglePlaceCarry = new JoystickButton(operatorJoystick, 8);
         togglePlaceCarry.whenPressed(new ToggleCarry(false));
