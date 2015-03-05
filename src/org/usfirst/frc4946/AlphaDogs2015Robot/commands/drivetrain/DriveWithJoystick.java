@@ -31,22 +31,18 @@ public class DriveWithJoystick extends Command {
 		double Yval = Robot.m_oi.getDriveJoystick().getRawAxis(1);
 		double Xval = Robot.m_oi.getDriveJoystick().getRawAxis(0);
 		double Zval = Robot.m_oi.getDriveJoystick().getRawAxis(2);
-		
+
 		SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
 
-		if (Robot.m_oi.toggleGyroMode.get() == true) {
-			Robot.m_driveTrain.gyroDrive(-Yval, -Xval);    	
-		}
-    	
-    	if (Robot.m_oi.toggleGyroMode.get() == false) {
+		if (Robot.m_driveTrain.getGyroMode() == false) {
 			//    	if(isStrafeMode){							// This is commented out because strafe mode is unneeded
 			//    		Robot.m_driveTrain.drive(-Yval, Xval);
-			//    	} else{
+			// } else{
 			Robot.m_driveTrain.strafeDrive(-Yval, -Zval, -Xval);
-			//    	}
+			// }
+		} else if (Robot.m_driveTrain.getGyroMode() == true) {
+			Robot.m_driveTrain.gyroDrive(-Yval, -Xval);
 		}
-    	
-    	
     	
     	
     }

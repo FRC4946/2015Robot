@@ -10,7 +10,7 @@ public final class RobotConstants {
 	
 	public static final double DRIVETRAIN_MAX_ACCEL = 0.01;	// This value should be in the unit "Voltage per Cycle".
 
-    public static final double ELEVATOR_HEIGHT_HOOK = 12;
+    public static final double ELEVATOR_HEIGHT_HOOK = 14.5;
     public static final double ELEVATOR_HEIGHT_CARRY_ONE = 12.1;
     public static final double ELEVATOR_HEIGHT_CARRY_TWO = 23.6;
     public static final double ELEVATOR_HEIGHT_CARRY_THREE = 35.1;

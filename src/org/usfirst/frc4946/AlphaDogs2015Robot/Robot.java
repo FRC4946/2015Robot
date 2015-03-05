@@ -110,7 +110,7 @@ public class Robot extends IterativeRobot {
         m_pickAutonomous.addDefault("Drive forward",													new DriveAutonomousScript());
         m_pickAutonomous.addObject("Pickup the recycling container",									new RecyclingContainerAutonomousScript());
         m_pickAutonomous.addObject("Recycling container + tote (Robot parallel to driver's wall)",		new RecyclingContainerPlusToteAutonomousScript(false));
-        m_pickAutonomous.addObject("Recycling container + tote (Robot perpendicular to driver's wall)",	new RecyclingContainerPlusToteAutonomousScript(true));
+        m_pickAutonomous.addObject("Recycling container + tote (Robot perpendicular to driver's wall *RECOMMENDED*)",	new RecyclingContainerPlusToteAutonomousScript(true));
         m_pickAutonomous.addObject("Tote stacking - Square. See other selectors *DO NOT USE*",			new ToteStackStrafeAutonomousScript(-1, -1));
         m_pickAutonomous.addObject("Tote stacking - Straight. See other selectors *DO NOT USE*",		new ToteStackStraightAutonomousScript(-1, -1));
 
