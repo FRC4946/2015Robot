@@ -10,7 +10,7 @@ public final class RobotConstants {
 	
 	public static final double DRIVETRAIN_MAX_ACCEL = 0.01;	// This value should be in the unit "Voltage per Cycle".
 
-    public static final double ELEVATOR_HEIGHT_HOOK = 14.5;
+    public static final double ELEVATOR_HEIGHT_HOOK = 15;
     public static final double ELEVATOR_HEIGHT_CARRY_ONE = 12.1;
     public static final double ELEVATOR_HEIGHT_CARRY_TWO = 23.6;
     public static final double ELEVATOR_HEIGHT_CARRY_THREE = 35.1;
@@ -27,7 +27,7 @@ public final class RobotConstants {
 	public static final double AUTONOMOUS_ELEVATOR_CONTAINER_DROP_ON_TOTE_HEIGHT = 25;	// Drops a tote onto another tote
 	
 	
-	public static final double AUTONOMOUS_DELAY_ACTUATE_ARMS = 0.1; // How long to wait after opening/closing the arms
+	public static final double AUTONOMOUS_DELAY_ACTUATE_ARMS = 0.2; // How long to wait after opening/closing the arms
 	public static final double AUTONOMOUS_DELAY_AFTER_DRIVE = 0.05; // How long to wait after driving/turning the robot
 	public static final double AUTONOMOUS_DELAY_ACTUATE_STRAFE = 0.1; // How long to wait after driving/turning the robot
 	
@@ -35,8 +35,8 @@ public final class RobotConstants {
 	public static final double AUTONOMOUS_DRIVE_TO_NEXT_TOTE_TIMEOUT = 3;	// How long it takes us to drive from one tote to the next. Should be 6'9"
 	public static final double AUTONOMOUS_DRIVE_CLEAR_TOTE_SPEED = 0.5;		// The speed at which to drive ~2" back away from the initial pos
 	public static final double AUTONOMOUS_DRIVE_CLEAR_TOTE_TIMEOUT = 1;		// For how long to drive back ~2"
-	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SPEED = 0.6;		// The speed at which to drive 12" into the auto zone
-	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT = 1.0;	// For how long to drive into the auto zone, 12"
+	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_SPEED = 0.4;		// The speed at which to drive 12" into the auto zone
+	public static final double AUTONOMOUS_DRIVE_INTO_ZONE_TIMEOUT = 4.0;	// For how long to drive into the auto zone, 12"
 	public static final double AUTONOMOUS_DRIVE_BACKUP_SPEED = 0.8;			// The speed at which to drive 12" into the auto zone
 	public static final double AUTONOMOUS_DRIVE_BACKUP_TIMEOUT = 0.5;		// For how long to drive into the auto zone, 12"
 

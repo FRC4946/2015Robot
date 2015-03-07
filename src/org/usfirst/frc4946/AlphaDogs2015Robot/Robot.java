@@ -35,7 +35,7 @@ public class Robot extends IterativeRobot {
     SendableChooser m_pickAutonomous;
     SendableChooser m_autonomousStartingPosition;
     SendableChooser m_autonomousAmountOrDirectionToMove;
-    private String[] autonomousStatuses = {"NAN", "NAN", "NAN"};
+    private static String[] autonomousStatuses = {"NAN", "NAN", "NAN"};
 
     public static OI m_oi;
     public static DriveTrain m_driveTrain;
@@ -107,10 +107,11 @@ public class Robot extends IterativeRobot {
        // SmartDashboard.putData("Select whether or not the tote is pre-loaded", m_autonomousToteIsPreLoaded);
         
         m_pickAutonomous = new SendableChooser();
-        m_pickAutonomous.addDefault("Drive forward",													new DriveAutonomousScript());
+        m_pickAutonomous.addObject("Do nothing",													new AutonomousDoNothingScript());
+        m_pickAutonomous.addObject("Drive forward",													new DriveAutonomousScript());
         m_pickAutonomous.addObject("Pickup the recycling container",									new RecyclingContainerAutonomousScript());
-        m_pickAutonomous.addObject("Recycling container + tote (Robot parallel to driver's wall)",		new RecyclingContainerPlusToteAutonomousScript(false));
-        m_pickAutonomous.addObject("Recycling container + tote (Robot perpendicular to driver's wall *RECOMMENDED*)",	new RecyclingContainerPlusToteAutonomousScript(true));
+        m_pickAutonomous.addDefault("Recycling container + tote (Robot parallel to driver's wall) *RECOMMENDED*",		new RecyclingContainerPlusToteAutonomousScript(false));
+        m_pickAutonomous.addObject("Recycling container + tote (Robot perpendicular to driver's wall)",	new RecyclingContainerPlusToteAutonomousScript(true));
         m_pickAutonomous.addObject("Tote stacking - Square. See other selectors *DO NOT USE*",			new ToteStackStrafeAutonomousScript(-1, -1));
         m_pickAutonomous.addObject("Tote stacking - Straight. See other selectors *DO NOT USE*",		new ToteStackStraightAutonomousScript(-1, -1));
 
@@ -175,7 +176,8 @@ public class Robot extends IterativeRobot {
         }
         
         NIVision.IMAQdxStartAcquisition(session);
-
+        m_driveTrain.setGyroMode(false);
+        
     }
 
     /**
@@ -195,7 +197,7 @@ public class Robot extends IterativeRobot {
         LiveWindow.run();
     }
     
-    public void setAutonomousStatus(String status) {
+    public static void setAutonomousStatus(String status) {
        String backup1 = autonomousStatuses[0];
        String backup2 = autonomousStatuses[1];
        autonomousStatuses[0] = status;
@@ -205,9 +207,7 @@ public class Robot extends IterativeRobot {
     
     public String getAutonomousStatus() {
         String status = "";
-        status = autonomousStatuses[0];
-        status = status + "\n" + autonomousStatuses[1];
-        status = status + "\n" + autonomousStatuses[2];
+        status = autonomousStatuses[0] + "\n" + autonomousStatuses[1] + "\n" + autonomousStatuses[2];
         return status;
     }
 }

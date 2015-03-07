@@ -1,6 +1,7 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.EnterGyroMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetGyroMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ResetGyro;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToArcadeMode;
@@ -25,7 +26,6 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class OI {
 	
-	//public String WOW = "SUCH ROBOT MUCH ALPHACA DOGE"; 
     public JoystickButton highGear;
     public JoystickButton lowGear;
     public JoystickButton actuateStrafe;
@@ -67,9 +67,9 @@ public class OI {
         operatorJoystick = new Joystick(1);
         
         leftGrabber = new JoystickButton(operatorJoystick, 1);	// Button 1 actuates the left arm.
-        leftGrabber.whenPressed(new ToggleLeftArm());
-        //leftGrabber.whenPressed(new SetLeftGrabberArm(true));	// Actuate the left arm in when button is held,
-        //leftGrabber.whenReleased(new SetLeftGrabberArm(false));	// And actuate it out when the button is released
+        //leftGrabber.whenPressed(new ToggleLeftArm());
+        leftGrabber.whileHeld(new SetLeftGrabberArm(true));	// Actuate the left arm in when button is held,
+        leftGrabber.whenReleased(new SetLeftGrabberArm(false));	// And actuate it out when the button is released
 
         rightGrabberPosition2 = new JoystickButton(operatorJoystick, 3);	// Button 3 puts the right arm in the middle position
         rightGrabberPosition2.whenPressed(new SetRightGrabberArm(2));
@@ -109,7 +109,7 @@ public class OI {
         setElevatorPosition4.whenPressed(new SetElevatorMode(true));
         setElevatorPosition4.whileHeld(new ElevatorMoveToPosition(RobotConstants.ELEVATOR_HEIGHT_CARRY_THREE));
         
-        togglePlaceCarry = new JoystickButton(operatorJoystick, 8);
+        togglePlaceCarry = new JoystickButton(operatorJoystick, 11);
         togglePlaceCarry.whenPressed(new ToggleCarry(false));
         togglePlaceCarry.whenReleased(new ToggleCarry(true));
         
@@ -140,9 +140,9 @@ public class OI {
         actuateStrafe.whenReleased(new ActuateStrafeSolenoid(true));
 
         // Gyro Buttons
-        toggleGyroMode = new JoystickButton(driveJoystick, 5);
+        toggleGyroMode = new JoystickButton(driveJoystick, 2);
         toggleGyroMode.whenPressed(new ResetGyro());
-        toggleGyroMode.whenPressed(new SetGyroMode(true));
+        toggleGyroMode.whenPressed(new EnterGyroMode());
         toggleGyroMode.whenReleased(new SetGyroMode(false));
         
         

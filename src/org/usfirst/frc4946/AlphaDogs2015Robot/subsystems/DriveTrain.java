@@ -9,6 +9,7 @@ import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStra
 import org.usfirst.frc4946.AlphaDogs2015Robot.util.SimplePIController;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 //import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 //import edu.wpi.first.wpilibj.Joystick.AxisType;
 //import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
@@ -28,6 +29,8 @@ public class DriveTrain extends Subsystem {
 	Encoder m_rightEncoder = RobotMap.driveTrainRightEncoder;
 	Encoder m_strafeEncoder = RobotMap.driveTrainStrafeEncoder;
 
+	
+	
 	private boolean m_isStrafeMode;
 	private boolean m_isGyroMode = false;
 	boolean m_isLimitAccel = false;
@@ -57,14 +60,14 @@ public class DriveTrain extends Subsystem {
 		m_gyroPIDController.setInputRange(0, 360);
 		m_gyroPIDController.setOutputRange(-0.3, 0.3);
 		m_gyroPIDController.setTolerence(3);
-
-
+		
+		
 		setDefaultCommand(new DriveWithJoystick());
 
 		m_leftEncoder.setDistancePerPulse(kDistancePerPulse);
 		m_rightEncoder.setDistancePerPulse(kDistancePerPulse);
 		m_strafeEncoder.setDistancePerPulse(kDistancePerPulse);
-
+		
 	}
 
 	/**
@@ -139,9 +142,10 @@ public class DriveTrain extends Subsystem {
 		//Scale motor speed based off of the drive joystick throttle
 		double driveSpeed = getThrottle();
 		moveValue = moveValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
-		rotateValue = rotateValue * (0.1 + 0.5 * driveSpeed); // 0.1 to 0.6
+		//rotateValue = rotateValue * (0.1 + 0.5 * driveSpeed); // 0.1 to 0.6
+		rotateValue *= 0.6;										// 0.6
 		strafeValue = strafeValue * (0.5 + 0.5 * driveSpeed); // 0.5 to 1.0
-		rotateValue = Math.copySign(Math.pow(Math.abs(rotateValue), 3), rotateValue);
+		//rotateValue = Math.copySign(Math.pow(Math.abs(rotateValue), 3), rotateValue);
 
 		if (Math.abs(moveValue) >= 0.75) {
 			Robot.m_strafeDropper.setDropWheel(2);

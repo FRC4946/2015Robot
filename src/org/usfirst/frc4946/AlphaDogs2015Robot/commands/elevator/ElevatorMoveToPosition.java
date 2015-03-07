@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 public class ElevatorMoveToPosition extends Command {
 
 	private double m_newSetPos;
+	private int counter;
 	
     public ElevatorMoveToPosition(double newPos) {
         requires(Robot.m_elevator);
@@ -22,10 +23,11 @@ public class ElevatorMoveToPosition extends Command {
     protected void initialize() {
     	
     	
-    	if (Robot.m_oi.togglePlaceCarry.get() == true &&
+    	if (Robot.m_elevator.getCarryMode() == true &&
     			m_newSetPos != RobotConstants.ELEVATOR_HEIGHT_HOOK) { // Preset 0 is for the hook. Don't mess with it
     		m_newSetPos -= 4;
     	}
+    	counter = 0;
     	
     }
 
@@ -38,13 +40,13 @@ public class ElevatorMoveToPosition extends Command {
 
     	
     	Robot.m_elevator.m_elevatorPIDController.setSetpoint(m_newSetPos);
-
+    	counter++;
   
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    		return true;
+    		return Math.abs(m_newSetPos - Robot.m_elevator.getElevatorPos()) < 1.5;
     }
 
     // Called once after isFinished returns true
