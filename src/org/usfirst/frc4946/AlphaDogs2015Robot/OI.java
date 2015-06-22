@@ -1,22 +1,18 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot;
 
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetGyroMode;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ResetGyro;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToArcadeMode;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetToStrafeMode;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.ToggleLimitAcceleration;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.*;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetLeftGrabberArm;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.SetGyroMode;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveManual;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveToPosition;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.SetElevatorMode;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ToggleCarry;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetRightGrabberArm;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.ToggleLeftArm;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.transmission.ShiftGear;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.buttons.*;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 
 /**

@@ -2,9 +2,7 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 
-import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *

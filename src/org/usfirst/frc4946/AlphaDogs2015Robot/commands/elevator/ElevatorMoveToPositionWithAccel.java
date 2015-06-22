@@ -3,7 +3,7 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator;
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *

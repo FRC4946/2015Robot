@@ -1,26 +1,30 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot;
 
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.command.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.*;
-
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous.*;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous.DriveAutonomousScript;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous.OpenGrabberArms;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous.RecyclingContainerAutonomousScript;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous.RecyclingContainerPlusToteAutonomousScript;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous.ToteStackStrafeAutonomousScript;
+import org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous.ToteStackStraightAutonomousScript;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
-import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.*;
+import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.AirCompressor;
+import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.DriveTrain;
+import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.Elevator;
+import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.LeftGrabber;
+import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.RightGrabber;
+import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.StrafeDropper;
+import org.usfirst.frc4946.AlphaDogs2015Robot.subsystems.Transmission;
 
 import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -53,7 +57,7 @@ public class Robot extends IterativeRobot {
 
    //public static Feeder m_feeder;
     
-    private CameraServer m_camServer;
+//    private CameraServer m_camServer;
     int session;
     Image frame;
     

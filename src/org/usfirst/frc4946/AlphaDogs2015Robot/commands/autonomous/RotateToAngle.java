@@ -1,10 +1,8 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
-import org.usfirst.frc4946.AlphaDogs2015Robot.util.SimplePIController;
 
 import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

@@ -1,9 +1,8 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot.commands.transmission;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * A command to shift to the high gear on the Vex gear boxes

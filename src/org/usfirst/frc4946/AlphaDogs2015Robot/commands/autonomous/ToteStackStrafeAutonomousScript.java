@@ -1,15 +1,12 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 
-import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotConstants;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveToPositionWithAccel;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.SetElevatorMode;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetLeftGrabberArm;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms.SetRightGrabberArm;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Matthew

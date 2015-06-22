@@ -3,10 +3,6 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.commands.autonomous;
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 
 import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -16,7 +12,7 @@ public class MaintainOrientation extends Command {
 
 	private double m_driveSpeed = 0.0;
 	private double m_strafeSpeed = 0.0;
-	private double kP = 0.05;
+//	private double kP = 0.05;
 	private Gyro m_gyro;
 
 

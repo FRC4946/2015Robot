@@ -11,16 +11,15 @@
 
 package org.usfirst.frc4946.AlphaDogs2015Robot.subsystems;
 
-import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotConstants;
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.ElevatorMoveManual;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.elevator.IntermediatePIDControl;
 
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  *

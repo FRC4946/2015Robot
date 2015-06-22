@@ -12,17 +12,17 @@ public class DecelerateAutoDrive extends Command {
 	private double m_maxDriveSpeed = 0.0;
 	private double m_curDriveSpeed = 0.0;
 	private double m_driveAccelerationPerCycle = 0.0;
-	private double m_driveDecelerationPerCycle = 0.0;
+//	private double m_driveDecelerationPerCycle = 0.0;
 
 	private double m_maxStrafeSpeed = 0.0;
 	private double m_curStrafeSpeed = 0.0;
 	private double m_strafeAccelerationPerCycle = 0.0;
-	private double m_strafeDecelerationPerCycle = 0.0;
+//	private double m_strafeDecelerationPerCycle = 0.0;
 
 	private double m_maxTurnSpeed = 0.0;
 	private double m_curTurnSpeed = 0.0;
 	private double m_turnAccelerationPerCycle = 0.0;
-	private double m_turnDecelerationPerCycle = 0.0;
+//	private double m_turnDecelerationPerCycle = 0.0;
 
 	private double m_accelTime = 0.0;
 	private double m_decelTime = 0.0;
@@ -51,15 +51,15 @@ public class DecelerateAutoDrive extends Command {
         }
         
         m_driveAccelerationPerCycle = (m_maxDriveSpeed/accelTime);
-        m_driveDecelerationPerCycle = (m_maxDriveSpeed/decelTime);
+//        m_driveDecelerationPerCycle = (m_maxDriveSpeed/decelTime);
         
         m_maxStrafeSpeed = strafeSpeed;
         m_strafeAccelerationPerCycle = (m_maxStrafeSpeed/accelTime);
-        m_strafeDecelerationPerCycle = (m_maxStrafeSpeed/decelTime);
+//        m_strafeDecelerationPerCycle = (m_maxStrafeSpeed/decelTime);
         
         m_maxTurnSpeed = turnSpeed;
         m_turnAccelerationPerCycle = (m_maxTurnSpeed/accelTime);
-        m_turnDecelerationPerCycle = (m_maxTurnSpeed/decelTime);
+//        m_turnDecelerationPerCycle = (m_maxTurnSpeed/decelTime);
         
     }
 

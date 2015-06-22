@@ -1,6 +1,6 @@
 package org.usfirst.frc4946.AlphaDogs2015Robot.commands.grabberarms;
 
-import org.usfirst.frc4946.AlphaDogs2015Robot.*;
+import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 

@@ -3,17 +3,18 @@ package org.usfirst.frc4946.AlphaDogs2015Robot.subsystems;
 import org.usfirst.frc4946.AlphaDogs2015Robot.Robot;
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotConstants;
 import org.usfirst.frc4946.AlphaDogs2015Robot.RobotMap;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.*;
 import org.usfirst.frc4946.AlphaDogs2015Robot.commands.drivetrain.DriveWithJoystick;
-import org.usfirst.frc4946.AlphaDogs2015Robot.commands.strafedropper.ActuateStrafeSolenoid;
 import org.usfirst.frc4946.AlphaDogs2015Robot.util.SimplePIController;
 
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.command.Subsystem;
 //import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 //import edu.wpi.first.wpilibj.Joystick.AxisType;
 //import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 
 /**
